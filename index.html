@@ -1025,6 +1025,168 @@ function getYouTubeVideos(merke, modell, drivstoff) {
   return videos;
 }
 
+
+/* ---- MOMENTVERDIER ---- */
+function getTorqueData(merke, modell, motor) {
+  var m  = (merke  || '').toLowerCase();
+  var mo = (modell || '').toLowerCase();
+  var en = (motor  || '').toLowerCase();
+
+  // Felles VAG MQB/MLB verdier som gjelder de fleste modeller
+  var common = [
+    {del:'Hjulmuttere',        nm:'120 Nm',  tips:'Alltid korset rekkefølge'},
+    {del:'Bremseklosser – foran (kaliperbolt)',nm:'30 Nm', tips:'Ikke gjenbruk'},
+    {del:'Bremseskive – nav (hjulmutter)',     nm:'120 Nm', tips:'Korset'},
+    {del:'Batteripol minus',   nm:'6 Nm',    tips:'For ikke å ødelegge pol'},
+  ];
+
+  // Plattform-spesifikke verdier
+  var platform = [];
+
+  /* ── MQB (Golf 7/8, A3 8V/8Y, Octavia Mk3/4, Leon Mk3/4, Formentor) ── */
+  var isMQB = mo.includes('golf') || mo.includes('octavia') || mo.includes('leon')
+           || mo.includes('a3') || mo.includes('s3') || mo.includes('rs3')
+           || mo.includes('polo') || mo.includes('scala') || mo.includes('fabia')
+           || mo.includes('kamiq') || mo.includes('formentor') || mo.includes('born')
+           || mo.includes('ateca');
+
+  /* ── MLB (A4 B9, A6 C8, RS4/RS6, Q5) ── */
+  var isMLB = mo.includes('a4') || mo.includes('s4') || mo.includes('rs4')
+           || mo.includes('a6') || mo.includes('s6') || mo.includes('rs6')
+           || mo.includes('a7') || mo.includes('s7') || mo.includes('q5')
+           || mo.includes('sq5') || mo.includes('a8')
+           || mo.includes('passat') || mo.includes('arteon')
+           || mo.includes('superb') || mo.includes('kodiaq') || mo.includes('touareg');
+
+  var isTT  = mo.includes('tt');
+  var isID  = mo.includes('id.3') || mo.includes('id.4') || mo.includes('enyaq');
+  var isPorsche = m.includes('porsche');
+
+  if (isMQB) {
+    platform = [
+      {del:'Topplokk – 1. steg',        nm:'20 Nm',         tips:'Kald motor, innenfra og ut'},
+      {del:'Topplokk – 2. steg',        nm:'+90°',          tips:'Vinkeldra'},
+      {del:'Topplokk – 3. steg',        nm:'+90°',          tips:'Vinkeldra'},
+      {del:'Sump – dreneringsplugg',    nm:'30 Nm',         tips:'Ny pakning hver gang'},
+      {del:'Oljefilter (hus)',           nm:'25 Nm',         tips:'Ikke overtrekk'},
+      {del:'Svinghjulbolt',             nm:'60 Nm + 90°',   tips:'Ny bolt – engangsbolt'},
+      {del:'Motorfeste – bolt til motor',nm:'40 Nm',         tips:''},
+      {del:'Hjullager navmutter (MQB)', nm:'200 Nm + 90°',  tips:'Engangsmutter'},
+      {del:'Styrestag – låsemutter',    nm:'50 Nm',         tips:'Merk original stilling'},
+      {del:'Stabilisatorlenke – mutter',nm:'65 Nm',         tips:''},
+      {del:'Nedre bærearm – fremre bolt',nm:'120 Nm + 90°', tips:'Strekkes i normal stilling'},
+      {del:'Bremsekaliper – styrebolt foran',nm:'30 Nm',    tips:''},
+      {del:'Bremsekaliper – brakett foran',  nm:'175 Nm',   tips:''},
+      {del:'Bremsekaliper – styrebolt bak',  nm:'35 Nm',    tips:''},
+      {del:'Bremsekaliper – brakett bak',    nm:'65 Nm',    tips:''},
+      {del:'DSG-oljesump – drain-plugg',nm:'25 Nm',         tips:'Alltid ny pakning'},
+      {del:'Tennplugger EA888',         nm:'25 Nm',         tips:'Ikke overtrekk – aluminiumstopp'},
+      {del:'Avgassflansch (topplokk)',  nm:'25 Nm',         tips:'Ny pakning'},
+    ];
+  } else if (isMLB) {
+    platform = [
+      {del:'Topplokk – 1. steg',        nm:'40 Nm',         tips:'Innenfra og ut'},
+      {del:'Topplokk – 2. steg',        nm:'+90°',          tips:'Vinkeldra'},
+      {del:'Topplokk – 3. steg',        nm:'+90°',          tips:'Vinkeldra'},
+      {del:'Sump – dreneringsplugg',    nm:'30 Nm',         tips:'Ny pakning'},
+      {del:'Oljefilter (hus)',           nm:'25 Nm',         tips:''},
+      {del:'Svinghjulbolt (V6 TFSI)',   nm:'60 Nm + 90°',   tips:'Engangsbolt'},
+      {del:'Hjullager navmutter (MLB)', nm:'250 Nm + 90°',  tips:'Engangsmutter'},
+      {del:'Bremsekaliper – brakett foran',nm:'250 Nm',     tips:'Låsemiddel anbefalt'},
+      {del:'Bremsekaliper – styrebolt foran',nm:'30 Nm',    tips:''},
+      {del:'Bremsekaliper – brakett bak',nm:'80 Nm',        tips:''},
+      {del:'Nedre bærearm – fremre bolt',nm:'200 Nm + 90°', tips:'I normal stilling'},
+      {del:'Stabilisatorlenke',         nm:'65 Nm',         tips:''},
+      {del:'Styrestag – låsemutter',    nm:'55 Nm',         tips:''},
+      {del:'Tennplugger 2.9 TFSI V6',  nm:'30 Nm',         tips:''},
+      {del:'Tennplugger 2.0 TFSI',     nm:'25 Nm',         tips:''},
+    ];
+  } else if (isID || mo.includes('macan')) {
+    platform = [
+      {del:'Hjullager navmutter (elbil)',nm:'250 Nm + 45°',  tips:'Engangsmutter, alltid bytt'},
+      {del:'Bremsekaliper EPB – brakett',nm:'65 Nm',          tips:''},
+      {del:'Bremsekaliper EPB – bolt',  nm:'35 Nm',          tips:''},
+      {del:'Sump – kjølevæskeplugg',    nm:'25 Nm',          tips:''},
+      {del:'Hjulmuttere',               nm:'120 Nm',          tips:'Korset rekkefølge'},
+    ];
+  } else if (isPorsche) {
+    platform = [
+      {del:'Hjulmuttere (senter-lås)',  nm:'450 Nm',          tips:'Spesialnøkkel kreves'},
+      {del:'Hjulmuttere (standard felt)',nm:'130 Nm',         tips:'Korset'},
+      {del:'Topplokk 911 flat-6 – steg 1',nm:'20 Nm',        tips:''},
+      {del:'Topplokk 911 flat-6 – steg 2',nm:'+90°',         tips:'Vinkeldra'},
+      {del:'Topplokk 911 flat-6 – steg 3',nm:'+90°',         tips:'Vinkeldra'},
+      {del:'Sump dreneringsplugg',      nm:'50 Nm',           tips:'Ny pakning'},
+      {del:'Oljefilter (hus)',           nm:'25 Nm',           tips:''},
+      {del:'Bremsekaliper – brakett foran (PCCB)',nm:'200 Nm',tips:'Loctite 243'},
+      {del:'Bremsekaliper – brakett bak',nm:'100 Nm',         tips:''},
+      {del:'Stabilisatorlenke',         nm:'55 Nm',           tips:''},
+    ];
+  }
+
+  // Motor-spesifikke verdier
+  var engineSpec = [];
+  if (en.includes('2.5') || mo.includes('rs3') || mo.includes('tt rs')) {
+    engineSpec = [
+      {del:'Tennplugger 2.5 TFSI (5-syl)',nm:'25 Nm',        tips:'Forsiktig – aluminium'},
+      {del:'HPFP – høytrykks-pumpe bolt', nm:'22 Nm',        tips:'Ny pakning'},
+      {del:'Topplokk 2.5 TFSI – steg 1', nm:'25 Nm',        tips:''},
+      {del:'Topplokk 2.5 TFSI – steg 2', nm:'+90°',         tips:'Vinkeldra'},
+      {del:'Topplokk 2.5 TFSI – steg 3', nm:'+90°',         tips:'Vinkeldra'},
+    ];
+  } else if (en.includes('2.9') || mo.includes('rs4') || mo.includes('rs5') || mo.includes('rs6') || mo.includes('panamera')) {
+    engineSpec = [
+      {del:'Tennplugger 2.9 TFSI V6',    nm:'30 Nm',         tips:''},
+      {del:'Topplokk 2.9 TFSI – steg 1', nm:'40 Nm',         tips:''},
+      {del:'Topplokk 2.9 TFSI – steg 2', nm:'+90°',          tips:'Vinkeldra'},
+      {del:'Topplokk 2.9 TFSI – steg 3', nm:'+90°',          tips:'Vinkeldra'},
+    ];
+  } else if (en.includes('4.0') || mo.includes('rs6') || mo.includes('cayenne')) {
+    engineSpec = [
+      {del:'Sump dreneringsplugg 4.0 V8',nm:'30 Nm',         tips:'Ny pakning'},
+      {del:'Oljefilter 4.0 V8 (hus)',    nm:'25 Nm',         tips:''},
+      {del:'Tennplugger 4.0 V8 TFSI',    nm:'25 Nm',         tips:''},
+    ];
+  } else if (en.includes('tdi') || en.includes('diesel')) {
+    engineSpec = [
+      {del:'Dyse – klemme (TDI injector)',nm:'5 Nm + 90°',   tips:'Engangsbolt'},
+      {del:'EGR-ventil – bolt',           nm:'10 Nm',         tips:'Ny pakning'},
+      {del:'DPF – flangebolter',          nm:'25 Nm',         tips:'Ny pakning'},
+      {del:'Turbo – olje-retur bolt',     nm:'12 Nm',         tips:''},
+      {del:'Topplokk 2.0 TDI – steg 1',  nm:'30 Nm',         tips:'Innenfra og ut'},
+      {del:'Topplokk 2.0 TDI – steg 2',  nm:'+90°',          tips:'Vinkeldra'},
+      {del:'Topplokk 2.0 TDI – steg 3',  nm:'+90°',          tips:'Vinkeldra'},
+    ];
+  }
+
+  return {common: common, platform: platform, engineSpec: engineSpec};
+}
+
+function renderTorque(td) {
+  if (!td || (td.platform.length === 0 && td.engineSpec.length === 0)) return '';
+  var html = '<div class="sinfo-title" style="margin-top:1.2rem">🔩 Momentverdier (Nm)</div>';
+
+  var allRows = td.platform.concat(td.engineSpec).concat(td.common);
+  html += '<div style="overflow-x:auto;margin-top:.4rem">';
+  html += '<table style="width:100%;border-collapse:collapse;font-size:.78rem">';
+  html += '<thead><tr style="background:var(--bg);color:var(--muted)">'
+        + '<th style="text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--border)">Del</th>'
+        + '<th style="text-align:center;padding:.4rem .5rem;border-bottom:1px solid var(--border);white-space:nowrap">Moment</th>'
+        + '<th style="text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--border)">Tips</th>'
+        + '</tr></thead><tbody>';
+  html += allRows.map(function(r, i) {
+    var bg = i % 2 === 0 ? 'var(--bg)' : 'var(--bg2)';
+    return '<tr style="background:'+bg+'">'
+      + '<td style="padding:.4rem .5rem;font-weight:500">'+r.del+'</td>'
+      + '<td style="padding:.4rem .5rem;text-align:center;font-weight:700;color:var(--accent);white-space:nowrap">'+r.nm+'</td>'
+      + '<td style="padding:.4rem .5rem;color:var(--muted);font-size:.72rem">'+r.tips+'</td>'
+      + '</tr>';
+  }).join('');
+  html += '</tbody></table></div>';
+  html += '<div style="font-size:.7rem;color:var(--muted);margin-top:.4rem;text-align:center">⚠️ Sjekk alltid originaldata for din spesifikke motor og årsmodell</div>';
+  return html;
+}
+
 /* ---- SKILT ---- */
 async function lookupPlate(){
   const plate=document.getElementById('skilt-in').value.trim().replace(/\s/g,'').toUpperCase();
@@ -1055,6 +1217,10 @@ async function lookupPlate(){
 
     var html='<div class="sinfo-title">\uD83D\uDCCB Kjøretøyinformasjon</div>';
     html+=rows.map(function(r){return '<div class="srow"><span class="slabel">'+r[0]+'</span><span class="sval">'+r[1]+'</span></div>';}).join('');
+
+    // Momentverdier
+    var torqueData = getTorqueData(d.merke, d.modell, d.motorKode||d.drivstoff||'');
+    html += renderTorque(torqueData);
 
     var merkeLC=(d.merke||'').toLowerCase();
     var aar=parseInt(d.årsmodell||d.aar)||0;
