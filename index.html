@@ -694,96 +694,84 @@ async function lookupPlate(){
     const d=await res.json();
     document.getElementById('skilt-load').style.display='none';
     if(d.error||!d.merke){
-      document.getElementById('skilt-res').innerHTML=`<div style="color:#ef4444;text-align:center;padding:.8rem">❌ ${d.error||'Kjøretøy ikke funnet'}</div>`;
+      document.getElementById('skilt-res').innerHTML='<div style="color:#ef4444;text-align:center;padding:.8rem">\u274C '+( d.error||'Kjøretøy ikke funnet')+'</div>';
       document.getElementById('skilt-res').classList.add('show');return;
     }
 
-    // Kjøretøyinfo-rader
     const rows=[
-      ['🏷️ Merke',d.merke],
-      ['🚗 Modell',d.modell],
-      ['📅 Årsmodell',d.årsmodell||d.aar],
-      ['⛽ Drivstoff',d.drivstoff],
-      ['🎨 Farge',d.farge],
-      d.effektHk?['⚡ Effekt',d.effektHk+' hk']:null,
-      d.slagvolum?['🔧 Slagvolum',d.slagvolum+' cm³']:null,
-      ['📋 Første reg.',d.forstegang],
-      ['🔬 EU-kontroll frist',d.euKontrollFrist],
-      ['🔩 Understell',d.understellsnummer]
-    ].filter(Boolean).filter(r=>r[1]);
+      ['\uD83C\uDFF7\uFE0F Merke',d.merke],
+      ['\uD83D\uDE97 Modell',d.modell],
+      ['\uD83D\uDCC5 Årsmodell',d.årsmodell||d.aar],
+      ['\u26FD Drivstoff',d.drivstoff],
+      ['\uD83C\uDFA8 Farge',d.farge],
+      d.effektHk ? ['\u26A1 Effekt', d.effektHk+' hk'] : null,
+      d.slagvolum ? ['\uD83D\uDD27 Slagvolum', d.slagvolum+' cm\u00B3'] : null,
+      ['\uD83D\uDCCB Første reg.',d.forstegang],
+      ['\uD83D\uDD2C EU-frist',d.euKontrollFrist],
+      ['\uD83D\uDD29 Understell',d.understellsnummer]
+    ].filter(Boolean).filter(function(r){return r[1];});
 
-    let html = '<div class="sinfo-title">📋 Kjøretøyinformasjon</div>';
-    html += rows.map(([l,v])=>`<div class="srow"><span class="slabel">${l}</span><span class="sval">${v}</span></div>`).join('');
+    var html='<div class="sinfo-title">\uD83D\uDCCB Kjøretøyinformasjon</div>';
+    html+=rows.map(function(r){return '<div class="srow"><span class="slabel">'+r[0]+'</span><span class="sval">'+r[1]+'</span></div>';}).join('');
 
-    // Match modeller i appen
-    const merkeLC=(d.merke||'').toLowerCase();
-    const modellLC=(d.modell||'').toLowerCase();
-    const aar=parseInt(d.årsmodell||d.aar)||0;
+    var merkeLC=(d.merke||'').toLowerCase();
+    var aar=parseInt(d.årsmodell||d.aar)||0;
 
-    const matchedModels=models.filter(m=>{
-      const mName=(m.name||'').toLowerCase();
-      const mBrand=(m.brand||'').toLowerCase();
-      const mDesc=(m.description||'').toLowerCase();
-      // Sjekk merke-match
-      const brandMatch=mBrand.includes(merkeLC)||merkeLC.includes(mBrand.split(' ')[0]);
+    var matchedModels=models.filter(function(m){
+      var mBrand=(m.brand||'').toLowerCase();
+      var brandMatch=mBrand.includes(merkeLC)||merkeLC.includes(mBrand.split(' ')[0]);
       if(!brandMatch) return false;
-      // Sjekk årsmodell-match
       if(aar && m.year_range){
-        const [fra,til]=m.year_range.split(/[-–]/).map(y=>parseInt(y.trim()));
+        var parts=m.year_range.split(/[-\u2013]/);
+        var fra=parseInt(parts[0]);
+        var til=parseInt(parts[1]);
         if(aar<fra||(til&&aar>til)) return false;
       }
       return true;
     });
 
     if(matchedModels.length>0){
-      html+=`<div class="sinfo-title" style="margin-top:1.2rem">🚗 Modeller i appen (${matchedModels.length})</div>`;
-      html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.4rem">`;
-      html+=matchedModels.slice(0,4).map(m=>`
-        <div onclick="openModelDetail('${m.id}')" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer">
-          ${m.image_url?`<img src="${m.image_url}" style="width:100%;height:70px;object-fit:cover">`:
-          `<div style="height:70px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:1.5rem">${BEMOJI[m.brand]||'🚗'}</div>`}
-          <div style="padding:.4rem .5rem;font-size:.75rem;font-weight:600">${m.name}</div>
-          <div style="padding:0 .5rem .4rem;font-size:.68rem;color:var(--muted)">${m.year_range}</div>
-        </div>`).join('');
-      html+=`</div>`;
+      html+='<div class="sinfo-title" style="margin-top:1.2rem">\uD83D\uDE97 Modeller i appen ('+matchedModels.length+')</div>';
+      html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.4rem">';
+      html+=matchedModels.slice(0,4).map(function(m){
+        var img=m.image_url
+          ? '<img src="'+m.image_url+'" style="width:100%;height:70px;object-fit:cover">'
+          : '<div style="height:70px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:1.5rem">'+(BEMOJI[m.brand]||'\uD83D\uDE97')+'</div>';
+        return '<div onclick="openModelDetail(\''+m.id+'\')" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer">'+img+'<div style="padding:.4rem .5rem;font-size:.75rem;font-weight:600">'+m.name+'</div><div style="padding:0 .5rem .4rem;font-size:.68rem;color:var(--muted)">'+m.year_range+'</div></div>';
+      }).join('');
+      html+='</div>';
     }
 
-    // Match guider
-    const matchedGuides=guides.filter(g=>{
-      const gModels=(g.vag_models||'').toLowerCase();
-      // Sjekk om guiden nevner merke eller modell
-      return gModels.includes(merkeLC.split(' ')[0])||
-             matchedModels.some(m=>gModels.includes(m.name.toLowerCase().split(' ')[0]));
+    var matchedGuides=guides.filter(function(g){
+      var gModels=(g.vag_models||'').toLowerCase();
+      var merkeFirst=merkeLC.split(' ')[0];
+      if(gModels.includes(merkeFirst)) return true;
+      return matchedModels.some(function(m){return gModels.includes(m.name.toLowerCase().split(' ')[0]);});
     });
 
     if(matchedGuides.length>0){
-      const isPrem=user&&user.is_premium;
-      html+=`<div class="sinfo-title" style="margin-top:1.2rem">🔧 Relevante guider (${matchedGuides.length})</div>`;
-      html+=matchedGuides.slice(0,6).map(g=>`
-        <div onclick="${g.is_premium&&!isPrem?'showSec('premium')':'openGuideDetail(''+g.id+'')'}" 
-             style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.75rem;margin-top:.4rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <div style="font-size:.82rem;font-weight:600">${g.title}</div>
-            <div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">${g.category} · ${g.difficulty} · ⏱ ${g.estimated_time}</div>
-          </div>
-          <div style="font-size:.7rem;margin-left:.5rem;white-space:nowrap">${g.is_premium?'⭐ Premium':'✅ Gratis'}</div>
-        </div>`).join('');
-      if(matchedGuides.length>6) html+=`<div style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:.5rem">+${matchedGuides.length-6} flere guider</div>`;
+      var isPrem=user&&user.is_premium;
+      html+='<div class="sinfo-title" style="margin-top:1.2rem">\uD83D\uDD27 Relevante guider ('+matchedGuides.length+')</div>';
+      html+=matchedGuides.slice(0,6).map(function(g){
+        var action=g.is_premium&&!isPrem ? "showSec('premium')" : "openGuideDetail('"+g.id+"')";
+        var badge=g.is_premium?'\u2B50 Premium':'\u2705 Gratis';
+        return '<div onclick="'+action+'" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.75rem;margin-top:.4rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:.82rem;font-weight:600">'+g.title+'</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">'+g.category+' · '+g.difficulty+' · \u23F1 '+g.estimated_time+'</div></div><div style="font-size:.7rem;margin-left:.5rem;white-space:nowrap">'+badge+'</div></div>';
+      }).join('');
+      if(matchedGuides.length>6) html+='<div style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:.5rem">+'+(matchedGuides.length-6)+' flere guider</div>';
     }
 
     if(matchedModels.length===0&&matchedGuides.length===0){
-      html+=`<div style="color:var(--muted);font-size:.82rem;margin-top:1rem;text-align:center">Ingen spesifikke guider funnet for dette kjøretøyet i appen ennå.</div>`;
+      html+='<div style="color:var(--muted);font-size:.82rem;margin-top:1rem;text-align:center">Ingen spesifikke guider funnet for dette kjøretøyet i appen ennå.</div>';
     }
 
     document.getElementById('skilt-res').innerHTML=html;
     document.getElementById('skilt-res').classList.add('show');
   }catch(e){
     document.getElementById('skilt-load').style.display='none';
-    document.getElementById('skilt-res').innerHTML=`<div style="color:#ef4444;text-align:center;padding:.8rem">❌ Nettverksfeil</div>`;
+    document.getElementById('skilt-res').innerHTML='<div style="color:#ef4444;text-align:center;padding:.8rem">\u274C Nettverksfeil: '+e.message+'</div>';
     document.getElementById('skilt-res').classList.add('show');
   }
 }
-
 /* ---- AUTH ---- */
 function toggleAuth(){
   const lc=document.getElementById('login-card'),rc=document.getElementById('reg-card');
