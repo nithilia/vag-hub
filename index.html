@@ -192,9 +192,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-asave{background:var(--accent);border:none;color:#fff;padding:.7rem 1.3rem;border-radius:9px;cursor:pointer;font-weight:600;font-size:.87rem;width:100%;margin-top:.4rem}
 
 /* MODAL */
-.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:200;display:none;align-items:flex-end;justify-content:center;padding-top:60px}
 .moverlay.open{display:flex}
-.mbox{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-height:88vh;overflow-y:auto;padding:1.4rem 1rem 2rem;position:relative}
+.mbox{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-height:92vh;min-height:60vh;overflow-y:auto;padding:1.4rem 1rem 3rem;position:relative}
 .mhandle{width:38px;height:4px;background:var(--border);border-radius:2px;margin:0 auto .9rem}
 .mtitle{font-size:1.1rem;font-weight:700;margin-bottom:.4rem}
 .mmeta{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
@@ -1176,7 +1176,13 @@ function openGuide(id){
       ${steps.length?`<h4>📋 Steg</h4><ol>${steps.map(s=>`<li>${s}</li>`).join('')}</ol>`:''}
       ${g.tips?`<h4>💡 Tips</h4><p>${g.tips}</p>`:''}
     </div>`;
-  document.getElementById('modal').classList.add('open');
+  const modal = document.getElementById('modal');
+  modal.classList.add('open');
+  // Scroll mbox til toppen
+  const mbox = modal.querySelector('.mbox');
+  if(mbox) mbox.scrollTop = 0;
+  // Scroll vinduet til toppen av modal
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 /* ---- PARTS ---- */
