@@ -706,164 +706,320 @@ function doSearch(q){
 
 /* ---- YOUTUBE VIDEOER ---- */
 function getYouTubeVideos(merke, modell, drivstoff) {
-  var m = (merke||'').toLowerCase();
-  var mo = (modell||'').toLowerCase();
-  var dr = (drivstoff||'').toLowerCase();
+  var m  = (merke  || '').toLowerCase();
+  var mo = (modell || '').toLowerCase();
+  var dr = (drivstoff || '').toLowerCase();
+  var isTDI     = dr.includes('diesel');
+  var isElectric= dr.includes('elektr') || dr.includes('electric') || dr.includes('ev');
+  var isHybrid  = dr.includes('hybrid');
   var videos = [];
 
-  // VW Golf
-  if(m.includes('volkswagen')||m.includes('vw')) {
-    if(mo.includes('golf') && (mo.includes('gti')||mo.includes('r'))) {
+  /* =====================  VW  ===================== */
+  if (m.includes('volkswagen') || m.includes('vw')) {
+
+    if (mo.includes('golf r')) {
       videos = [
-        {title:'VW Golf GTI/R — DSG service komplett guide', channel:'ECS Tuning', url:'https://www.youtube.com/results?search_query=VW+Golf+GTI+DSG+service+guide'},
-        {title:'VW Golf GTI — karbonrens innsug TSI', channel:'Mighty Car Mods', url:'https://www.youtube.com/results?search_query=VW+Golf+GTI+carbon+clean+intake+valves'},
-        {title:'VW Golf R — Haldex service steg for steg', channel:'DAS Auto', url:'https://www.youtube.com/results?search_query=VW+Golf+R+Haldex+service'},
-        {title:'VW Golf — vanlige feil og feilsøking VCDS', channel:'Ross-Tech', url:'https://www.youtube.com/results?search_query=VW+Golf+common+problems+VCDS+fault+codes'},
+        {t:'VW Golf R Mk8 — full DSG8 og Haldex service', c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=VW+Golf+R+Mk8+DSG8+Haldex+service'},
+        {t:'VW Golf R — karbonrens innsug TSI EA888',      c:'Humble Mechanic',       u:'https://www.youtube.com/results?search_query=VW+Golf+R+carbon+clean+intake+valves+TSI'},
+        {t:'VW Golf R — vannpumpe EA888 Gen3 bytte',       c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+Golf+R+water+pump+EA888+replacement'},
+        {t:'VW Golf R — VCDS koding og skjulte funksjoner',c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=VW+Golf+R+VCDS+hidden+features+coding'},
+        {t:'VW Golf R — intercooler oppgradering guide',   c:'Forge Motorsport',      u:'https://www.youtube.com/results?search_query=VW+Golf+R+intercooler+upgrade+install'},
       ];
-    } else if(mo.includes('polo')) {
+    } else if (mo.includes('golf') && mo.includes('gti')) {
       videos = [
-        {title:'VW Polo — oljebytte og service', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=VW+Polo+oil+change+service'},
-        {title:'VW Polo GTI — tennplugger bytte', channel:'ChrisFix', url:'https://www.youtube.com/results?search_query=VW+Polo+GTI+spark+plugs+replacement'},
-        {title:'VW Polo — bremseskiver og klosser', channel:'Haynes', url:'https://www.youtube.com/results?search_query=VW+Polo+brake+pads+discs+replacement'},
+        {t:'VW Golf GTI — oljebytte EA888 steg for steg',  c:'Humble Mechanic',       u:'https://www.youtube.com/results?search_query=VW+Golf+GTI+oil+change+EA888+step+by+step'},
+        {t:'VW Golf GTI — DSG7 olje og filter service',    c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=VW+Golf+GTI+DSG7+oil+filter+service'},
+        {t:'VW Golf GTI — tennplugger bytte EA888',        c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+Golf+GTI+spark+plugs+EA888+replacement'},
+        {t:'VW Golf GTI — bremseskiver og klosser foran',  c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=VW+Golf+GTI+front+brake+discs+pads+replacement'},
+        {t:'VW Golf GTI — VCDS vanlige feilkoder og fix',  c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=VW+Golf+GTI+VCDS+common+fault+codes+fix'},
       ];
-    } else if(mo.includes('passat')) {
+    } else if (mo.includes('golf variant')) {
       videos = [
-        {title:'VW Passat TDI — DPF regenerering guide', channel:'VCDS Help', url:'https://www.youtube.com/results?search_query=VW+Passat+TDI+DPF+regeneration+guide'},
-        {title:'VW Passat B8 — timing belt bytte', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=VW+Passat+B8+timing+belt+replacement'},
-        {title:'VW Passat — DSG7 olje og filterbytte', channel:'ECS Tuning', url:'https://www.youtube.com/results?search_query=VW+Passat+DSG+oil+filter+service'},
+        {t:'VW Golf Variant — oljebytte 1.5 eTSI',        c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+Golf+Variant+1.5+eTSI+oil+change'},
+        {t:'VW Golf Variant TDI — DPF rens guide',         c:'VCDS Help',             u:'https://www.youtube.com/results?search_query=VW+Golf+Variant+TDI+DPF+regeneration'},
+        {t:'VW Golf Variant — DSG service og vedlikehold', c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=VW+Golf+Variant+DSG+service+maintenance'},
       ];
-    } else if(mo.includes('tiguan')) {
+    } else if (mo.includes('polo')) {
       videos = [
-        {title:'VW Tiguan — oljebytte 2.0 TSI', channel:'Haynes', url:'https://www.youtube.com/results?search_query=VW+Tiguan+2.0+TSI+oil+change'},
-        {title:'VW Tiguan — luftfjæring diagnose', channel:'AutoTechnik', url:'https://www.youtube.com/results?search_query=VW+Tiguan+suspension+noise+diagnosis'},
-        {title:'VW Tiguan — DSG service guide', channel:'ECS Tuning', url:'https://www.youtube.com/results?search_query=VW+Tiguan+DSG+service'},
+        {t:'VW Polo GTI 2.0 TSI — oljebytte guide',       c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+Polo+GTI+2.0+TSI+oil+change'},
+        {t:'VW Polo GTI — DSG7 DQ200 service',            c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=VW+Polo+GTI+DSG7+DQ200+service'},
+        {t:'VW Polo — bremseskiver og klosser bytte',      c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=VW+Polo+brake+discs+pads+replacement'},
+        {t:'VW Polo — tennplugger og luftfilter',          c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+Polo+spark+plugs+air+filter+service'},
       ];
-    } else {
+    } else if (mo.includes('passat')) {
       videos = [
-        {title:'VW '+mo+' — oljebytte og service', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=VW+'+encodeURIComponent(mo)+'+oil+change+service'},
-        {title:'VW '+mo+' — vanlige feil og feilsøking', channel:'VCDS Help', url:'https://www.youtube.com/results?search_query=VW+'+encodeURIComponent(mo)+'+common+problems+repair'},
-        {title:'VW '+mo+' — bremser bytte', channel:'Haynes', url:'https://www.youtube.com/results?search_query=VW+'+encodeURIComponent(mo)+'+brake+replacement'},
+        {t:'VW Passat B8 — oljebytte 2.0 TDI/TSI',       c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=VW+Passat+B8+oil+change+TDI+TSI'},
+        {t:'VW Passat B8 TDI — DPF regenerering guide',   c:'VCDS Help',             u:'https://www.youtube.com/results?search_query=VW+Passat+B8+TDI+DPF+forced+regeneration'},
+        {t:'VW Passat B8 — DSG7 DQ200 olje filterbytte',  c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=VW+Passat+B8+DSG7+oil+filter+change'},
+        {t:'VW Passat — EGR-ventil rengj\u00f8ring TDI',  c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+Passat+TDI+EGR+valve+cleaning'},
+        {t:'VW Passat B8 — vanlige feil og VCDS diagnose', c:'Ross-Tech',            u:'https://www.youtube.com/results?search_query=VW+Passat+B8+common+problems+VCDS'},
       ];
-    }
-  }
-  // Audi
-  else if(m.includes('audi')) {
-    if(mo.includes('rs3')||mo.includes('tt rs')) {
+    } else if (mo.includes('tiguan')) {
       videos = [
-        {title:'Audi RS3 2.5 TFSI — oljebytte og service', channel:'APEX Performance', url:'https://www.youtube.com/results?search_query=Audi+RS3+2.5+TFSI+oil+service'},
-        {title:'Audi RS3 — karbonrens innsugningsventiler', channel:'ECS Tuning', url:'https://www.youtube.com/results?search_query=Audi+RS3+carbon+clean+intake+valves'},
-        {title:'Audi RS3 — VCDS koding og diagnostikk', channel:'Ross-Tech', url:'https://www.youtube.com/results?search_query=Audi+RS3+VCDS+coding+diagnostics'},
-        {title:'Audi RS3 — intercooler oppgradering', channel:'Forge Motorsport', url:'https://www.youtube.com/results?search_query=Audi+RS3+intercooler+upgrade+install'},
+        {t:'VW Tiguan Mk2 — oljebytte 2.0 TSI/TDI',      c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=VW+Tiguan+Mk2+oil+change+2.0+TSI+TDI'},
+        {t:'VW Tiguan — DSG service komplett guide',       c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=VW+Tiguan+DSG+service+complete+guide'},
+        {t:'VW Tiguan — st\u00f8tdempere og understell',  c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+Tiguan+shock+absorbers+suspension+replacement'},
+        {t:'VW Tiguan Mk2 — bremseskiver foran bytte',    c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+Tiguan+Mk2+front+brake+discs+replacement'},
+        {t:'VW Tiguan — DPF og EGR service TDI',          c:'VCDS Help',             u:'https://www.youtube.com/results?search_query=VW+Tiguan+TDI+DPF+EGR+service'},
       ];
-    } else if(mo.includes('rs4')||mo.includes('rs5')||mo.includes('rs6')) {
+    } else if (mo.includes('touareg')) {
       videos = [
-        {title:'Audi RS — 2.9 TFSI V6 oljebytte', channel:'APEX Performance', url:'https://www.youtube.com/results?search_query=Audi+RS+2.9+TFSI+V6+oil+change'},
-        {title:'Audi RS — karbonrens 2.9 TFSI V6', channel:'ECS Tuning', url:'https://www.youtube.com/results?search_query=Audi+RS+2.9+TFSI+carbon+cleaning'},
-        {title:'Audi RS4/RS5 — bremser og service', channel:'Mighty Car Mods', url:'https://www.youtube.com/results?search_query=Audi+RS4+RS5+brake+service+guide'},
-        {title:'Audi RS6 C8 — luftfjæring diagnose', channel:'AutoTechnik', url:'https://www.youtube.com/results?search_query=Audi+RS6+C8+air+suspension+diagnosis'},
+        {t:'VW Touareg III — luftfj\u00e6ring feilsøk',  c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=VW+Touareg+III+air+suspension+fault+diagnosis'},
+        {t:'VW Touareg 3.0 TDI — oljebytte og service',   c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=VW+Touareg+3.0+TDI+oil+service'},
+        {t:'VW Touareg — AdBlue og SCR-system vedlikehold',c:'VCDS Help',            u:'https://www.youtube.com/results?search_query=VW+Touareg+AdBlue+SCR+system+maintenance'},
+        {t:'VW Touareg III — VCDS coding og diagnose',    c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=VW+Touareg+III+VCDS+coding+diagnostics'},
       ];
-    } else if(mo.includes('a3')||mo.includes('s3')) {
+    } else if (mo.includes('arteon')) {
       videos = [
-        {title:'Audi A3/S3 — oljebytte 2.0 TSI', channel:'Haynes', url:'https://www.youtube.com/results?search_query=Audi+A3+S3+2.0+TSI+oil+change'},
-        {title:'Audi A3 — DSG service komplett', channel:'ECS Tuning', url:'https://www.youtube.com/results?search_query=Audi+A3+DSG+S-tronic+service'},
-        {title:'Audi S3 — bremseskiver bytte', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=Audi+S3+brake+discs+pads+replacement'},
+        {t:'VW Arteon R 2.0 TSI — oljebytte og service',  c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+Arteon+R+2.0+TSI+oil+change+service'},
+        {t:'VW Arteon — DSG8 service guide',               c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=VW+Arteon+DSG8+service'},
+        {t:'VW Arteon — VCDS koding skjulte funksjoner',   c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=VW+Arteon+VCDS+coding+hidden+features'},
       ];
-    } else if(mo.includes('a4')||mo.includes('s4')) {
+    } else if (mo.includes('id.3')) {
       videos = [
-        {title:'Audi A4 B9 — oljebytte og service', channel:'Haynes', url:'https://www.youtube.com/results?search_query=Audi+A4+B9+oil+service+guide'},
-        {title:'Audi A4 TDI — DPF og EGR service', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=Audi+A4+TDI+DPF+EGR+service'},
-        {title:'Audi A4 — VCDS feilsøking guide', channel:'Ross-Tech', url:'https://www.youtube.com/results?search_query=Audi+A4+B9+VCDS+fault+finding'},
+        {t:'VW ID.3 — dekk og hjul vedlikehold',           c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+ID3+tyre+maintenance+guide'},
+        {t:'VW ID.3 — ladeproblem diagnose og l\u00f8sning',c:'EV Doctor',            u:'https://www.youtube.com/results?search_query=VW+ID3+charging+problem+diagnosis+fix'},
+        {t:'VW ID.3 — OTA oppdatering og software guide',  c:'Bjorn Nyland',          u:'https://www.youtube.com/results?search_query=VW+ID3+software+update+OTA'},
+        {t:'VW ID.3 — bremseservice og kalibrering',       c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+ID3+brake+service+recalibration'},
       ];
-    } else {
+    } else if (mo.includes('id.4')) {
       videos = [
-        {title:'Audi '+mo+' — oljebytte og service', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=Audi+'+encodeURIComponent(mo)+'+oil+change+service'},
-        {title:'Audi '+mo+' — vanlige feil feilsøking', channel:'VCDS Help', url:'https://www.youtube.com/results?search_query=Audi+'+encodeURIComponent(mo)+'+common+faults+repair'},
-        {title:'Audi '+mo+' — VCDS coding guide', channel:'Ross-Tech', url:'https://www.youtube.com/results?search_query=Audi+'+encodeURIComponent(mo)+'+VCDS+coding'},
-      ];
-    }
-  }
-  // Skoda
-  else if(m.includes('skoda')) {
-    if(mo.includes('octavia') && mo.includes('rs')) {
-      videos = [
-        {title:'Skoda Octavia RS — oljebytte og service', channel:'Haynes', url:'https://www.youtube.com/results?search_query=Skoda+Octavia+RS+oil+service'},
-        {title:'Skoda Octavia RS — lydpotte bytte cat-back', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=Skoda+Octavia+RS+exhaust+catback+install'},
-        {title:'Skoda Octavia RS — DSG service guide', channel:'ECS Tuning', url:'https://www.youtube.com/results?search_query=Skoda+Octavia+RS+DSG+service'},
-      ];
-    } else if(mo.includes('superb')) {
-      videos = [
-        {title:'Skoda Superb — oljebytte og service', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=Skoda+Superb+oil+change+service'},
-        {title:'Skoda Superb TDI — DPF rens', channel:'VCDS Help', url:'https://www.youtube.com/results?search_query=Skoda+Superb+TDI+DPF+cleaning'},
-        {title:'Skoda Superb — luftfjæring diagnose', channel:'AutoTechnik', url:'https://www.youtube.com/results?search_query=Skoda+Superb+suspension+diagnosis'},
+        {t:'VW ID.4 — ladeproblem feilsøk og fix',        c:'EV Doctor',             u:'https://www.youtube.com/results?search_query=VW+ID4+charging+issue+diagnosis+fix'},
+        {t:'VW ID.4 — bremseservice bakre EPB kalibrering',c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+ID4+rear+brake+EPB+calibration'},
+        {t:'VW ID.4 AWD — diff-service og kjøling',       c:'EV Mechanics',          u:'https://www.youtube.com/results?search_query=VW+ID4+AWD+differential+cooling+service'},
+        {t:'VW ID.4 — vanlige feil og software reset',     c:'Bjorn Nyland',          u:'https://www.youtube.com/results?search_query=VW+ID4+common+problems+software+reset'},
       ];
     } else {
       videos = [
-        {title:'Skoda '+mo+' — oljebytte og service', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=Skoda+'+encodeURIComponent(mo)+'+oil+service'},
-        {title:'Skoda '+mo+' — vanlige feil og reparasjon', channel:'Haynes', url:'https://www.youtube.com/results?search_query=Skoda+'+encodeURIComponent(mo)+'+repair+guide'},
+        {t:'VW '+modell+' — oljebytte og service guide',  c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=VW+'+encodeURIComponent(modell)+'+oil+service'},
+        {t:'VW '+modell+' — bremseskiver og klosser',     c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=VW+'+encodeURIComponent(modell)+'+brake+replacement'},
+        {t:'VW '+modell+' — VCDS diagnose og feilkoder',  c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=VW+'+encodeURIComponent(modell)+'+VCDS+diagnostics'},
       ];
     }
-  }
-  // SEAT
-  else if(m.includes('seat')) {
-    if(mo.includes('leon') && (mo.includes('cupra')||mo.includes('fr'))) {
+
+  /* =====================  AUDI  ===================== */
+  } else if (m.includes('audi')) {
+
+    if (mo.includes('rs3') || mo.includes('tt rs')) {
       videos = [
-        {title:'SEAT Leon Cupra/FR — oljebytte og service', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=SEAT+Leon+Cupra+FR+oil+service'},
-        {title:'SEAT Leon — DSG og clutch guide', channel:'ECS Tuning', url:'https://www.youtube.com/results?search_query=SEAT+Leon+DSG+clutch+replacement'},
-        {title:'SEAT Leon — bremseskiver og klosser', channel:'Haynes', url:'https://www.youtube.com/results?search_query=SEAT+Leon+brake+discs+pads'},
+        {t:'Audi RS3 8Y 2.5 TFSI — oljebytte komplett',   c:'APEX Performance',      u:'https://www.youtube.com/results?search_query=Audi+RS3+8Y+2.5+TFSI+oil+change+complete'},
+        {t:'Audi RS3 — karbonrens innsugningsventiler',    c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=Audi+RS3+carbon+cleaning+intake+valves'},
+        {t:'Audi RS3 8Y — RS Torque Splitter service',     c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Audi+RS3+8Y+torque+splitter+service+maintenance'},
+        {t:'Audi TT RS 8S — full service og vedlikehold',  c:'APEX Performance',      u:'https://www.youtube.com/results?search_query=Audi+TT+RS+8S+full+service+maintenance'},
+        {t:'Audi RS3 — VCDS koding og diagnose',           c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Audi+RS3+VCDS+coding+diagnostics'},
+        {t:'Audi RS3 — intercooler og inntakssystem',      c:'Forge Motorsport',      u:'https://www.youtube.com/results?search_query=Audi+RS3+intercooler+intake+upgrade+install'},
+      ];
+    } else if (mo.includes('rs4') || mo.includes('rs5')) {
+      videos = [
+        {t:'Audi RS4/RS5 2.9 TFSI V6 — oljebytte guide',  c:'APEX Performance',      u:'https://www.youtube.com/results?search_query=Audi+RS4+RS5+2.9+TFSI+V6+oil+change'},
+        {t:'Audi RS4 — karbonrens 2.9 TFSI valn\u00f8ttbl\u00e5sing',c:'ECS Tuning', u:'https://www.youtube.com/results?search_query=Audi+RS4+2.9+TFSI+walnut+blasting+carbon+clean'},
+        {t:'Audi RS4 Avant B9 — Haldex og diff service',  c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Audi+RS4+Avant+B9+Haldex+differential+service'},
+        {t:'Audi RS4/RS5 — bremseskiver og -klosser bytte',c:'AutoDoc',              u:'https://www.youtube.com/results?search_query=Audi+RS4+RS5+brake+discs+pads+replacement'},
+        {t:'Audi RS4 B9 — VCDS koding og diagnose',       c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Audi+RS4+B9+VCDS+coding+diagnostics'},
+      ];
+    } else if (mo.includes('rs6')) {
+      videos = [
+        {t:'Audi RS6 C8 4.0 V8 TFSI — oljebytte',         c:'APEX Performance',      u:'https://www.youtube.com/results?search_query=Audi+RS6+C8+4.0+V8+TFSI+oil+change'},
+        {t:'Audi RS6 C8 — luftfj\u00e6ring diagnose og kalibrering',c:'AutoTechnik', u:'https://www.youtube.com/results?search_query=Audi+RS6+C8+air+suspension+diagnosis+calibration'},
+        {t:'Audi RS6 C8 — MHEV 48V system service',       c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Audi+RS6+C8+MHEV+48V+mild+hybrid+service'},
+        {t:'Audi RS6 C8 — karbonrens V8 TFSI',            c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=Audi+RS6+C8+V8+carbon+cleaning'},
+        {t:'Audi RS6 — bremseklosser og -skiver bytte',    c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Audi+RS6+brake+pads+discs+replacement'},
+      ];
+    } else if (mo.includes('e-tron gt')) {
+      videos = [
+        {t:'Audi e-tron GT — ladeproblem diagnose og fix', c:'EV Doctor',             u:'https://www.youtube.com/results?search_query=Audi+e-tron+GT+charging+problem+diagnosis'},
+        {t:'Audi e-tron GT — bremseservice og EPB',       c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Audi+e-tron+GT+brake+service+EPB+calibration'},
+        {t:'Audi RS e-tron GT — full service guide',       c:'APEX Performance',      u:'https://www.youtube.com/results?search_query=Audi+RS+e-tron+GT+full+service+guide'},
+        {t:'Audi e-tron GT — VCDS og software diagnose',  c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Audi+e-tron+GT+VCDS+software+diagnostics'},
+      ];
+    } else if (mo.includes('a3') || mo.includes('s3')) {
+      videos = [
+        {t:'Audi A3 8Y / S3 — oljebytte 2.0 TFSI guide',  c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=Audi+A3+8Y+S3+oil+change+2.0+TFSI'},
+        {t:'Audi A3 8Y — DSG/S-tronic service',            c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=Audi+A3+8Y+DSG+S-tronic+service'},
+        {t:'Audi S3 8Y — Haldex service steg for steg',   c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Audi+S3+8Y+Haldex+service+step+by+step'},
+        {t:'Audi A3 — VCDS koding og diagnose',            c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Audi+A3+VCDS+coding+diagnostics'},
+        {t:'Audi A3 — bremseskiver og klosser bytte',      c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Audi+A3+brake+discs+pads+replacement'},
+      ];
+    } else if (mo.includes('a4') || mo.includes('s4')) {
+      videos = [
+        {t:'Audi A4 B9 — oljebytte 2.0 TFSI/TDI guide',   c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=Audi+A4+B9+oil+change+TFSI+TDI'},
+        {t:'Audi A4 B9 TDI — EGR og DPF service',         c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Audi+A4+B9+TDI+EGR+DPF+service'},
+        {t:'Audi A4 B9 — S-tronic / DSG service',          c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=Audi+A4+B9+S-tronic+DSG+service'},
+        {t:'Audi A4 — VCDS diagnose og vanlige feil',      c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Audi+A4+B9+VCDS+diagnostics+common+faults'},
+        {t:'Audi S4 B9 — Haldex service guide',            c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Audi+S4+B9+Haldex+service+guide'},
+      ];
+    } else if (mo.includes('a6') || mo.includes('s6') || mo.includes('a7') || mo.includes('s7')) {
+      videos = [
+        {t:'Audi A6 C8 — oljebytte 2.0 TFSI/3.0 TDI',    c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=Audi+A6+C8+oil+change+service'},
+        {t:'Audi A6 C8 — luftfj\u00e6ring diagnose',      c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Audi+A6+C8+air+suspension+diagnosis'},
+        {t:'Audi A6 C8 TDI — AdBlue og SCR vedlikehold',  c:'VCDS Help',             u:'https://www.youtube.com/results?search_query=Audi+A6+C8+TDI+AdBlue+SCR+maintenance'},
+        {t:'Audi A6 — VCDS koding og diagnose C8',         c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Audi+A6+C8+VCDS+coding+diagnostics'},
+      ];
+    } else if (mo.includes('q5')) {
+      videos = [
+        {t:'Audi Q5 FY — oljebytte 2.0 TFSI guide',       c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=Audi+Q5+FY+oil+change+2.0+TFSI'},
+        {t:'Audi Q5 — DSG S-tronic service guide',         c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=Audi+Q5+S-tronic+DSG+service'},
+        {t:'Audi SQ5 — Haldex service steg for steg',     c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Audi+SQ5+Haldex+quattro+service'},
+        {t:'Audi Q5 TDI — DPF og EGR service guide',      c:'VCDS Help',             u:'https://www.youtube.com/results?search_query=Audi+Q5+TDI+DPF+EGR+service'},
       ];
     } else {
       videos = [
-        {title:'SEAT '+mo+' — service og vedlikehold', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=SEAT+'+encodeURIComponent(mo)+'+service+maintenance'},
-        {title:'SEAT '+mo+' — vanlige feil og løsninger', channel:'Haynes', url:'https://www.youtube.com/results?search_query=SEAT+'+encodeURIComponent(mo)+'+common+problems+fix'},
+        {t:'Audi '+modell+' — oljebytte og service',      c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Audi+'+encodeURIComponent(modell)+'+oil+service'},
+        {t:'Audi '+modell+' — VCDS diagnose og koding',   c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Audi+'+encodeURIComponent(modell)+'+VCDS+coding'},
+        {t:'Audi '+modell+' — bremseskiver og klosser',   c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Audi+'+encodeURIComponent(modell)+'+brake+service'},
       ];
     }
-  }
-  // CUPRA
-  else if(m.includes('cupra')) {
+
+  /* =====================  SKODA  ===================== */
+  } else if (m.includes('skoda')) {
+
+    if (mo.includes('octavia rs') || mo.includes('octavia') && (mo.includes('rs'))) {
+      videos = [
+        {t:'Skoda Octavia RS Mk4 — oljebytte 2.0 TSI',    c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Octavia+RS+Mk4+oil+change+2.0+TSI'},
+        {t:'Skoda Octavia RS — DSG service komplett',      c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=Skoda+Octavia+RS+DSG+service+guide'},
+        {t:'Skoda Octavia RS — sportslydpotte bytte',      c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Octavia+RS+exhaust+catback+install'},
+        {t:'Skoda Octavia RS — bremseskiver foran bytte',  c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=Skoda+Octavia+RS+front+brake+replacement'},
+        {t:'Skoda Octavia RS — VCDS koding og diagnose',   c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Skoda+Octavia+RS+VCDS+coding+diagnostics'},
+      ];
+    } else if (mo.includes('octavia')) {
+      videos = [
+        {t:'Skoda Octavia Mk4 — oljebytte og service',    c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Octavia+Mk4+oil+change+service'},
+        {t:'Skoda Octavia TDI — DPF og EGR guide',        c:'VCDS Help',             u:'https://www.youtube.com/results?search_query=Skoda+Octavia+TDI+DPF+EGR+guide'},
+        {t:'Skoda Octavia — DSG service steg for steg',   c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=Skoda+Octavia+DSG+service+step+by+step'},
+        {t:'Skoda Octavia — VCDS diagnose vanlige feil',   c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Skoda+Octavia+VCDS+diagnostics+common+faults'},
+      ];
+    } else if (mo.includes('superb')) {
+      videos = [
+        {t:'Skoda Superb Mk3 — oljebytte 2.0 TSI/TDI',   c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Superb+Mk3+oil+change+service'},
+        {t:'Skoda Superb TDI — DPF rens og EGR service',  c:'VCDS Help',             u:'https://www.youtube.com/results?search_query=Skoda+Superb+TDI+DPF+EGR+cleaning'},
+        {t:'Skoda Superb — luftfj\u00e6ring diagnose',    c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Skoda+Superb+suspension+diagnosis+repair'},
+        {t:'Skoda Superb iV — lading og hybrid service',  c:'EV Doctor',             u:'https://www.youtube.com/results?search_query=Skoda+Superb+iV+plug+in+hybrid+service'},
+      ];
+    } else if (mo.includes('kodiaq')) {
+      videos = [
+        {t:'Skoda Kodiaq — oljebytte 2.0 TSI/TDI',       c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Kodiaq+oil+change+service'},
+        {t:'Skoda Kodiaq — DSG og 4x4 Haldex service',    c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=Skoda+Kodiaq+DSG+4x4+Haldex+service'},
+        {t:'Skoda Kodiaq TDI — DPF og EGR rens',          c:'VCDS Help',             u:'https://www.youtube.com/results?search_query=Skoda+Kodiaq+TDI+DPF+EGR+service'},
+      ];
+    } else if (mo.includes('enyaq')) {
+      videos = [
+        {t:'Skoda Enyaq iV — ladeproblem diagnose fix',   c:'EV Doctor',             u:'https://www.youtube.com/results?search_query=Skoda+Enyaq+iV+charging+problem+fix'},
+        {t:'Skoda Enyaq — bremseservice og kalibrering',   c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Enyaq+brake+service+calibration'},
+        {t:'Skoda Enyaq RS — full service guide',          c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Enyaq+RS+service+maintenance+guide'},
+      ];
+    } else if (mo.includes('fabia')) {
+      videos = [
+        {t:'Skoda Fabia Mk4 — oljebytte 1.0/1.5 TSI',    c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Fabia+Mk4+oil+change+TSI'},
+        {t:'Skoda Fabia — bremseskiver og klosser bytte',  c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=Skoda+Fabia+brake+discs+pads+replacement'},
+        {t:'Skoda Fabia — tennplugger og luftfilter',      c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Fabia+spark+plugs+air+filter+service'},
+      ];
+    } else if (mo.includes('scala') || mo.includes('kamiq')) {
+      videos = [
+        {t:'Skoda Scala/Kamiq — oljebytte 1.0/1.5 TSI',  c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+Scala+Kamiq+oil+change+TSI'},
+        {t:'Skoda Scala — bremseskiver og service',        c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=Skoda+Scala+brake+service+guide'},
+        {t:'Skoda Kamiq — VCDS diagnose og koding',        c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Skoda+Kamiq+VCDS+coding+diagnostics'},
+      ];
+    } else {
+      videos = [
+        {t:'Skoda '+modell+' — oljebytte og service',     c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Skoda+'+encodeURIComponent(modell)+'+oil+service'},
+        {t:'Skoda '+modell+' — VCDS diagnose',            c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=Skoda+'+encodeURIComponent(modell)+'+VCDS'},
+      ];
+    }
+
+  /* =====================  SEAT  ===================== */
+  } else if (m.includes('seat')) {
+    if (mo.includes('leon') && (mo.includes('cupra') || mo.includes('fr'))) {
+      videos = [
+        {t:'SEAT Leon Cupra R / FR — oljebytte guide',    c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=SEAT+Leon+Cupra+FR+oil+change+service'},
+        {t:'SEAT Leon — DSG7 DQ200 kobling og service',   c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=SEAT+Leon+DSG7+DQ200+clutch+service'},
+        {t:'SEAT Leon Cupra — innsug karbonrens TSI',     c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=SEAT+Leon+Cupra+carbon+cleaning+TSI'},
+        {t:'SEAT Leon FR — bremseskiver og klosser bytte',c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=SEAT+Leon+FR+brake+discs+pads+replacement'},
+        {t:'SEAT Leon — VCDS koding og diagnose',          c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=SEAT+Leon+VCDS+coding+diagnostics'},
+      ];
+    } else {
+      videos = [
+        {t:'SEAT '+modell+' — oljebytte og service',      c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=SEAT+'+encodeURIComponent(modell)+'+oil+service'},
+        {t:'SEAT '+modell+' — vanlige feil og reparasjon',c:'Haynes Manuals',        u:'https://www.youtube.com/results?search_query=SEAT+'+encodeURIComponent(modell)+'+common+problems'},
+      ];
+    }
+
+  /* =====================  CUPRA  ===================== */
+  } else if (m.includes('cupra')) {
+    if (mo.includes('formentor')) {
+      videos = [
+        {t:'CUPRA Formentor VZ — oljebytte 2.0 TSI',      c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=CUPRA+Formentor+VZ+oil+change+2.0+TSI'},
+        {t:'CUPRA Formentor — DSG7/DSG8 service guide',    c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=CUPRA+Formentor+DSG+service+guide'},
+        {t:'CUPRA Formentor VZ — intercooler oppgradering',c:'Forge Motorsport',      u:'https://www.youtube.com/results?search_query=CUPRA+Formentor+VZ+intercooler+upgrade'},
+        {t:'CUPRA Formentor 4Drive — Haldex service',     c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=CUPRA+Formentor+4Drive+Haldex+service'},
+        {t:'CUPRA Formentor — VCDS koding skjulte funksjoner',c:'Ross-Tech',         u:'https://www.youtube.com/results?search_query=CUPRA+Formentor+VCDS+coding+hidden+features'},
+      ];
+    } else if (mo.includes('born')) {
+      videos = [
+        {t:'CUPRA Born — ladeproblem diagnose og fix',     c:'EV Doctor',             u:'https://www.youtube.com/results?search_query=CUPRA+Born+charging+problem+diagnosis+fix'},
+        {t:'CUPRA Born — bremseservice og rekuperasjon',   c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=CUPRA+Born+brake+service+regenerative+braking'},
+        {t:'CUPRA Born — software oppdatering guide',      c:'EV Mechanics',          u:'https://www.youtube.com/results?search_query=CUPRA+Born+software+update+guide'},
+        {t:'CUPRA Born — range optimalisering og service', c:'Bjorn Nyland',          u:'https://www.youtube.com/results?search_query=CUPRA+Born+range+optimization+service'},
+      ];
+    } else if (mo.includes('ateca')) {
+      videos = [
+        {t:'CUPRA Ateca 2.0 TSI — oljebytte og service',  c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=CUPRA+Ateca+2.0+TSI+oil+change+service'},
+        {t:'CUPRA Ateca 4Drive — Haldex service',         c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=CUPRA+Ateca+4Drive+Haldex+service'},
+        {t:'CUPRA Ateca — DSG service og diagnose',        c:'ECS Tuning',            u:'https://www.youtube.com/results?search_query=CUPRA+Ateca+DSG+service+diagnostics'},
+      ];
+    } else {
+      videos = [
+        {t:'CUPRA '+modell+' — service og vedlikehold',   c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=CUPRA+'+encodeURIComponent(modell)+'+service+maintenance'},
+        {t:'CUPRA '+modell+' — VCDS koding',              c:'Ross-Tech',             u:'https://www.youtube.com/results?search_query=CUPRA+'+encodeURIComponent(modell)+'+VCDS+coding'},
+      ];
+    }
+
+  /* =====================  PORSCHE  ===================== */
+  } else if (m.includes('porsche')) {
+    if (mo.includes('cayenne')) {
+      videos = [
+        {t:'Porsche Cayenne III — oljebytte 3.0 V6/4.0 V8',c:'Haynes Manuals',      u:'https://www.youtube.com/results?search_query=Porsche+Cayenne+III+oil+change+V6+V8'},
+        {t:'Porsche Cayenne — luftfj\u00e6ring reparasjon', c:'AutoTechnik',          u:'https://www.youtube.com/results?search_query=Porsche+Cayenne+air+suspension+repair+replacement'},
+        {t:'Porsche Cayenne E-Hybrid — batteri og lading', c:'EV Doctor',             u:'https://www.youtube.com/results?search_query=Porsche+Cayenne+E-Hybrid+battery+charging+service'},
+        {t:'Porsche Cayenne — bremseskiver og klosser',    c:'AutoDoc',               u:'https://www.youtube.com/results?search_query=Porsche+Cayenne+brake+discs+pads+replacement'},
+        {t:'Porsche Cayenne — PIWIS/VCDS diagnose',        c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Porsche+Cayenne+PIWIS+VCDS+diagnostics'},
+      ];
+    } else if (mo.includes('panamera')) {
+      videos = [
+        {t:'Porsche Panamera — oljebytte 2.9 V6 / 4.0 V8', c:'9WERKS',              u:'https://www.youtube.com/results?search_query=Porsche+Panamera+oil+change+service'},
+        {t:'Porsche Panamera — luftfj\u00e6ring diagnose',  c:'AutoTechnik',          u:'https://www.youtube.com/results?search_query=Porsche+Panamera+air+suspension+diagnosis+fix'},
+        {t:'Porsche Panamera Turbo S E-Hybrid — service',  c:'EV Doctor',             u:'https://www.youtube.com/results?search_query=Porsche+Panamera+Turbo+S+E-Hybrid+service'},
+        {t:'Porsche Panamera — PDK service og vedlikehold', c:'AutoTechnik',          u:'https://www.youtube.com/results?search_query=Porsche+Panamera+PDK+service+maintenance'},
+      ];
+    } else if (mo.includes('macan')) {
+      videos = [
+        {t:'Porsche Macan EV 2024 — ladeproblem og service',c:'EV Doctor',            u:'https://www.youtube.com/results?search_query=Porsche+Macan+EV+2024+charging+service'},
+        {t:'Porsche Macan EV — bremseservice og kalibrering',c:'AutoDoc',             u:'https://www.youtube.com/results?search_query=Porsche+Macan+EV+brake+service+calibration'},
+        {t:'Porsche Macan — PIWIS diagnose og koding',     c:'AutoTechnik',           u:'https://www.youtube.com/results?search_query=Porsche+Macan+PIWIS+diagnostics+coding'},
+      ];
+    } else {
+      videos = [
+        {t:'Porsche '+modell+' — service guide',           c:'9WERKS',                u:'https://www.youtube.com/results?search_query=Porsche+'+encodeURIComponent(modell)+'+service+guide'},
+        {t:'Porsche '+modell+' — vanlige feil og reparasjon',c:'AutoTechnik',         u:'https://www.youtube.com/results?search_query=Porsche+'+encodeURIComponent(modell)+'+repair+maintenance'},
+      ];
+    }
+
+  /* =====================  FALLBACK  ===================== */
+  } else if (merke) {
     videos = [
-      {title:'CUPRA Formentor — oljebytte og service', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=CUPRA+Formentor+oil+service'},
-      {title:'CUPRA — intercooler oppgradering guide', channel:'Forge Motorsport', url:'https://www.youtube.com/results?search_query=CUPRA+intercooler+upgrade+install'},
-      {title:'CUPRA — VCDS koding og diagnostikk', channel:'Ross-Tech', url:'https://www.youtube.com/results?search_query=CUPRA+VCDS+coding+diagnostics'},
-      {title:'CUPRA Born — elektrisk diagnose og service', channel:'AutoTechnik', url:'https://www.youtube.com/results?search_query=CUPRA+Born+electric+diagnosis+service'},
-    ];
-  }
-  // Porsche
-  else if(m.includes('porsche')) {
-    if(mo.includes('cayenne')) {
-      videos = [
-        {title:'Porsche Cayenne — luftfjæring reparasjon', channel:'AutoTechnik', url:'https://www.youtube.com/results?search_query=Porsche+Cayenne+air+suspension+repair'},
-        {title:'Porsche Cayenne — oljebytte og service', channel:'Haynes', url:'https://www.youtube.com/results?search_query=Porsche+Cayenne+oil+service+guide'},
-        {title:'Porsche Cayenne — bremseklosser bytte', channel:'AutoDoc', url:'https://www.youtube.com/results?search_query=Porsche+Cayenne+brake+pads+replacement'},
-      ];
-    } else if(mo.includes('911')) {
-      videos = [
-        {title:'Porsche 911 — oljebytte guide', channel:'9WERKS', url:'https://www.youtube.com/results?search_query=Porsche+911+oil+change+guide'},
-        {title:'Porsche 911 — IMS-lager diagnose', channel:'LN Engineering', url:'https://www.youtube.com/results?search_query=Porsche+911+IMS+bearing+diagnosis'},
-        {title:'Porsche 911 GT3 — motor service', channel:'Motor Trend', url:'https://www.youtube.com/results?search_query=Porsche+911+GT3+engine+service'},
-      ];
-    } else if(mo.includes('panamera')) {
-      videos = [
-        {title:'Porsche Panamera — oljebytte og service', channel:'Haynes', url:'https://www.youtube.com/results?search_query=Porsche+Panamera+oil+service'},
-        {title:'Porsche Panamera — luftfjæring diagnose', channel:'AutoTechnik', url:'https://www.youtube.com/results?search_query=Porsche+Panamera+air+suspension+diagnosis'},
-      ];
-    } else {
-      videos = [
-        {title:'Porsche '+mo+' — service guide', channel:'9WERKS', url:'https://www.youtube.com/results?search_query=Porsche+'+encodeURIComponent(mo)+'+service+guide'},
-        {title:'Porsche '+mo+' — vanlige feil og reparasjon', channel:'AutoTechnik', url:'https://www.youtube.com/results?search_query=Porsche+'+encodeURIComponent(mo)+'+repair+maintenance'},
-      ];
-    }
-  }
-  // Fallback - generisk søk
-  else if(m) {
-    videos = [
-      {title: merke+' '+modell+' — service og reparasjon', channel:'YouTube Søk', url:'https://www.youtube.com/results?search_query='+encodeURIComponent(merke+' '+modell+' service repair')},
-      {title: merke+' '+modell+' — oljebytte guide', channel:'YouTube Søk', url:'https://www.youtube.com/results?search_query='+encodeURIComponent(merke+' '+modell+' oil change')},
+      {t:merke+' '+modell+' — service og reparasjon',     c:'YouTube S\u00f8k',      u:'https://www.youtube.com/results?search_query='+encodeURIComponent(merke+' '+modell+' service repair')},
+      {t:merke+' '+modell+' — oljebytte guide',           c:'YouTube S\u00f8k',      u:'https://www.youtube.com/results?search_query='+encodeURIComponent(merke+' '+modell+' oil change')},
     ];
   }
 
-  // Legg alltid til diesel-spesifikk video hvis TDI
-  if(dr.includes('diesel') && !m.includes('porsche')) {
-    videos.push({title: merke+' '+modell+' TDI — DPF og EGR vedlikehold', channel:'TDI Help', url:'https://www.youtube.com/results?search_query='+encodeURIComponent(merke+' '+modell+' TDI DPF EGR maintenance')});
+  /* Legg til ekstra video for diesel, elbil og hybrid */
+  if (isTDI && !m.includes('porsche')) {
+    videos.push({t:merke+' '+modell+' TDI \u2014 DPF og EGR vedlikehold', c:'TDI Help', u:'https://www.youtube.com/results?search_query='+encodeURIComponent(merke+' '+modell+' TDI DPF EGR maintenance')});
+  }
+  if (isElectric) {
+    videos.push({t:merke+' '+modell+' \u2014 lading og batterioptimalisering', c:'Bjorn Nyland', u:'https://www.youtube.com/results?search_query='+encodeURIComponent(merke+' '+modell+' charging battery optimization')});
+  }
+  if (isHybrid && !isElectric) {
+    videos.push({t:merke+' '+modell+' \u2014 hybrid batteri og ladesystem', c:'EV Doctor', u:'https://www.youtube.com/results?search_query='+encodeURIComponent(merke+' '+modell+' hybrid battery charging service')});
   }
 
   return videos;
