@@ -689,7 +689,7 @@ async function lookupPlate(){
   document.getElementById('skilt-load').style.display='block';
   document.getElementById('skilt-res').classList.remove('show');
   try{
-    const res=await fetch(API+'/biloppslag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plate})});
+    const res=await fetch(API+'/biloppslag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({regnr:plate})});
     const d=await res.json();
     document.getElementById('skilt-load').style.display='none';
     if(d.error||!d.merke){
