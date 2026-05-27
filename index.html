@@ -228,6 +228,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .spin{display:inline-block;width:18px;height:18px;border:2px solid rgba(91,141,238,.3);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .lwrap{padding:2.5rem;text-align:center;color:var(--muted)}
+
+.minfo-block{margin-top:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;}
+.minfo-title{font-size:.78rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;}
+.minfo-list{margin:0;padding-left:1.1rem;font-size:.82rem;color:var(--text);}
+.minfo-list li{margin-bottom:.25rem;line-height:1.4;}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:.3rem;}
+.spec-row{display:flex;flex-direction:column;background:var(--bg);border-radius:7px;padding:.4rem .55rem;}
+.spec-lbl{font-size:.68rem;color:var(--muted);text-transform:uppercase;font-weight:600;}
+.spec-val{font-size:.8rem;font-weight:700;color:var(--text);margin-top:.1rem;}
+.rel-guide{padding:.45rem .6rem;background:var(--bg);border-radius:8px;margin-bottom:.3rem;cursor:pointer;font-size:.82rem;font-weight:600;transition:background .15s;}
+.rel-guide:hover{background:var(--accent-light,#1e3a5f);}
 </style>
 </head>
 <body>
@@ -566,6 +577,158 @@ const models = [
   {id:'6a16ffdeb327fd4579eb05a8',name:'Porsche Panamera III',brand:'Porsche',year_range:'2021-2024',engine_options:'2.9 V6 330hk, 4.0 V8 Turbo S 630hk, Turbo S E-Hybrid 700hk',image_url:'',description:'Porsches luksus-sedan. Turbo S E-Hybrid med 700hk er flaggskipet.'},
   {id:'6a168f3808da9eadec9578f0',name:'Porsche Macan II EV',brand:'Porsche',year_range:'2024-2025',engine_options:'100 kWh 408hk / Turbo 639hk',image_url:'',description:'Macan II er Porsches foerste helelektriske SUV. Turbo med 639hk er sportigst.'}
 ];
+
+
+const modelExtra = {
+  // VW Golf 1
+  '6a1768af41abc193e4877d41': {
+    kjente_feil: ['Rust i terskel og hjulbuer','Forgasser-problemer på tidlige motorer','Slitt girmekanisme'],
+    tuning: ['1.8T motor-bytte (Golf 4 1.8T passer)','Weber-forgasser oppgradering','Suspension lowering med originale fjærer'],
+    fakta: ['Produsert i 6,98 millioner eksemplarer','GTI ble lansert på Frankfurt-messen 1975','0-100 på 9 sek for originale GTI'],
+    spesifikasjoner: {vekt:'750-900 kg', drivlinje:'FWD', girkasse:'4-trinns manuell', bremser:'Skive foran, trommel bak'}
+  },
+  // VW Golf 2
+  '6a1768af41abc193e4877d42': {
+    kjente_feil: ['Rust under batterihylle','Vannpumpe svikt','Sentrallås-problemer'],
+    tuning: ['16V G60-motor konvertering','Lowering med H&R eller Eibach','Strut bar foran'],
+    fakta: ['GTI 16V med 139hk kom 1985','G60 Supercharger-versjon produsert i 70 000 eks','Europeisk Car of the Year 1984'],
+    spesifikasjoner: {vekt:'820-980 kg', drivlinje:'FWD', girkasse:'4/5-trinns manuell', bremser:'Skive foran, trommel/skive bak'}
+  },
+  // VW Golf 3
+  '6a1768af41abc193e4877d43': {
+    kjente_feil: ['Tennspole-svikt på VR6','Kjoelervann-lekkasje','ABS-sensor problemer'],
+    tuning: ['VR6 chip-tuning til 200hk','Lowering 30-40mm','Sporteksosanlegg VR6'],
+    fakta: ['Foerste Golf med airbag standard','VR6 med 2.8L V6 var flaggskipet','TDI-motoren revolusjonerte dieselmarkedet'],
+    spesifikasjoner: {vekt:'900-1100 kg', drivlinje:'FWD', girkasse:'5-trinns manuell/automat', bremser:'Skive for og bak (VR6)'}
+  },
+  // VW Golf 4
+  '6a1768af41abc193e4877d44': {
+    kjente_feil: ['Vinduheiser svikt','1.8T oljeforbruk (karbonrens)','Automatgirkasse 09A problemer','Termostathus sprekker'],
+    tuning: ['1.8T Stage 1: 200hk med ECU-tune','R32 motor-swap','Fahrwerk lowering 30-40mm','Wagner intercooler kit'],
+    fakta: ['R32 kun produsert i begrenset antall','4Motion 4WD tilgjengelig fra 1998','En av de mest tuningvennlige plattformene'],
+    spesifikasjoner: {vekt:'1050-1350 kg', drivlinje:'FWD/4Motion', girkasse:'5/6-trinns manuell, DSG', bremser:'Skive for og bak'}
+  },
+  // VW Golf 5 GTI
+  '6a1768af41abc193e4877d45': {
+    kjente_feil: ['Kamkjedestrekkere (EA888 tidlig)','Vannpumpe plast-impeller','DSG mechatronic-enhet','Styring vibrasjon'],
+    tuning: ['Stage 1 ECU: 240-250hk','Stage 2 med intercooler: 280hk','Forge dumpeventil','H&R fjaeringer'],
+    fakta: ['Edition 30 feiret 30 aar med GTI','EA888 2.0 TSI motor innfoert her','DSG6 girkasse standard'],
+    spesifikasjoner: {vekt:'1290-1350 kg', drivlinje:'FWD', girkasse:'6-trinns manuell / DSG6', bremser:'312mm skive foran'}
+  },
+  // VW Golf 6 GTI
+  '6a1768af41abc193e4877d46': {
+    kjente_feil: ['Tennplugger slites raskt','Karbonoppbygging innsugventiler','Termostathus','DSG mechatronic'],
+    tuning: ['Stage 1: 250-260hk','Stage 2 med FMIC: 300hk','MRC/APR ECU','Milltek eksosanlegg'],
+    fakta: ['Edition 35 feiret 35 aar med GTI','Golf GTI 6 vant mange magasinpriser','Skarpere chassistuning enn Mk5'],
+    spesifikasjoner: {vekt:'1310-1370 kg', drivlinje:'FWD', girkasse:'6-trinns manuell / DSG6', bremser:'312mm foran, 286mm bak'}
+  },
+  // VW Golf 7 GTI
+  '6a168f3808da9eadec9578d9': {
+    kjente_feil: ['Kamkjede strekk (EA888 gen3)','Vannpumpe-svikt','Harman Kardon lydanlegg feil','DQ250 DSG clutch-slitasje'],
+    tuning: ['Stage 1 APR/RacingLine: 260-270hk','Stage 2 med FMIC: 300hk','Stage 3 IS38 turbo: 350hk+','DSG-flash'],
+    fakta: ['Performance-pakken gir LSD og DCC','IS20 turbo standard, IS38 i Clubsport','VAQ elektronisk differensial standard'],
+    spesifikasjoner: {vekt:'1295-1385 kg', drivlinje:'FWD', girkasse:'6-trinns manuell / DSG6', bremser:'340mm PC foran (perf)'}
+  },
+  // VW Golf 8 GTI
+  '6a168f3808da9eadec9578d8': {
+    kjente_feil: ['Software-bugs MIB3 infotainment','Lydproblemer','12V batteri-svikt','Kjolelekke EA888 gen4'],
+    tuning: ['Stage 1: 280hk med OBD-flash','Stage 2 FMIC: 320hk','Stage 2+ IS38: 360hk','DSG8 flash'],
+    fakta: ['Foerste Golf med OBD-tuning fra start','Clubsport med 300hk fra fabrikk','MQB Evo plattform'],
+    spesifikasjoner: {vekt:'1340-1420 kg', drivlinje:'FWD', girkasse:'6-trinns manuell / DSG7', bremser:'340mm foran'}
+  },
+  // VW Golf R Mk8
+  '6a168f3808da9eadec9578da': {
+    kjente_feil: ['Haldex service viktig hvert 2. aar','DSG8 varme-problemer ved spoerkjoering','12V batteri svaer belastning'],
+    tuning: ['Stage 1: 370hk','Stage 2 FMIC: 400hk','Stage 3 IS38/IS20X: 450hk+','Haldex controller-oppgradering'],
+    fakta: ['Drift-modus og Nurburgring-modus standard','IS38 turbo fra Golf 7 R','0-100 paa 4,7 sek offisielt (reelt 4,2)'],
+    spesifikasjoner: {vekt:'1505 kg', drivlinje:'4Motion AWD', girkasse:'DSG8', bremser:'357mm foran'}
+  },
+  // Audi RS4 B5
+  '6a1768af41abc193e4877d5a': {
+    kjente_feil: ['Sylinderkoppakning (biturbo varmgang)','Olje-lekkasje turbo return','Haldex krevende ved modifisering','AAN motor RS2-arvtaker'],
+    tuning: ['Stage 1 ECU: 430hk','Stage 2 turbo-oppgradering: 500hk+','Wagner/TurboSmart dump-ventil','Milltek eksosanlegg'],
+    fakta: ['Kun produsert i 6054 eksemplarer','0-100 paa 4,9 sek i 2000','Basert paa Audi RS2 2.2 5-sylinder arv','Ble kaaaret til "beste RS-modell noensinne"'],
+    spesifikasjoner: {vekt:'1590 kg', drivlinje:'quattro AWD', girkasse:'6-trinns manuell', bremser:'345mm Brembo foran'}
+  },
+  // Audi A3 8P
+  '6a1768af41abc193e4877d4d': {
+    kjente_feil: ['Kamkjede-problemer EA888','DSG mechatronic','Vinduheiser','Servostyring pinion'],
+    tuning: ['S3 265hk Stage 1: 310hk','Stage 2 FMIC: 360hk','IS38 konvertering: 380hk+','Lowering 30mm'],
+    fakta: ['S3 8P bruker Golf 5 R32 DSG chassis','2.0 TDI 170hk meget populaer i Norge','Cabriolet tilgjengelig fra 2008'],
+    spesifikasjoner: {vekt:'1290-1480 kg', drivlinje:'FWD / quattro (S3)', girkasse:'6-trinns manuell / DSG6', bremser:'312mm foran'}
+  },
+  // Audi TT 8N
+  '6a1768af41abc193e4877d52': {
+    kjente_feil: ['Overstyr-problemer (tidlige 180hk FWD)','Spoilerpakke-krav etter ulykker','Vinduheiser','Kuplingssvikt 225hk'],
+    tuning: ['225hk Stage 1: 270hk','BAM/AMK motor-bytte','Forge dump-ventil','H&R fjaeringer'],
+    fakta: ['Audi la til hekkspoiler etter serieosulykkeer 1999','3.2 V6 DSG med fantastisk lyd','Ikonisk Bauhaus-design av Freeman Thomas'],
+    spesifikasjoner: {vekt:'1080-1305 kg', drivlinje:'FWD / quattro', girkasse:'5/6-trinns manuell / DSG6', bremser:'312mm foran (quattro)'}
+  },
+  // Audi A4 B5
+  '6a1768af41abc193e4877d4e': {
+    kjente_feil: ['Timing belt service (hvert 4. aar)','Tannseksjon paa styresnekken','Sentrallaaselektriske problemer'],
+    tuning: ['1.8T Stage 1: 200hk','Stage 2 FMIC: 230hk','RS4 biturbo-swap (stor jobb)','B5 S4 2.7T: relativt enkelt 400hk'],
+    fakta: ['RS4 B5 er den mest ettertraktede B5','S4 2.7T biturbo er rimelig brukt naa','1.9 TDI 110hk er nesten uoedeleggelig'],
+    spesifikasjoner: {vekt:'1150-1590 kg', drivlinje:'FWD / quattro', girkasse:'5-trinns manuell / 5-trinns automat', bremser:'288-345mm avhengig modell'}
+  },
+  // Audi A6 C5
+  '6a1768af41abc193e4877d51': {
+    kjente_feil: ['2.5 TDI V6 pumpeinjektorer dyre','RS6 biturbo varmgang','4.2 V8 timing kjede'],
+    tuning: ['RS6 Stage 1: 500hk','RS6 Stage 2 turbo: 600hk+','2.5 TDI remap: 180hk','Milltek RS6 eksosanlegg'],
+    fakta: ['RS6 C5 Plus med 480hk er en legende','Biturbo V8 4.2 er en mekanikers mareritt','2.5 TDI V6 holder gjerne 500 000 km med stell'],
+    spesifikasjoner: {vekt:'1460-1870 kg', drivlinje:'FWD / quattro', girkasse:'6-trinns manuell / tiptronic', bremser:'345mm Brembo (RS6)'}
+  },
+  // Porsche 911 996
+  '6a1768af41abc193e4877d58': {
+    kjente_feil: ['IMS-lager (intermediate shaft bearing)','RMS-lekkasje','Varmeapparat-kjerne (dyr)','M96 motor-problemer generelt'],
+    tuning: ['Sporteksosanlegg (Akrapovic/Milltek)','Motec ECU-flash','GT3-bremser retrofit','PCCB keramiske bremser oppgradering'],
+    fakta: ['IMS-lager kan loeses med IMS-retrofit kit','GT3 og Turbo har andre motorer uten IMS','Carrera 4S er den mest allsidige varianten','Foerste 911 med vannavkjoelt motor'],
+    spesifikasjoner: {vekt:'1320-1540 kg', drivlinje:'RWD / AWD (Carrera 4)', girkasse:'6-trinns manuell / Tiptronic', bremser:'318mm foran standard'}
+  },
+  // SEAT Leon Mk1 Cupra R
+  '6a1768af41abc193e4877d56': {
+    kjente_feil: ['1.8T karbonrens innsugventiler','Styrekule-ledd slitasje','Clutch slitasje (225hk)'],
+    tuning: ['Stage 1: 260hk','Stage 2 FMIC: 300hk','BAM/AMK motor (225hk fabrikk)','Forge intercooler'],
+    fakta: ['Cupra R er en av de billigste 225hk bruktbilene','Deler motor med Audi TT 225hk','Meget sporty chassistuning fra SEAT Sport'],
+    spesifikasjoner: {vekt:'1230 kg', drivlinje:'FWD', girkasse:'6-trinns manuell', bremser:'312mm Brembo foran'}
+  },
+  // Audi RS3 8Y
+  '6a168f3808da9eadec9578e2': {
+    kjente_feil: ['RS Torque Splitter krever regelmessig service','DSG8 varme ved trackday','Karbonrens 2.5 TFSI'],
+    tuning: ['Stage 1 ECU: 450hk','Stage 2 FMIC: 490hk','Stage 3 turbo: 550hk+','DSG8 flash'],
+    fakta: ['RS Torque Splitter er en verdensfoerrste','0-100 paa 3,8 sek offisielt','5-sylinder lyder er unikt i klassen','Nurburgring rekord for klassen'],
+    spesifikasjoner: {vekt:'1560 kg', drivlinje:'quattro AWD', girkasse:'DSG8', bremser:'370mm stempel-bremse foran'}
+  },
+  // Audi RS6 C8
+  '6a16ffdeb327fd4579eb05a1': {
+    kjente_feil: ['48V mild-hybrid batteri-service','Luftfjaering krevende (optional)','Karbonrens 4.0 V8'],
+    tuning: ['Stage 1 ECU: 680hk','Stage 2 downpipe: 720hk','Stage 3 turbo: 800hk+','ABT/MTM pakker'],
+    fakta: ['600hk og 800Nm fra fabrikk','0-100 paa 3,6 sek med 2185 kg','Tilgjengelig med keramiske karbonbremser','C8 er siste RS6 med forbrenningsmotor'],
+    spesifikasjoner: {vekt:'2185 kg', drivlinje:'quattro AWD', girkasse:'8-trinns tiptronic', bremser:'420mm keramisk optional'}
+  },
+  // CUPRA Formentor
+  '6a168f3808da9eadec9578ed': {
+    kjente_feil: ['VZ5 5-sylinder TFSI karbonrens','DSG7 koblingsslitasje ved sport-kjoering','Haldex service VZ'],
+    tuning: ['VZ5 Stage 1: 430hk','Stage 2: 480hk','Stage 3 turbo: 550hk+','Akrapovic titaneksosanlegg'],
+    fakta: ['VZ5 bruker samme 5-sylinder som RS3','390hk er hoeyeste effekt i klassen','CUPRAs beste salgsmodell globalt','Laget utelukkende som CUPRA-modell'],
+    spesifikasjoner: {vekt:'1540-1630 kg', drivlinje:'FWD / 4Drive AWD (VZ)', girkasse:'DSG7', bremser:'370mm foran (VZ5)'}
+  },
+  // VW Passat B5
+  '6a1768af41abc193e4877d47': {
+    kjente_feil: ['1.8T sludge-problemer (oljebytte hvert 7500km)','Throttle body rens','ABS-modul','Vindusheiser'],
+    tuning: ['1.8T Stage 1: 200hk','2.8 V6 4Motion tuning','W8 sound-oppgradering','Lowering 30mm'],
+    fakta: ['W8 med 4.0L V8 produsert i faerre enn 15 000 eks','1.9 TDI 130hk er Norges vanligste bruktbil-motor','Variant Syncro er svart populaer i vinterlandskap'],
+    spesifikasjoner: {vekt:'1280-1700 kg', drivlinje:'FWD / 4Motion', girkasse:'5/6-trinns manuell / automat', bremser:'288-316mm'}
+  },
+  // Skoda Octavia Mk2 RS
+  '6a1768af41abc193e4877d55': {
+    kjente_feil: ['Kamkjede EA888','DSG mechatronic','Gummilist tak','Vindusheiser'],
+    tuning: ['RS 2.0 TFSI Stage 1: 240hk','Stage 2: 280hk','Stage 2+: 320hk','Lowering med Eibach'],
+    fakta: ['En av de beste priser-per-ytelse bilene noensinne','2.0 TDI 170hk RS diesel meget sjelden','Wagon (Combi) er meget populaer i Norge'],
+    spesifikasjoner: {vekt:'1310-1480 kg', drivlinje:'FWD / 4x4', girkasse:'6-trinns manuell / DSG', bremser:'312mm foran (RS)'}
+  },
+};
+
 const guides = [
   {id:'6a1763e31a4aea848a9c9e77',title:'Xenon/LED hovedlykter — justering og bytte pære',category:'Lys og elektrisk',difficulty:'Lett',vag_models:'VW Passat B8, VW Tiguan Mk2, Audi A4 B9, Audi Q5 FY, Skoda Superb Mk3',estimated_time:'30-60 min',is_premium:false},
   {id:'6a1763e31a4aea848a9c9e78',title:'Differensial bak — oljeskift Haldex gen 4/5',category:'Drivlinje',difficulty:'Middels',vag_models:'VW Golf R Mk7, VW Golf R Mk8, Audi S3 Sportback 8V, Audi RS3 Sportback 8Y, CUPRA Formentor VZ',estimated_time:'1.5-2 timer',is_premium:true},
@@ -679,11 +842,50 @@ function clearPlateFilter(){
 }
 function openModel(id){
   const m=models.find(x=>x.id===id); if(!m)return;
+  const ex=modelExtra[id]||{};
+  const specs=ex.spesifikasjoner||{};
+  const specsHtml=Object.keys(specs).length?`
+    <div class="minfo-block">
+      <div class="minfo-title">⚙️ Spesifikasjoner</div>
+      <div class="specs-grid">
+        ${specs.vekt?`<div class="spec-row"><span class="spec-lbl">Vekt</span><span class="spec-val">${specs.vekt}</span></div>`:''}
+        ${specs.drivlinje?`<div class="spec-row"><span class="spec-lbl">Drivlinje</span><span class="spec-val">${specs.drivlinje}</span></div>`:''}
+        ${specs.girkasse?`<div class="spec-row"><span class="spec-lbl">Girkasse</span><span class="spec-val">${specs.girkasse}</span></div>`:''}
+        ${specs.bremser?`<div class="spec-row"><span class="spec-lbl">Bremser</span><span class="spec-val">${specs.bremser}</span></div>`:''}
+      </div>
+    </div>`:'';
+  const feilHtml=ex.kjente_feil&&ex.kjente_feil.length?`
+    <div class="minfo-block">
+      <div class="minfo-title">⚠️ Kjente svakheter</div>
+      <ul class="minfo-list">${ex.kjente_feil.map(f=>`<li>${f}</li>`).join('')}</ul>
+    </div>`:'';
+  const tuningHtml=ex.tuning&&ex.tuning.length?`
+    <div class="minfo-block">
+      <div class="minfo-title">🔧 Tuning-potensiale</div>
+      <ul class="minfo-list">${ex.tuning.map(t=>`<li>${t}</li>`).join('')}</ul>
+    </div>`:'';
+  const faktaHtml=ex.fakta&&ex.fakta.length?`
+    <div class="minfo-block">
+      <div class="minfo-title">💡 Visste du at?</div>
+      <ul class="minfo-list">${ex.fakta.map(f=>`<li>${f}</li>`).join('')}</ul>
+    </div>`:'';
+  // Relevante guider
+  const relGuides=guides.filter(g=>(g.bmw_models&&g.bmw_models.includes&&g.bmw_models.includes(m.name))||(g.title&&m.name&&g.title.toLowerCase().includes(m.name.toLowerCase().split(' ')[0]))).slice(0,3);
+  const guidesHtml=relGuides.length?`
+    <div class="minfo-block">
+      <div class="minfo-title">📖 Relevante guider</div>
+      ${relGuides.map(g=>`<div class="rel-guide" onclick="closeModal();openGuide('${g.id}')">${g.title} <span class="mtag" style="font-size:.7rem">${g.category||''}</span></div>`).join('')}
+    </div>`:'';
   document.getElementById('modal-body').innerHTML=`
     <div class="mtitle">${m.name}</div>
-    <div class="mmeta"><span class="mtag">${m.brand||''}</span><span class="mtag">${m.year_range||''}</span>${m.engine_options?`<span class="mtag">${m.engine_options}</span>`:''}</div>
-    ${m.image_url?`<img src="${m.image_url}" style="width:100%;border-radius:12px;margin-bottom:.9rem;object-fit:cover;max-height:180px" alt="${m.name}">` :''}
-    <div class="mbody">${m.description||'Ingen beskrivelse.'}</div>`;
+    <div class="mmeta">
+      <span class="mtag">${m.brand||''}</span>
+      <span class="mtag">📅 ${m.year_range||''}</span>
+      ${m.engine_options?`<span class="mtag">🔩 ${m.engine_options}</span>`:''}
+    </div>
+    ${m.image_url?`<img src="${m.image_url}" style="width:100%;border-radius:12px;margin:.6rem 0 .9rem;object-fit:cover;max-height:200px" alt="${m.name}">`:''}
+    <div class="mbody" style="margin-bottom:.8rem">${m.description||'Ingen beskrivelse.'}</div>
+    ${specsHtml}${feilHtml}${tuningHtml}${faktaHtml}${guidesHtml}`;
   document.getElementById('modal').classList.add('open');
 }
 
