@@ -579,153 +579,367 @@ const models = [
 ];
 
 
+
 const modelExtra = {
-  // VW Golf 1
-  '6a1768af41abc193e4877d41': {
-    kjente_feil: ['Rust i terskel og hjulbuer','Forgasser-problemer på tidlige motorer','Slitt girmekanisme'],
-    tuning: ['1.8T motor-bytte (Golf 4 1.8T passer)','Weber-forgasser oppgradering','Suspension lowering med originale fjærer'],
-    fakta: ['Produsert i 6,98 millioner eksemplarer','GTI ble lansert på Frankfurt-messen 1975','0-100 på 9 sek for originale GTI'],
-    spesifikasjoner: {vekt:'750-900 kg', drivlinje:'FWD', girkasse:'4-trinns manuell', bremser:'Skive foran, trommel bak'}
+  '6a1768af41abc193e4877d41': { // VW Golf 1 Mk1
+    spesifikasjoner:{vekt:'750-900 kg',drivlinje:'FWD',girkasse:'4-trinns manuell',bremser:'Skive foran, trommel bak',topphastighet:'182 km/t (GTI)',dreiemoment:'140 Nm (GTI)'},
+    kjente_feil:['Rust i terskel og hjulbuer','Forgasser-problemer tidlige motorer','Slitt girmekanisme','Veivakseltetting'],
+    tuning:['1.8T motor-swap (Golf 4 1.8T)','Weber DCOE forgasser','H&R lowering springs','Bremseopp­gradering skive bak'],
+    fakta:['GTI lansert Frankfurt-messen 1975','6,98 millioner produsert totalt','0-100 på 9 sek for original GTI 110hk','Designet av Giugiaro/Italdesign']
   },
-  // VW Golf 2
-  '6a1768af41abc193e4877d42': {
-    kjente_feil: ['Rust under batterihylle','Vannpumpe svikt','Sentrallås-problemer'],
-    tuning: ['16V G60-motor konvertering','Lowering med H&R eller Eibach','Strut bar foran'],
-    fakta: ['GTI 16V med 139hk kom 1985','G60 Supercharger-versjon produsert i 70 000 eks','Europeisk Car of the Year 1984'],
-    spesifikasjoner: {vekt:'820-980 kg', drivlinje:'FWD', girkasse:'4/5-trinns manuell', bremser:'Skive foran, trommel/skive bak'}
+  '6a1768af41abc193e4877d42': { // VW Golf 2 Mk2
+    spesifikasjoner:{vekt:'820-980 kg',drivlinje:'FWD',girkasse:'4/5-trinns manuell',bremser:'Skive foran, trommel/skive bak',topphastighet:'195 km/t (GTI 16V)',dreiemoment:'168 Nm (GTI 16V)'},
+    kjente_feil:['Rust under batterihylle','Vannpumpe-svikt','Sentrallås elektrisk','Bremsecylinder'],
+    tuning:['16V G60 motor-konvertering','Lowering H&R/Eibach','Strut bar foran','Storpistong brems-kit'],
+    fakta:['GTI 16V med 139hk kom 1985','G60 Supercharger 160hk produsert 70 000 eks','Car of the Year 1984','Produsert til 1992 i 6,3 mill. eks']
   },
-  // VW Golf 3
-  '6a1768af41abc193e4877d43': {
-    kjente_feil: ['Tennspole-svikt på VR6','Kjoelervann-lekkasje','ABS-sensor problemer'],
-    tuning: ['VR6 chip-tuning til 200hk','Lowering 30-40mm','Sporteksosanlegg VR6'],
-    fakta: ['Foerste Golf med airbag standard','VR6 med 2.8L V6 var flaggskipet','TDI-motoren revolusjonerte dieselmarkedet'],
-    spesifikasjoner: {vekt:'900-1100 kg', drivlinje:'FWD', girkasse:'5-trinns manuell/automat', bremser:'Skive for og bak (VR6)'}
+  '6a1768af41abc193e4877d43': { // VW Golf 3 Mk3
+    spesifikasjoner:{vekt:'900-1100 kg',drivlinje:'FWD',girkasse:'5-trinns manuell/automat',bremser:'Skive foran/bak (VR6)',topphastighet:'235 km/t (VR6)',dreiemoment:'235 Nm (VR6)'},
+    kjente_feil:['Tennspole-svikt VR6','Kjølevann-lekkasje','ABS-sensor problemer','Rust bunnsarg'],
+    tuning:['VR6 chip-tune 200hk','Sporteksosanlegg','30mm lowering','VR6 storpistong bremser'],
+    fakta:['Første Golf med airbag standard','VR6 2.8L det tekniske høydepunktet','TDI revolusjonerte dieselmarkedet','Introduserte katalysator som standard']
   },
-  // VW Golf 4
-  '6a1768af41abc193e4877d44': {
-    kjente_feil: ['Vinduheiser svikt','1.8T oljeforbruk (karbonrens)','Automatgirkasse 09A problemer','Termostathus sprekker'],
-    tuning: ['1.8T Stage 1: 200hk med ECU-tune','R32 motor-swap','Fahrwerk lowering 30-40mm','Wagner intercooler kit'],
-    fakta: ['R32 kun produsert i begrenset antall','4Motion 4WD tilgjengelig fra 1998','En av de mest tuningvennlige plattformene'],
-    spesifikasjoner: {vekt:'1050-1350 kg', drivlinje:'FWD/4Motion', girkasse:'5/6-trinns manuell, DSG', bremser:'Skive for og bak'}
+  '6a1768af41abc193e4877d44': { // VW Golf 4 Mk4
+    spesifikasjoner:{vekt:'1050-1350 kg',drivlinje:'FWD / 4Motion',girkasse:'5/6-trinns manuell, DSG',bremser:'Skive for og bak',topphastighet:'250 km/t (R32)',dreiemoment:'320 Nm (R32)'},
+    kjente_feil:['Vindusheis­motorer svikt','1.8T oljeforbruk (karbonrens)','Automat 09A svikt','Termostathus sprekker','Bremseklosser slites fort'],
+    tuning:['1.8T Stage 1 ECU: 200hk','R32 motor-swap','Fahrwerk 30-40mm lowering','Wagner intercooler','APR ECU'],
+    fakta:['R32 kun begrenset antall produsert','4Motion 4WD fra 1998','En av mest tuningvennlige plattformene','Plattform for Audi TT, S3, Leon']
   },
-  // VW Golf 5 GTI
-  '6a1768af41abc193e4877d45': {
-    kjente_feil: ['Kamkjedestrekkere (EA888 tidlig)','Vannpumpe plast-impeller','DSG mechatronic-enhet','Styring vibrasjon'],
-    tuning: ['Stage 1 ECU: 240-250hk','Stage 2 med intercooler: 280hk','Forge dumpeventil','H&R fjaeringer'],
-    fakta: ['Edition 30 feiret 30 aar med GTI','EA888 2.0 TSI motor innfoert her','DSG6 girkasse standard'],
-    spesifikasjoner: {vekt:'1290-1350 kg', drivlinje:'FWD', girkasse:'6-trinns manuell / DSG6', bremser:'312mm skive foran'}
+  '6a1768af41abc193e4877d45': { // VW Golf 5 GTI
+    spesifikasjoner:{vekt:'1290-1350 kg',drivlinje:'FWD',girkasse:'6-trinns manuell / DSG6',bremser:'312mm skive foran',topphastighet:'240 km/t',dreiemoment:'280 Nm'},
+    kjente_feil:['Kamkjede­strekkere EA888','Vannpumpe plast-impeller','DSG mechatronic','Styring vibrasjon','Tennspoler'],
+    tuning:['Stage 1 ECU: 240-250hk','Stage 2 intercooler: 280hk','Forge dump­ventil','H&R/Eibach fjæringer','Milltek eksosanlegg'],
+    fakta:['Edition 30 feiret 30 år med GTI','EA888 2.0 TSI innført her','DSG6 standard','IS20 turbo fra fabrikk']
   },
-  // VW Golf 6 GTI
-  '6a1768af41abc193e4877d46': {
-    kjente_feil: ['Tennplugger slites raskt','Karbonoppbygging innsugventiler','Termostathus','DSG mechatronic'],
-    tuning: ['Stage 1: 250-260hk','Stage 2 med FMIC: 300hk','MRC/APR ECU','Milltek eksosanlegg'],
-    fakta: ['Edition 35 feiret 35 aar med GTI','Golf GTI 6 vant mange magasinpriser','Skarpere chassistuning enn Mk5'],
-    spesifikasjoner: {vekt:'1310-1370 kg', drivlinje:'FWD', girkasse:'6-trinns manuell / DSG6', bremser:'312mm foran, 286mm bak'}
+  '6a1768af41abc193e4877d46': { // VW Golf 6 GTI
+    spesifikasjoner:{vekt:'1310-1370 kg',drivlinje:'FWD',girkasse:'6-trinns manuell / DSG6',bremser:'312mm foran, 286mm bak',topphastighet:'246 km/t',dreiemoment:'280 Nm (300 Nm DSG)'},
+    kjente_feil:['Tennplugger slites raskt','Karbonoppbygging innsug','Termostathus','DSG mechatronic','Tennspoler'],
+    tuning:['Stage 1: 250-260hk','Stage 2 FMIC: 300hk','MRC/APR ECU','Milltek eksosanlegg','RacingLine intake'],
+    fakta:['Edition 35 feiret 35 år GTI','Skarpere chassis enn Mk5','Ble kåret til beste GTI av mange magasiner','EA888 gen2 motor']
   },
-  // VW Golf 7 GTI
-  '6a168f3808da9eadec9578d9': {
-    kjente_feil: ['Kamkjede strekk (EA888 gen3)','Vannpumpe-svikt','Harman Kardon lydanlegg feil','DQ250 DSG clutch-slitasje'],
-    tuning: ['Stage 1 APR/RacingLine: 260-270hk','Stage 2 med FMIC: 300hk','Stage 3 IS38 turbo: 350hk+','DSG-flash'],
-    fakta: ['Performance-pakken gir LSD og DCC','IS20 turbo standard, IS38 i Clubsport','VAQ elektronisk differensial standard'],
-    spesifikasjoner: {vekt:'1295-1385 kg', drivlinje:'FWD', girkasse:'6-trinns manuell / DSG6', bremser:'340mm PC foran (perf)'}
+  '6a1768af41abc193e4877d47': { // VW Passat B5
+    spesifikasjoner:{vekt:'1280-1700 kg',drivlinje:'FWD / 4Motion',girkasse:'5/6-trinns manuell / automat',bremser:'288-316mm',topphastighet:'250 km/t (W8)',dreiemoment:'330 Nm (2.8 V6)'},
+    kjente_feil:['1.8T sludge (oljebytte 7500km)','Throttle body rens','ABS-modul','Vindusheis­motorer','Climatronic problemer'],
+    tuning:['1.8T Stage 1: 200hk','2.8 V6 4Motion remap','W8 eksosanlegg','30mm lowering','Chip 1.9 TDI 150hk'],
+    fakta:['W8 med 4.0L V8 under 15 000 produsert','1.9 TDI 130hk Norges vanligste bruktbil-motor','Variant Syncro svært populær vinter','Plattform delt med Audi A4 B5']
   },
-  // VW Golf 8 GTI
-  '6a168f3808da9eadec9578d8': {
-    kjente_feil: ['Software-bugs MIB3 infotainment','Lydproblemer','12V batteri-svikt','Kjolelekke EA888 gen4'],
-    tuning: ['Stage 1: 280hk med OBD-flash','Stage 2 FMIC: 320hk','Stage 2+ IS38: 360hk','DSG8 flash'],
-    fakta: ['Foerste Golf med OBD-tuning fra start','Clubsport med 300hk fra fabrikk','MQB Evo plattform'],
-    spesifikasjoner: {vekt:'1340-1420 kg', drivlinje:'FWD', girkasse:'6-trinns manuell / DSG7', bremser:'340mm foran'}
+  '6a1768af41abc193e4877d48': { // VW Passat B6
+    spesifikasjoner:{vekt:'1390-1660 kg',drivlinje:'FWD / 4Motion',girkasse:'6-trinns manuell / DSG / automat',bremser:'312-334mm',topphastighet:'250 km/t (3.6 V6)',dreiemoment:'350 Nm (2.0 TDI 170)'},
+    kjente_feil:['EGR-ventil tetting TDI','DSG mechatronic','Climatronic sensorer','Bakakselbussinger','Massemåler'],
+    tuning:['2.0 TDI 140 Stage 1: 170hk','2.0 TDI 170 Stage 1: 200hk','R36 3.6 V6 remap','DSG-flash','DPF-fjerning (off-road)'],
+    fakta:['Første Passat med DSG','GTE Plug-in Hybrid fra 2015','2.0 TDI 140hk mest solgte variant Norge','R36 med 300hk er sjelden og ettertraktet']
   },
-  // VW Golf R Mk8
-  '6a168f3808da9eadec9578da': {
-    kjente_feil: ['Haldex service viktig hvert 2. aar','DSG8 varme-problemer ved spoerkjoering','12V batteri svaer belastning'],
-    tuning: ['Stage 1: 370hk','Stage 2 FMIC: 400hk','Stage 3 IS38/IS20X: 450hk+','Haldex controller-oppgradering'],
-    fakta: ['Drift-modus og Nurburgring-modus standard','IS38 turbo fra Golf 7 R','0-100 paa 4,7 sek offisielt (reelt 4,2)'],
-    spesifikasjoner: {vekt:'1505 kg', drivlinje:'4Motion AWD', girkasse:'DSG8', bremser:'357mm foran'}
+  '6a1768af41abc193e4877d49': { // VW Polo 6N
+    spesifikasjoner:{vekt:'835-960 kg',drivlinje:'FWD',girkasse:'5-trinns manuell',bremser:'239-256mm foran',topphastighet:'185 km/t (GTI)',dreiemoment:'155 Nm (GTI)'},
+    kjente_feil:['Rust bunnsarg','Oljelekkasje ventildeksel','Startmotor svikt','Centrallås'],
+    tuning:['GTI 1.6 chip-tune 135hk','Forge ventil','Lowering 30mm','Sporteksosanlegg'],
+    fakta:['6N2 facelift 1999 med ny motor','GTI 1.6 16V 120hk er morsom','SDI er nesten uødeleggelig','Solgt i 1,7 millioner eksemplarer']
   },
-  // Audi RS4 B5
-  '6a1768af41abc193e4877d5a': {
-    kjente_feil: ['Sylinderkoppakning (biturbo varmgang)','Olje-lekkasje turbo return','Haldex krevende ved modifisering','AAN motor RS2-arvtaker'],
-    tuning: ['Stage 1 ECU: 430hk','Stage 2 turbo-oppgradering: 500hk+','Wagner/TurboSmart dump-ventil','Milltek eksosanlegg'],
-    fakta: ['Kun produsert i 6054 eksemplarer','0-100 paa 4,9 sek i 2000','Basert paa Audi RS2 2.2 5-sylinder arv','Ble kaaaret til "beste RS-modell noensinne"'],
-    spesifikasjoner: {vekt:'1590 kg', drivlinje:'quattro AWD', girkasse:'6-trinns manuell', bremser:'345mm Brembo foran'}
+  '6a1768af41abc193e4877d4a': { // VW Polo 9N
+    spesifikasjoner:{vekt:'990-1110 kg',drivlinje:'FWD',girkasse:'5-trinns manuell / automat',bremser:'256mm foran',topphastighet:'218 km/t (GTI)',dreiemoment:'195 Nm (GTI)'},
+    kjente_feil:['Kamkjede 1.2 12V','Clutch slitasje GTI','Trottelhus 1.4','Tennspoler'],
+    tuning:['GTI 1.8T Stage 1: 190hk','Stage 2: 220hk','Lowering 30mm','OEM+ pakke'],
+    fakta:['GTI 9N med 150hk er en ekte hot hatch','1.9 TDI 100hk holder 400 000km','Polo BlueMotion under 4L/100km','Solgt i 1,8 millioner eksemplarer']
   },
-  // Audi A3 8P
-  '6a1768af41abc193e4877d4d': {
-    kjente_feil: ['Kamkjede-problemer EA888','DSG mechatronic','Vinduheiser','Servostyring pinion'],
-    tuning: ['S3 265hk Stage 1: 310hk','Stage 2 FMIC: 360hk','IS38 konvertering: 380hk+','Lowering 30mm'],
-    fakta: ['S3 8P bruker Golf 5 R32 DSG chassis','2.0 TDI 170hk meget populaer i Norge','Cabriolet tilgjengelig fra 2008'],
-    spesifikasjoner: {vekt:'1290-1480 kg', drivlinje:'FWD / quattro (S3)', girkasse:'6-trinns manuell / DSG6', bremser:'312mm foran'}
+  '6a1768af41abc193e4877d4b': { // VW Tiguan Mk1
+    spesifikasjoner:{vekt:'1545-1850 kg',drivlinje:'FWD / 4Motion',girkasse:'6-trinns manuell / automat / DSG',bremser:'312-330mm',topphastighet:'210 km/t (2.0 TSI)',dreiemoment:'280 Nm (2.0 TSI)'},
+    kjente_feil:['Haldex service viktig','DQ250 DSG clutch','Rustutvikling hjulbuer tidlig','Klimaanlegg kompressor'],
+    tuning:['2.0 TSI Stage 1: 240hk','2.0 TDI Stage 1: 175hk','Haldex controller','Lowering 30-35mm'],
+    fakta:['Basert på Golf 5 plattform','Første kompakt-SUV fra VW','2.0 TDI 4Motion mest populær Norge','Tiguan II kom 2016 med lengre akselavstand']
   },
-  // Audi TT 8N
-  '6a1768af41abc193e4877d52': {
-    kjente_feil: ['Overstyr-problemer (tidlige 180hk FWD)','Spoilerpakke-krav etter ulykker','Vinduheiser','Kuplingssvikt 225hk'],
-    tuning: ['225hk Stage 1: 270hk','BAM/AMK motor-bytte','Forge dump-ventil','H&R fjaeringer'],
-    fakta: ['Audi la til hekkspoiler etter serieosulykkeer 1999','3.2 V6 DSG med fantastisk lyd','Ikonisk Bauhaus-design av Freeman Thomas'],
-    spesifikasjoner: {vekt:'1080-1305 kg', drivlinje:'FWD / quattro', girkasse:'5/6-trinns manuell / DSG6', bremser:'312mm foran (quattro)'}
+  '6a1768af41abc193e4877d4c': { // Audi A3 8L
+    spesifikasjoner:{vekt:'1075-1320 kg',drivlinje:'FWD / quattro (S3)',girkasse:'5/6-trinns manuell / automat',bremser:'288-312mm',topphastighet:'243 km/t (S3)',dreiemoment:'270 Nm (S3)'},
+    kjente_feil:['1.8T oljeforbruk','Tennspoler svikt','ABS-sensor','Vindusheis','Bremsekloss sensor'],
+    tuning:['1.8T Stage 1: 200hk','S3 Stage 1: 240hk','Stage 2 FMIC: 280hk','BAM motor swap','H&R lowering'],
+    fakta:['S3 8L kun med 210hk fra fabrikk','Quattro 4WD via Haldex','Golf 4-plattform basis','S3 8L er ettertraktet samlerbil']
   },
-  // Audi A4 B5
-  '6a1768af41abc193e4877d4e': {
-    kjente_feil: ['Timing belt service (hvert 4. aar)','Tannseksjon paa styresnekken','Sentrallaaselektriske problemer'],
-    tuning: ['1.8T Stage 1: 200hk','Stage 2 FMIC: 230hk','RS4 biturbo-swap (stor jobb)','B5 S4 2.7T: relativt enkelt 400hk'],
-    fakta: ['RS4 B5 er den mest ettertraktede B5','S4 2.7T biturbo er rimelig brukt naa','1.9 TDI 110hk er nesten uoedeleggelig'],
-    spesifikasjoner: {vekt:'1150-1590 kg', drivlinje:'FWD / quattro', girkasse:'5-trinns manuell / 5-trinns automat', bremser:'288-345mm avhengig modell'}
+  '6a1768af41abc193e4877d4d': { // Audi A3 8P
+    spesifikasjoner:{vekt:'1290-1480 kg',drivlinje:'FWD / quattro (S3)',girkasse:'6-trinns manuell / DSG6',bremser:'312-340mm (S3)',topphastighet:'250 km/t (S3)',dreiemoment:'350 Nm (S3)'},
+    kjente_feil:['Kamkjede EA888 gen1','DSG mechatronic','Vindusheis','Servostyring pinion','Luftinntak-sensor'],
+    tuning:['S3 265hk Stage 1: 310hk','Stage 2 FMIC: 360hk','IS38 konvertering: 380hk+','Lowering 30mm','APR ECU'],
+    fakta:['S3 8P bruker Golf R32 chassis','2.0 TDI 170hk populær Norge','Cabriolet fra 2008','Sportback 5-dørs fra 2004']
   },
-  // Audi A6 C5
-  '6a1768af41abc193e4877d51': {
-    kjente_feil: ['2.5 TDI V6 pumpeinjektorer dyre','RS6 biturbo varmgang','4.2 V8 timing kjede'],
-    tuning: ['RS6 Stage 1: 500hk','RS6 Stage 2 turbo: 600hk+','2.5 TDI remap: 180hk','Milltek RS6 eksosanlegg'],
-    fakta: ['RS6 C5 Plus med 480hk er en legende','Biturbo V8 4.2 er en mekanikers mareritt','2.5 TDI V6 holder gjerne 500 000 km med stell'],
-    spesifikasjoner: {vekt:'1460-1870 kg', drivlinje:'FWD / quattro', girkasse:'6-trinns manuell / tiptronic', bremser:'345mm Brembo (RS6)'}
+  '6a1768af41abc193e4877d4e': { // Audi A4 B5
+    spesifikasjoner:{vekt:'1150-1590 kg',drivlinje:'FWD / quattro',girkasse:'5-trinns manuell / automat',bremser:'288-345mm (RS4)',topphastighet:'250 km/t (RS4)',dreiemoment:'440 Nm (RS4 biturbo)'},
+    kjente_feil:['Timing belt 4 år/60 000km','Styresnekke tannseksjon','Sentrallås elektrisk','1.8T oljesludge'],
+    tuning:['1.8T Stage 1: 200hk','S4 2.7T Stage 1: 320hk','RS4 Stage 1 ECU: 430hk','Chip 1.9 TDI: 150hk','Milltek eksosanlegg'],
+    fakta:['RS4 B5 produsert i kun 6054 eks','S4 2.7T biturbo er rimelig brukt nå','1.9 TDI nesten uødeleggelig','Plattform delt med VW Passat B5']
   },
-  // Porsche 911 996
-  '6a1768af41abc193e4877d58': {
-    kjente_feil: ['IMS-lager (intermediate shaft bearing)','RMS-lekkasje','Varmeapparat-kjerne (dyr)','M96 motor-problemer generelt'],
-    tuning: ['Sporteksosanlegg (Akrapovic/Milltek)','Motec ECU-flash','GT3-bremser retrofit','PCCB keramiske bremser oppgradering'],
-    fakta: ['IMS-lager kan loeses med IMS-retrofit kit','GT3 og Turbo har andre motorer uten IMS','Carrera 4S er den mest allsidige varianten','Foerste 911 med vannavkjoelt motor'],
-    spesifikasjoner: {vekt:'1320-1540 kg', drivlinje:'RWD / AWD (Carrera 4)', girkasse:'6-trinns manuell / Tiptronic', bremser:'318mm foran standard'}
+  '6a1768af41abc193e4877d4f': { // Audi A4 B6
+    spesifikasjoner:{vekt:'1245-1680 kg',drivlinje:'FWD / quattro',girkasse:'6-trinns manuell / CVT / multitronic',bremser:'288-365mm (RS4)',topphastighet:'250 km/t (RS4)',dreiemoment:'420 Nm (RS4 V8)'},
+    kjente_feil:['Multitronic CVT svikt','Timing kjede 3.0 V6','1.9 TDI pumpeinjektorer','EGR-ventil tetting'],
+    tuning:['1.8T Stage 1: 200hk','RS4 4.2 V8 Stage 1: 450hk','3.0 TDI remap: 230hk','Milltek RS4 eksosanlegg'],
+    fakta:['RS4 B6 Cabriolet 4.2 V8 meget sjelden','1.9 TDI 130hk holder 500 000km','Multitronic CVT er kjent upålitelig','Cabriolet tilgjengelig B6']
   },
-  // SEAT Leon Mk1 Cupra R
-  '6a1768af41abc193e4877d56': {
-    kjente_feil: ['1.8T karbonrens innsugventiler','Styrekule-ledd slitasje','Clutch slitasje (225hk)'],
-    tuning: ['Stage 1: 260hk','Stage 2 FMIC: 300hk','BAM/AMK motor (225hk fabrikk)','Forge intercooler'],
-    fakta: ['Cupra R er en av de billigste 225hk bruktbilene','Deler motor med Audi TT 225hk','Meget sporty chassistuning fra SEAT Sport'],
-    spesifikasjoner: {vekt:'1230 kg', drivlinje:'FWD', girkasse:'6-trinns manuell', bremser:'312mm Brembo foran'}
+  '6a1768af41abc193e4877d50': { // Audi A4 B7
+    spesifikasjoner:{vekt:'1310-1720 kg',drivlinje:'FWD / quattro',girkasse:'6-trinns manuell / DSG / multitronic',bremser:'312-365mm (RS4)',topphastighet:'250 km/t (RS4)',dreiemoment:'430 Nm (RS4 V8)'},
+    kjente_feil:['RS4 4.2 V8 timing kjede dyr','Multitronic CVT svikt','Kjølevann-ekspansjon­tank','2.0 TFSI høyt oljeforbruk'],
+    tuning:['2.0 TFSI Stage 1: 230hk','RS4 4.2 Stage 1: 450hk','DSG-flash','Milltek downpipe RS4','RS4 Capristo eksosanlegg'],
+    fakta:['RS4 B7 med 4.2 V8 lyd er legendarisk','B7 RS4 siste med V8 i A4','2.0 TFSI med DSG populær combo','Avant og Cabriolet tilgjengelig']
   },
-  // Audi RS3 8Y
-  '6a168f3808da9eadec9578e2': {
-    kjente_feil: ['RS Torque Splitter krever regelmessig service','DSG8 varme ved trackday','Karbonrens 2.5 TFSI'],
-    tuning: ['Stage 1 ECU: 450hk','Stage 2 FMIC: 490hk','Stage 3 turbo: 550hk+','DSG8 flash'],
-    fakta: ['RS Torque Splitter er en verdensfoerrste','0-100 paa 3,8 sek offisielt','5-sylinder lyder er unikt i klassen','Nurburgring rekord for klassen'],
-    spesifikasjoner: {vekt:'1560 kg', drivlinje:'quattro AWD', girkasse:'DSG8', bremser:'370mm stempel-bremse foran'}
+  '6a1768af41abc193e4877d51': { // Audi A6 C5
+    spesifikasjoner:{vekt:'1460-1870 kg',drivlinje:'FWD / quattro',girkasse:'6-trinns manuell / tiptronic',bremser:'312-345mm (RS6)',topphastighet:'250 km/t (RS6)',dreiemoment:'560 Nm (RS6 Plus)'},
+    kjente_feil:['2.5 TDI V6 pumpeinjektorer dyre','RS6 biturbo varme','4.2 V8 timing kjede','Vakuumpumpe 2.5 TDI'],
+    tuning:['RS6 Stage 1: 500hk','RS6 Stage 2 turbo: 600hk+','2.5 TDI remap: 180hk','Milltek RS6 eksosanlegg'],
+    fakta:['RS6 C5 Plus 480hk er en VAG-legende','2.5 TDI V6 holder gjerne 500 000km','S6 4.2 V8 340hk er sjelden og undervurdert','Allroad med luftfjæring populær']
   },
-  // Audi RS6 C8
-  '6a16ffdeb327fd4579eb05a1': {
-    kjente_feil: ['48V mild-hybrid batteri-service','Luftfjaering krevende (optional)','Karbonrens 4.0 V8'],
-    tuning: ['Stage 1 ECU: 680hk','Stage 2 downpipe: 720hk','Stage 3 turbo: 800hk+','ABT/MTM pakker'],
-    fakta: ['600hk og 800Nm fra fabrikk','0-100 paa 3,6 sek med 2185 kg','Tilgjengelig med keramiske karbonbremser','C8 er siste RS6 med forbrenningsmotor'],
-    spesifikasjoner: {vekt:'2185 kg', drivlinje:'quattro AWD', girkasse:'8-trinns tiptronic', bremser:'420mm keramisk optional'}
+  '6a1768af41abc193e4877d52': { // Audi TT 8N
+    spesifikasjoner:{vekt:'1080-1305 kg',drivlinje:'FWD / quattro',girkasse:'5/6-trinns manuell / DSG6',bremser:'312mm (quattro)',topphastighet:'243 km/t (225hk)',dreiemoment:'280 Nm (225hk)'},
+    kjente_feil:['Overstyr FWD (hekkspoiler­krav 1999)','Vindusheis','Kuplingssvikt 225hk','Tennspole­pakke'],
+    tuning:['225hk Stage 1: 270hk','BAM/AMK motor-bytte','Forge dump­ventil','H&R lowering','3.2 V6 Milltek eksosanlegg'],
+    fakta:['Audi la til hekkspoiler etter ulykker 1999','3.2 V6 DSG med fantastisk lyd','Ikonisk Bauhaus-design av Freeman Thomas','Produsert 1998-2006 i 200 000 eks']
   },
-  // CUPRA Formentor
-  '6a168f3808da9eadec9578ed': {
-    kjente_feil: ['VZ5 5-sylinder TFSI karbonrens','DSG7 koblingsslitasje ved sport-kjoering','Haldex service VZ'],
-    tuning: ['VZ5 Stage 1: 430hk','Stage 2: 480hk','Stage 3 turbo: 550hk+','Akrapovic titaneksosanlegg'],
-    fakta: ['VZ5 bruker samme 5-sylinder som RS3','390hk er hoeyeste effekt i klassen','CUPRAs beste salgsmodell globalt','Laget utelukkende som CUPRA-modell'],
-    spesifikasjoner: {vekt:'1540-1630 kg', drivlinje:'FWD / 4Drive AWD (VZ)', girkasse:'DSG7', bremser:'370mm foran (VZ5)'}
+  '6a1768af41abc193e4877d53': { // Audi TT 8J
+    spesifikasjoner:{vekt:'1225-1450 kg',drivlinje:'FWD / quattro (TTS/RS)',girkasse:'6-trinns manuell / DSG',bremser:'312-370mm (TT RS)',topphastighet:'250 km/t (TT RS)',dreiemoment:'450 Nm (TT RS)'},
+    kjente_feil:['Karbonrens 2.0 TFSI','DSG mechatronic','Magnetisk kjøredynamikk-sensor','Kjølevann­pumpe'],
+    tuning:['TT RS Stage 1: 380hk','Stage 2 FMIC: 420hk','Stage 3 turbo: 500hk+','Akrapovic titaneksosanlegg','APR ECU'],
+    fakta:['TT RS med 5-syl 2.5 TFSI er ikonisk','TTS quattro med magnetventil­understell','8J er skarpere dynamisk enn 8N','Roadster og Coupe tilgjengelig']
   },
-  // VW Passat B5
-  '6a1768af41abc193e4877d47': {
-    kjente_feil: ['1.8T sludge-problemer (oljebytte hvert 7500km)','Throttle body rens','ABS-modul','Vindusheiser'],
-    tuning: ['1.8T Stage 1: 200hk','2.8 V6 4Motion tuning','W8 sound-oppgradering','Lowering 30mm'],
-    fakta: ['W8 med 4.0L V8 produsert i faerre enn 15 000 eks','1.9 TDI 130hk er Norges vanligste bruktbil-motor','Variant Syncro er svart populaer i vinterlandskap'],
-    spesifikasjoner: {vekt:'1280-1700 kg', drivlinje:'FWD / 4Motion', girkasse:'5/6-trinns manuell / automat', bremser:'288-316mm'}
+  '6a1768af41abc193e4877d54': { // Skoda Octavia Mk1
+    spesifikasjoner:{vekt:'1080-1320 kg',drivlinje:'FWD / 4x4',girkasse:'5-trinns manuell / automat',bremser:'256-288mm',topphastighet:'220 km/t (RS)',dreiemoment:'225 Nm (RS)'},
+    kjente_feil:['1.8T oljeforbruk','Rust sarg og hjulbuer','Throttle body 1.6','Clutch RS slitasje'],
+    tuning:['RS 1.8T Stage 1: 220hk','Stage 2: 260hk','Lowering Eibach','Chip 1.9 TDI 130hk'],
+    fakta:['Skodas første moderne VAG-plattform','RS med 1.8T 180hk er undervurdert hot hatch','1.9 TDI 90hk nesten uødeleggelig','Combi variant meget praktisk']
   },
-  // Skoda Octavia Mk2 RS
-  '6a1768af41abc193e4877d55': {
-    kjente_feil: ['Kamkjede EA888','DSG mechatronic','Gummilist tak','Vindusheiser'],
-    tuning: ['RS 2.0 TFSI Stage 1: 240hk','Stage 2: 280hk','Stage 2+: 320hk','Lowering med Eibach'],
-    fakta: ['En av de beste priser-per-ytelse bilene noensinne','2.0 TDI 170hk RS diesel meget sjelden','Wagon (Combi) er meget populaer i Norge'],
-    spesifikasjoner: {vekt:'1310-1480 kg', drivlinje:'FWD / 4x4', girkasse:'6-trinns manuell / DSG', bremser:'312mm foran (RS)'}
+  '6a1768af41abc193e4877d55': { // Skoda Octavia Mk2
+    spesifikasjoner:{vekt:'1310-1480 kg',drivlinje:'FWD / 4x4',girkasse:'6-trinns manuell / DSG',bremser:'288-312mm (RS)',topphastighet:'243 km/t (RS)',dreiemoment:'300 Nm (RS DSG)'},
+    kjente_feil:['Kamkjede EA888','DSG mechatronic','Gummilist tak','Vindusheis','EGR TDI'],
+    tuning:['RS 2.0 TFSI Stage 1: 240hk','Stage 2: 280hk','Stage 2+: 320hk','Lowering Eibach Pro'],
+    fakta:['En av beste pris-per-ytelse biler noensinne','2.0 TDI 170hk RS diesel meget sjelden','Combi ekstremt populær Norge','DSG og RS combo er drømmebilen']
+  },
+  '6a1768af41abc193e4877d56': { // SEAT Leon Mk1 Cupra R
+    spesifikasjoner:{vekt:'1230 kg',drivlinje:'FWD',girkasse:'6-trinns manuell',bremser:'312mm Brembo foran',topphastighet:'243 km/t',dreiemoment:'280 Nm'},
+    kjente_feil:['1.8T karbonrens innsug','Styrekule-ledd slitasje','Clutch slitasje 225hk','Tennspole­pakke'],
+    tuning:['Stage 1: 260hk','Stage 2 FMIC: 300hk','BAM/AMK motor (225hk)','Forge intercooler','Miltek eksosanlegg'],
+    fakta:['Cupra R billigste 225hk bruktbil','Deler motor med Audi TT 225hk','SEAT Sport chassis-tuning fra fabrikk','Produsert i begrenset antall']
+  },
+  '6a1768af41abc193e4877d57': { // SEAT Leon Mk2
+    spesifikasjoner:{vekt:'1285-1415 kg',drivlinje:'FWD / 4Drive',girkasse:'6-trinns manuell / DSG',bremser:'312-330mm',topphastighet:'250 km/t (Cupra)',dreiemoment:'320 Nm (Cupra)'},
+    kjente_feil:['Kamkjede EA888','DSG mechatronic','EGR 2.0 TDI','Vindusheis'],
+    tuning:['FR 2.0 TFSI Stage 1: 240hk','Cupra Stage 1: 280hk','Stage 2 FMIC: 320hk','DSG-flash'],
+    fakta:['Cupra 241hk er morsom og rimelig brukt','Deler MK5 Golf plattform','FR-pakke med sportschassis standard','Leon Cupra R 2.0 TFSI 240hk fra 2009']
+  },
+  '6a1768af41abc193e4877d58': { // Porsche 911 996
+    spesifikasjoner:{vekt:'1320-1540 kg',drivlinje:'RWD / AWD (C4)',girkasse:'6-trinns manuell / Tiptronic',bremser:'318-330mm foran',topphastighet:'290 km/t (Turbo)',dreiemoment:'560 Nm (Turbo)'},
+    kjente_feil:['IMS intermediate shaft bearing','RMS rear main seal lekkasje','Varmeapparat kjerne dyr','M96 motor generelle problemer'],
+    tuning:['Sport eksos Akrapovic/Milltek','Motec ECU-flash','GT3-bremse retrofit','Sport Chrono pakke','PSE sport eksos'],
+    fakta:['IMS løses med IMS-retrofit kit (2000 EUR)','GT3 og Turbo har sterkere motor uten IMS','Carrera 4S mest allsidig','Første 911 med vannavkjølt motor']
+  },
+  '6a1768af41abc193e4877d59': { // Porsche Cayenne I
+    spesifikasjoner:{vekt:'2070-2355 kg',drivlinje:'AWD',girkasse:'6-trinns manuell / Tiptronic S',bremser:'330-350mm PCCB optional',topphastighet:'275 km/t (Turbo S)',dreiemoment:'720 Nm (Turbo S)'},
+    kjente_feil:['IMS-problem på V8-motorer','Luftfjæring kompressor','Kjølevann-lekkasje 4.5 V8','AOS olje­skille­ventil'],
+    tuning:['Turbo Stage 1: 550hk','Turbo Stage 2: 620hk+','Sport Chrono pakke','PCCB keramiske bremser','Akrapovic eksosanlegg'],
+    fakta:['Basert på VW Touareg plattform','Turbo S 521hk 0-100 på 5,0 sek','Eneste SUV med Le Mans-arv (Porsche)','Produsert 2002-2010 i 276 000 eks']
+  },
+  '6a1768af41abc193e4877d5a': { // Audi RS4 B5
+    spesifikasjoner:{vekt:'1590 kg',drivlinje:'quattro AWD',girkasse:'6-trinns manuell',bremser:'345mm Brembo foran',topphastighet:'250 km/t (begrenset)',dreiemoment:'440 Nm'},
+    kjente_feil:['Sylinderkoppakning biturbo varmgang','Olje-lekkasje turbo return','Haldex service','Intercooler-spray svikt'],
+    tuning:['Stage 1 ECU: 430hk','Stage 2 turbo-oppgradering: 500hk+','Wagner/TurboSmart dump­ventil','Milltek eksosanlegg','Sparco stol og ratt'],
+    fakta:['Kun 6054 eksemplarer produsert','0-100 på 4,9 sek i 2000','Basert på Audi RS2 arv','Kåret til beste RS noensinne av mange']
+  },
+  '6a16ffdeb327fd4579eb05a1': { // Audi RS6 C8
+    spesifikasjoner:{vekt:'2185 kg',drivlinje:'quattro AWD',girkasse:'8-trinns tiptronic',bremser:'420mm keramisk optional',topphastighet:'305 km/t (Dynamic Plus)',dreiemoment:'800 Nm'},
+    kjente_feil:['48V mild-hybrid batteri service','Luftfjæring krevende (optional)','Karbonrens 4.0 V8','Aktiv bakaksel service'],
+    tuning:['Stage 1 ECU: 680hk','Stage 2 downpipe: 720hk','Stage 3 turbo: 800hk+','ABT/MTM pakker','Milltek valved eksosanlegg'],
+    fakta:['600hk og 800Nm fra fabrikk','0-100 på 3,6 sek med 2185 kg','Siste RS6 med V8 forbrenning','Keramiske karbonbremser optional']
+  },
+  '6a16ffdeb327fd4579eb05a2': { // VW Arteon R
+    spesifikasjoner:{vekt:'1655 kg',drivlinje:'4Motion AWD',girkasse:'DSG7',bremser:'357mm foran',topphastighet:'250 km/t',dreiemoment:'420 Nm'},
+    kjente_feil:['DSG7 koblingsslitasje','Haldex service hvert 2. år','12V batteri belastning','MIB3 infotainment bugs'],
+    tuning:['Stage 1 ECU: 370hk','Stage 2: 410hk','Haldex controller','Lowering DCC','Akrapovic titaneksosanlegg'],
+    fakta:['Shooting Brake variant tilgjengelig','320hk delt med Golf R','Under 5000 solgt per år','VWs svar på A5 Sportback']
+  },
+  '6a16ffdeb327fd4579eb05a3': { // VW ID.3
+    spesifikasjoner:{vekt:'1752-1809 kg',drivlinje:'RWD',girkasse:'1-trinns direkte',bremser:'310mm foran, regenerativ',topphastighet:'160 km/t (begrenset)',dreiemoment:'310 Nm'},
+    kjente_feil:['Software bugs tidlige modeller','12V batteri svikt','Lys-feil','Oppbevarings-lokk klaff'],
+    tuning:['Software unlock topphastighet','Spoiler aerodynamikk','Felg-oppgradering','Setevarme retrofit (tidlige)'],
+    fakta:['MEB plattform (Modular Electric Drivetrain)','77 kWh Pro S: 549 km rekkevidde (WLTP)','Produksjon startet juni 2020','Over 200 000 produsert 2020-2023']
+  },
+  '6a16ffdeb327fd4579eb05a4': { // Skoda Scala
+    spesifikasjoner:{vekt:'1230-1350 kg',drivlinje:'FWD',girkasse:'6-trinns manuell / DSG7',bremser:'288mm foran',topphastighet:'206 km/t (1.5 TSI)',dreiemoment:'250 Nm (1.5 TSI)'},
+    kjente_feil:['1.0 TSI ACT system støy','Karbonrens 1.5 TSI','Rattvibrasjoner lavhastighet'],
+    tuning:['1.5 TSI Stage 1: 180hk','DSG-flash','Lowering 25-30mm','RacingLine intake'],
+    fakta:['MQB-A plattform (Golf 7 basis)','Scala er praktisk og romslig for klassen','1.5 TSI med ACT sylinder-frakobling','Konkurrerer med Ford Focus og Honda Civic']
+  },
+  '6a16ffdeb327fd4579eb05a5': { // Audi e-tron GT
+    spesifikasjoner:{vekt:'2340-2420 kg',drivlinje:'quattro AWD',girkasse:'2-trinns direkte',bremser:'390mm keramisk optional',topphastighet:'250 km/t (RS)',dreiemoment:'830 Nm (RS boost)'},
+    kjente_feil:['Kondensering i fremre motor','800V-lading krever riktig infrastruktur','Vindusvisker-motor problemer'],
+    tuning:['Software unlock 10 min boost','Oppgrader til RS spec ECU','Capristo sporteksosklang­system','Keramisk bremse­oppgradering'],
+    fakta:['PPE-plattform delt med Porsche Taycan','800V arkitektur: 270 kW DC-lading','0-100 på 3,3 sek (RS launch control)','Under 2 sek 0-100 i boost-modus']
+  },
+  '6a16ffdeb327fd4579eb05a6': { // CUPRA Ateca
+    spesifikasjoner:{vekt:'1540 kg',drivlinje:'4Drive AWD',girkasse:'DSG7',bremser:'357mm Brembo foran',topphastighet:'247 km/t',dreiemoment:'400 Nm'},
+    kjente_feil:['Haldex service hvert 2. år','DSG7 varme ved trackday','Turbolader varme-soak'],
+    tuning:['Stage 1 ECU: 350hk','Stage 2 FMIC: 390hk','Haldex controller','Akrapovic eksosanlegg'],
+    fakta:['CUPRAs første modell som eget merke','300hk 4Drive 0-100 på 5,2 sek','Basert på SEAT Ateca plattform','Leon Vz5-motor ikke tilgjengelig']
+  },
+  '6a16ffdeb327fd4579eb05a7': { // VW Golf Variant Mk8
+    spesifikasjoner:{vekt:'1430-1560 kg',drivlinje:'FWD / 4Motion',girkasse:'6-trinns manuell / DSG7',bremser:'312mm foran',topphastighet:'237 km/t (R-Line TSI)',dreiemoment:'320 Nm (2.0 TSI)'},
+    kjente_feil:['eTSI BSG-startmotor problemer','MIB3 infotainment bugs','12V batteri svikt','EA888 gen4 kjølevann'],
+    tuning:['1.5 eTSI Stage 1: 180hk','2.0 TSI Stage 1: 280hk','DSG-flash','Lowering DCC'],
+    fakta:['eTSI 48V mild-hybrid standard fra 2021','Golf 8 Variant R med 320hk tilgjengelig','Bagasjevolum 611 liter','Mest solgte VAG stasjonsvogn Europa']
+  },
+  '6a168f3808da9eadec9578d8': { // VW Golf 8 GTI
+    spesifikasjoner:{vekt:'1340-1420 kg',drivlinje:'FWD',girkasse:'6-trinns manuell / DSG7',bremser:'340mm foran',topphastighet:'250 km/t',dreiemoment:'370 Nm'},
+    kjente_feil:['MIB3 software bugs','12V batteri under stort forbruk','EA888 gen4 kjølevannsutvidelse','DSG8 clutch varme'],
+    tuning:['Stage 1 OBD-flash: 290hk','Stage 2 FMIC: 330hk','Stage 2+ IS38: 370hk','DSG7 flash','Golf R IS38 turbo swap'],
+    fakta:['Første Golf med OBD-tune fra start','Clubsport 300hk fra fabrikk','MQB Evo plattform','Digitalt cockpit 10" + 10" infotainment']
+  },
+  '6a168f3808da9eadec9578d9': { // VW Golf 7 GTI
+    spesifikasjoner:{vekt:'1295-1385 kg',drivlinje:'FWD',girkasse:'6-trinns manuell / DSG6',bremser:'340mm PC foran (perf)',topphastighet:'250 km/t',dreiemoment:'380 Nm (DSG)'},
+    kjente_feil:['Kamkjede EA888 gen3','Vannpumpe svikt','HK lydanlegg feil','DQ250 clutch slitasje','IS20 turbo varme'],
+    tuning:['Stage 1 APR/RacingLine: 270hk','Stage 2 FMIC: 310hk','Stage 3 IS38 turbo: 360hk+','DSG-flash','Golf R-bremser retrofit'],
+    fakta:['Performance-pakken gir LSD og DCC','IS20 standard, IS38 i Clubsport','VAQ elektronisk diff standard','Kåret til beste GTI noensinne']
+  },
+  '6a168f3808da9eadec9578da': { // VW Golf R Mk8
+    spesifikasjoner:{vekt:'1505 kg',drivlinje:'4Motion AWD',girkasse:'DSG8',bremser:'357mm foran',topphastighet:'270 km/t (Dynamic+)',dreiemoment:'420 Nm'},
+    kjente_feil:['Haldex service hvert 2. år','DSG8 varme trackday','12V batteri belastning','EA888 gen4 kjedestrekk'],
+    tuning:['Stage 1: 380hk','Stage 2 FMIC: 410hk','Stage 3 IS38/IS20X: 460hk+','Haldex controller oppgradering','DSG8 flash'],
+    fakta:['Drift-modus og Nürburgring-modus standard','IS38 turbo fra Golf 7 R','0-100 offisielt 4,7 sek (reelt 4,2)','Aktuator-styrt bakakseldiff']
+  },
+  '6a168f3808da9eadec9578db': { // VW Passat B8
+    spesifikasjoner:{vekt:'1390-1700 kg',drivlinje:'FWD / 4Motion',girkasse:'DSG7 / DSG6',bremser:'312-334mm',topphastighet:'250 km/t (3.6 V6)',dreiemoment:'400 Nm (GTE hybrid)'},
+    kjente_feil:['DSG7 dry clutch slitasje','AdBlue-problemer TDI','Bremseklosser bak ruste fast','Strammere EGR'],
+    tuning:['2.0 TSI Stage 1: 270hk','2.0 TDI Stage 1: 185hk','GTE software unlock','DSG-flash'],
+    fakta:['GTE plug-in hybrid 218hk populær Norge','Første Passat med virtual cockpit','R-Line med 20" felger tilgjengelig','MQB plattform (Golf 7 basis)']
+  },
+  '6a168f3808da9eadec9578dc': { // VW Tiguan Mk2
+    spesifikasjoner:{vekt:'1545-1895 kg',drivlinje:'FWD / 4Motion',girkasse:'DSG7',bremser:'312-345mm',topphastighet:'216 km/t',dreiemoment:'350 Nm (2.0 TSI)'},
+    kjente_feil:['DSG7 dry clutch 1.5 TSI problemer','AdBlue TDI','Bremseklosser ruste fast bak','Haldex 4Motion service'],
+    tuning:['2.0 TSI Stage 1: 240hk','2.0 TDI Stage 1: 200hk','R-Line lowering kit','DSG-flash'],
+    fakta:['Norges mest solgte SUV flere år','Allspace 7-seter variant','eHybrid 245hk fra 2021','Tiguan R 320hk fra 2021']
+  },
+  '6a168f3808da9eadec9578dd': { // VW Polo GTI
+    spesifikasjoner:{vekt:'1195 kg',drivlinje:'FWD',girkasse:'DSG7',bremser:'288mm foran',topphastighet:'237 km/t',dreiemoment:'320 Nm'},
+    kjente_feil:['DSG7 dry clutch varme','Turbolader varmgang','Karbonrens 2.0 TSI','Bremseskive rust'],
+    tuning:['Stage 1 ECU: 250hk','Stage 2 FMIC: 280hk','DSG-flash','Lowering 20-25mm','Forge dump­ventil'],
+    fakta:['2.0 TSI motor delt med Golf GTI','Tyngst Polo noensinne grunnet sikkerhet','DSG7 standard ingen manuell','AW-plattform MQB-A0']
+  },
+  '6a168f3808da9eadec9578de': { // VW ID.4
+    spesifikasjoner:{vekt:'2124-2244 kg',drivlinje:'RWD / AWD (GTX)',girkasse:'1-trinns direkte',bremser:'358mm foran',topphastighet:'180 km/t',dreiemoment:'460 Nm (GTX)'},
+    kjente_feil:['12V batteri svikt','Hjul-lagerlyd','MEB varmepumpe service','Software oppdatering over-the-air'],
+    tuning:['Software topphastighet unlock','GTX 299hk fra fabrikk','Felg/dekk oppgradering','Drag-pakke lowering'],
+    fakta:['MEB plattform elektrisk','77 kWh: 521 km rekkevidde (WLTP)','GTX AWD med 299hk fra 2021','Car of the Year 2021']
+  },
+  '6a168f3808da9eadec9578df': { // VW Touareg III
+    spesifikasjoner:{vekt:'2025-2350 kg',drivlinje:'AWD',girkasse:'8-trinns tiptronic',bremser:'370mm foran',topphastighet:'250 km/t (V8)',dreiemoment:'600 Nm (eHybrid)'},
+    kjente_feil:['Luftfjæring kompressor','Bakaksel servo service','AdBlue TDI system','Panorama­tak-tetning'],
+    tuning:['3.0 TDI Stage 1: 330hk','3.0 TFSI Stage 1: 390hk','eHybrid software boost','Akrapovic eksosanlegg'],
+    fakta:['eHybrid 462hk er kraftig og effektiv','Flaggskip VW SUV delt med Porsche Cayenne','IQ.DRIVE Level 2 autonomous','Luftfjæring standard fra R-Line']
+  },
+  '6a168f3808da9eadec9578e0': { // Audi A3 8Y
+    spesifikasjoner:{vekt:'1285-1430 kg',drivlinje:'FWD / quattro',girkasse:'6-trinns manuell / DSG7',bremser:'312mm foran',topphastighet:'228 km/t (2.0 TFSI)',dreiemoment:'320 Nm (2.0 TFSI)'},
+    kjente_feil:['EA888 gen4 karbonrens','DSG mechatronic','MIB3 bugs','12V batteri svikt'],
+    tuning:['2.0 TFSI Stage 1: 250hk','DSG-flash','Lowering DCC','APR downpipe','RacingLine intake'],
+    fakta:['MQB Evo plattform','Digital OLED-baklys standard på S-line+','Basis for S3 8Y og RS3 8Y','Sportback 5-dørs eneste karosseri']
+  },
+  '6a168f3808da9eadec9578e1': { // Audi S3 8Y
+    spesifikasjoner:{vekt:'1535 kg',drivlinje:'quattro AWD',girkasse:'DSG7',bremser:'340mm foran',topphastighet:'250 km/t',dreiemoment:'400 Nm'},
+    kjente_feil:['DSG7 clutch slitasje sport-kjøring','Karbonrens 2.0 TFSI','Haldex service hvert 2. år'],
+    tuning:['Stage 1: 370hk','Stage 2 FMIC: 400hk','Stage 2+: 440hk','DSG-flash','RS3 turbo-konvertering'],
+    fakta:['310hk quattro i kompakt sportback','0-100 på 4,8 sek','EA888 gen4 motor','MQB Evo delt med Golf R']
+  },
+  '6a168f3808da9eadec9578e2': { // Audi RS3 8Y
+    spesifikasjoner:{vekt:'1560 kg',drivlinje:'quattro AWD',girkasse:'DSG8',bremser:'370mm stempel foran',topphastighet:'290 km/t (RS Performance)',dreiemoment:'500 Nm'},
+    kjente_feil:['RS Torque Splitter krevende service','DSG8 varme trackday','Karbonrens 2.5 TFSI','Intercooler heat soak'],
+    tuning:['Stage 1 ECU: 450hk','Stage 2 FMIC: 490hk','Stage 3 turbo: 560hk+','DSG8 flash','Akrapovic titaneksosanlegg'],
+    fakta:['RS Torque Splitter en verdenspremière','0-100 på 3,8 sek offisielt','5-sylinder 2.5 TFSI lyder unikt','Nürburgring rekord kompaktklassen']
+  },
+  '6a168f3808da9eadec9578e3': { // Audi A4 B9
+    spesifikasjoner:{vekt:'1465-1705 kg',drivlinje:'FWD / quattro',girkasse:'7-trinns S tronic / 8-trinns tiptronic',bremser:'312-330mm',topphastighet:'250 km/t (55 TFSI)',dreiemoment:'400 Nm (3.0 TDI)'},
+    kjente_feil:['Mild-hybrid MHEV 12V system','Karbonrens EA888','DSG clutch varme','Luftfjæring optional service'],
+    tuning:['2.0 TFSI Stage 1: 270hk','3.0 TDI Stage 1: 330hk','RS4-bremse retrofit','S tronic-flash'],
+    fakta:['B9 siste A4 med forbrenningsmotor','Matrix LED standard fra S line+','Virtual cockpit 12" standard','Quattro ultra: kobler fra 4WD ved lavt forbruk']
+  },
+  '6a168f3808da9eadec9578e4': { // Audi RS4 B9
+    spesifikasjoner:{vekt:'1730-1815 kg',drivlinje:'quattro AWD',girkasse:'8-trinns tiptronic',bremser:'380mm (keramisk optional)',topphastighet:'280 km/t (RS Dynamic)',dreiemoment:'600 Nm'},
+    kjente_feil:['Karbonrens 2.9 V6 TFSI','Luftfjæring service (optional)','Sport diff service','Intercooler heat soak'],
+    tuning:['Stage 1: 510hk','Stage 2: 560hk','Stage 3 turbo: 650hk+','Akrapovic titaneksosanlegg','ABT RS4-R pakke 530hk'],
+    fakta:['2.9 V6 biturbo med 600Nm','0-100 på 4,1 sek','Sport diff quattro standard','RS4 Nogaro og Competition spesialutgaver']
+  },
+  '6a168f3808da9eadec9578e5': { // Audi Q5 FY
+    spesifikasjoner:{vekt:'1735-2075 kg',drivlinje:'quattro AWD',girkasse:'7-trinns S tronic / 8-trinns tiptronic',bremser:'330-356mm',topphastighet:'250 km/t (SQ5)',dreiemoment:'500 Nm (SQ5 V6)'},
+    kjente_feil:['Mild-hybrid MHEV 12V','Luftfjæring service','Quattro ultra kobling slitasje','Karbonrens 2.0 TFSI'],
+    tuning:['SQ5 3.0 TFSI Stage 1: 390hk','2.0 TDI Stage 1: 200hk','S tronic-flash','ABT Q5-S pakke'],
+    fakta:['SQ5 3.0 TFSI 354hk er sportig SUV','PHEV 50 TFSI e med 299hk','Quattro ultra frakoblingsbar 4WD','Mest solgte Audi SUV globalt']
+  },
+  '6a168f3808da9eadec9578e6': { // Audi TT RS 8S
+    spesifikasjoner:{vekt:'1450 kg',drivlinje:'quattro AWD',girkasse:'DSG7',bremser:'370mm Brembo foran',topphastighet:'280 km/t',dreiemoment:'480 Nm'},
+    kjente_feil:['Karbonrens 2.5 TFSI','Intercooler heat soak trackday','Haldex service hvert 2. år'],
+    tuning:['Stage 1 ECU: 450hk','Stage 2 FMIC: 490hk','Stage 3: 550hk+','Akrapovic titaneksosanlegg','DSG7-flash'],
+    fakta:['Siste TT RS med 5-syl 2.5 TFSI','400hk og quattro i 1450 kg','Ikonisk 5-sylinder lyd','TT produksjon avsluttet 2023']
+  },
+  '6a168f3808da9eadec9578e7': { // Skoda Octavia RS Mk4
+    spesifikasjoner:{vekt:'1410-1520 kg',drivlinje:'FWD / 4x4',girkasse:'6-trinns manuell / DSG7',bremser:'340mm foran',topphastighet:'250 km/t',dreiemoment:'370 Nm (DSG)'},
+    kjente_feil:['EA888 gen4 karbonrens','DSG7 clutch slitasje','MIB3 infotainment bugs'],
+    tuning:['2.0 TSI Stage 1: 290hk','Stage 2 FMIC: 330hk','DSG-flash','Lowering 25mm','Golf R bremse-retrofit'],
+    fakta:['245hk rimelig vs Golf GTI','Combi med 640 liter bagasjevolum','4x4 variant med Haldex tilgjengelig','iV PHEV RS 245hk fra 2021']
+  },
+  '6a168f3808da9eadec9578e8': { // Skoda Superb Mk3
+    spesifikasjoner:{vekt:'1510-1760 kg',drivlinje:'FWD / 4x4',girkasse:'DSG7 / DSG6',bremser:'330mm foran',topphastighet:'250 km/t (2.0 TSI 4x4)',dreiemoment:'400 Nm (2.0 TSI)'},
+    kjente_feil:['DSG7 clutch 1.4/1.5 TSI','AdBlue TDI','Panoramatak-tetning','Bakklaff elektrisk svikt'],
+    tuning:['2.0 TSI Stage 1: 280hk','2.0 TDI Stage 1: 200hk','DSG-flash','iV PHEV software boost'],
+    fakta:['Enorm plass - 625 liter bagasje','iV PHEV 218hk meget populær Norge','Combi er Europas romsligste i klassen','4x4 med 2.0 TSI 280hk svært kapabel']
+  },
+  '6a168f3808da9eadec9578e9': { // Skoda Kodiaq
+    spesifikasjoner:{vekt:'1595-1940 kg',drivlinje:'FWD / 4x4',girkasse:'DSG7',bremser:'340mm foran',topphastighet:'230 km/t (RS)',dreiemoment:'400 Nm (RS)'},
+    kjente_feil:['DSG7 clutch ved tung last','Haldex 4x4 service','AdBlue TDI','Bremseklosser bak ruste fast'],
+    tuning:['RS 2.0 TSI Stage 1: 300hk','2.0 TDI Stage 1: 220hk','DSG-flash','Trekkhengerfeste oppgradering'],
+    fakta:['RS med 245hk er sportig 7-seter','4x4 med 7 seter tilgjengelig','Skodas mest solgte SUV','Ny Kodiaq 2024 med PHEV']
+  },
+  '6a168f3808da9eadec9578ea': { // Skoda Fabia Mk4
+    spesifikasjoner:{vekt:'1175-1315 kg',drivlinje:'FWD',girkasse:'6-trinns manuell / DSG7',bremser:'256-276mm',topphastighet:'206 km/t (1.5 TSI)',dreiemoment:'250 Nm (1.5 TSI)'},
+    kjente_feil:['DSG7 clutch 1.0 TSI','ACT-system lyd 1.5 TSI','Rattvibrasjoner'],
+    tuning:['1.5 TSI Stage 1: 180hk','DSG-flash','Lowering 20mm','RacingLine intake'],
+    fakta:['MQB-A0 plattform (Polo basis)','25% større enn Mk3','Combi stasjonsvogn tilgjengelig','Konkurrerer med Peugeot 208 og Renault Clio']
+  },
+  '6a168f3808da9eadec9578eb': { // Skoda Enyaq iV
+    spesifikasjoner:{vekt:'1875-2193 kg',drivlinje:'RWD / AWD (RS)',girkasse:'1-trinns direkte',bremser:'358mm foran',topphastighet:'180 km/t',dreiemoment:'460 Nm (RS 4x4)'},
+    kjente_feil:['12V batteri svikt','MEB varmepumpe service','Software over-the-air bugs'],
+    tuning:['RS 299hk fra fabrikk','Software topphastighet unlock','Felg/dekk oppgradering','Trekkhengerfeste'],
+    fakta:['MEB plattform (ID.4 basis)','iV 80x 82 kWh: 542 km rekkevidde','RS Coupé 299hk er mest sportig','Salgssuksess i Norge']
+  },
+  '6a168f3808da9eadec9578ec': { // SEAT Leon Mk4
+    spesifikasjoner:{vekt:'1345-1545 kg',drivlinje:'FWD',girkasse:'6-trinns manuell / DSG7',bremser:'312mm foran',topphastighet:'230 km/t (2.0 TSI FR)',dreiemoment:'320 Nm (FR)'},
+    kjente_feil:['DSG7 dry clutch svikt','eHybrid batteri degradering','Karbonrens 2.0 TSI'],
+    tuning:['FR 2.0 TSI Stage 1: 240hk','Stage 2: 280hk','eHybrid software','DSG-flash'],
+    fakta:['e-Hybrid 204hk PHEV populær Norge','FR-pakke med sportschassis','Sportstourer stasjonsvogn fra 2020','Siste Leon med SEAT-logo (neste CUPRA)']
+  },
+  '6a168f3808da9eadec9578ed': { // CUPRA Formentor
+    spesifikasjoner:{vekt:'1540-1630 kg',drivlinje:'FWD / 4Drive AWD (VZ)',girkasse:'DSG7',bremser:'370mm Brembo foran (VZ5)',topphastighet:'250 km/t',dreiemoment:'480 Nm (VZ5)'},
+    kjente_feil:['VZ5 5-syl karbonrens','DSG7 koblingsslitasje sport','Haldex service VZ-versjon'],
+    tuning:['VZ5 Stage 1: 430hk','Stage 2: 480hk','Stage 3: 550hk+','Akrapovic titaneksosanlegg'],
+    fakta:['VZ5 bruker RS3 5-sylinder motor','390hk høyest i kompakt-SUV klassen','CUPRAs beste salgsmodell globalt','Laget utelukkende som CUPRA']
+  },
+  '6a168f3808da9eadec9578ee': { // CUPRA Born
+    spesifikasjoner:{vekt:'1620-1705 kg',drivlinje:'RWD',girkasse:'1-trinns direkte',bremser:'330mm foran',topphastighet:'160 km/t',dreiemoment:'310 Nm'},
+    kjente_feil:['12V batteri svikt','MEB software bugs','Varmepumpe service'],
+    tuning:['Software topphastighet unlock','Sport seter oppgradering','Copper-design pakke','Bremse upgrade'],
+    fakta:['MEB plattform (ID.3 basis)','58 kWh: 420 km rekkevidde (WLTP)','CUPRAs første elbil','e-Boost: 231hk i 10 sekunder']
+  },
+  '6a16ffdeb327fd4579eb05a6': { // CUPRA Ateca
+    spesifikasjoner:{vekt:'1540 kg',drivlinje:'4Drive AWD',girkasse:'DSG7',bremser:'357mm Brembo foran',topphastighet:'247 km/t',dreiemoment:'400 Nm'},
+    kjente_feil:['Haldex service hvert 2. år','DSG7 varme ved trackday','Turbolader varme-soak'],
+    tuning:['Stage 1 ECU: 350hk','Stage 2 FMIC: 390hk','Haldex controller','Akrapovic eksosanlegg'],
+    fakta:['CUPRAs første som eget merke','300hk 4Drive 0-100 på 5,2 sek','Basert på SEAT Ateca plattform','Produksjonsavslutning 2023']
+  },
+  '6a168f3808da9eadec9578ef': { // Porsche Cayenne III
+    spesifikasjoner:{vekt:'2045-2395 kg',drivlinje:'AWD',girkasse:'8-trinns tiptronic S',bremser:'390mm PCCB optional',topphastighet:'295 km/t (Turbo S E-H)',dreiemoment:'900 Nm (Turbo S E-H)'},
+    kjente_feil:['Luftfjæring kompressor','Turbo intercooler lekkasje','E-Hybrid batteri degradering','PDCC aktiv chassis service'],
+    tuning:['Turbo Stage 1: 600hk','Turbo Stage 2: 700hk+','Akrapovic eksosanlegg','Keramiske PCCB bremser','ABT pakke'],
+    fakta:['Turbo S E-Hybrid 680hk flaggskip','0-100 på 3,8 sek Turbo S','PCCB keramisk bremse optional','Cayenne Coupe karosseri fra 2019']
+  },
+  '6a16ffdeb327fd4579eb05a8': { // Porsche Panamera III
+    spesifikasjoner:{vekt:'1995-2350 kg',drivlinje:'AWD',girkasse:'8-trinns PDK',bremser:'390mm PCCB optional',topphastighet:'315 km/t (Turbo S E-H)',dreiemoment:'870 Nm (Turbo S E-H)'},
+    kjente_feil:['Luftfjæring service','E-Hybrid batteri degradering','PDK clutch pakke slitasje','V8 timing kjede'],
+    tuning:['Turbo S Stage 1: 700hk','Akrapovic titaneksosanlegg','PCCB keramisk bremse','Capristo eksosventil'],
+    fakta:['Turbo S E-Hybrid 700hk er flaggskipet','0-100 på 3,2 sek','Sport Turismo stasjonsvogn tilgjengelig','4-seter luksus på sportsligste nivå']
+  },
+  '6a168f3808da9eadec9578f0': { // Porsche Macan II EV
+    spesifikasjoner:{vekt:'2080-2295 kg',drivlinje:'AWD (Turbo)',girkasse:'2-trinns direkte',bremser:'390mm optional',topphastighet:'260 km/t (Turbo)',dreiemoment:'1130 Nm (Turbo)'},
+    kjente_feil:['800V lading krever riktig infrastruktur','Ny plattform - avventer langtidsdata'],
+    tuning:['Launch Control standard','Performance Battery Plus','PCCB keramisk bremse','Sport Chrono pakke'],
+    fakta:['PPE-plattform (Audi Q6 e-tron basis)','800V arkitektur 270 kW DC-lading','Turbo 639hk 0-100 på 3,3 sek','Første helelektriske Macan']
   },
 };
 
