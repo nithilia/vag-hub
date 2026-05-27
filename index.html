@@ -715,7 +715,7 @@ async function startCheckout(){
   const token=localStorage.getItem('vag_token');
   if(!token){showSec('innlogging');return;}
   try{
-    const res=await fetch(API+'/createCheckoutSession',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token,price_id:'VAG_PREMIUM_149',success_url:window.location.href+'?premium=ok',cancel_url:window.location.href})});
+    const res=await fetch(API+'/createCheckoutSession',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token,price_id:'price_1TbiQ3V05fTfieLtoHmRkDaj',success_url:window.location.href+'?premium=ok',cancel_url:window.location.href})});
     const d=await res.json();
     if(d.url)window.location.href=d.url;
     else alert('Feil ved oppstart av betaling. Prøv igjen.');
