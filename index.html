@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>VAG Owners Hub</title>
+<meta name="description" content="Din ultimate ressurs for VW, Audi, Skoda, SEAT, CUPRA og Porsche">
+<meta name="theme-color" content="#0a0a14">
+<style>
+:root {
+  --bg: #0a0a14; --bg2: #13132b; --card: #1a1a30;
+  --accent: #5b8dee; --gold: #f5a623;
+  --text: #f0f0f0; --muted: #8b8fa8; --border: rgba(255,255,255,0.07);
+  --vw: #001e50; --audi: #bb0a14; --skoda: #4ba82e;
+  --seat: #d0021b; --cupra: #c9954c; --porsche: #d5001c;
+  --green: #22c55e; --red: #ef4444;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,20,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 1rem}
+.logo{display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:1.05rem}
+.logo-icon{width:30px;height:30px;background:linear-gradient(135deg,#5b8dee,#e63946);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.top-actions{display:flex;gap:.5rem;align-items:center}
+.btn-sm{padding:5px 12px;border-radius:8px;font-size:.8rem;cursor:pointer;border:none}
+.btn-outline-sm{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-gold{background:linear-gradient(135deg,#f5a623,#d97706);color:#000;font-weight:700}
+.user-pill{background:rgba(91,141,238,.15);border:1px solid rgba(91,141,238,.3);color:var(--accent);padding:4px 12px;border-radius:20px;font-size:.78rem;cursor:pointer}
+.prem-pill{background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);color:var(--gold);padding:4px 12px;border-radius:20px;font-size:.78rem}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,20,.97);backdrop-filter:blur(14px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:6px 0 max(6px,env(safe-area-inset-bottom))}
+.nb{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;color:var(--muted);cursor:pointer;padding:4px 10px;border-radius:10px;font-size:.65rem;min-width:52px;transition:color .2s}
+.nb.active{color:var(--accent)}
+.nb .ic{font-size:1.2rem}
+
+/* MAIN */
+.main{padding:70px 0 76px;min-height:100vh}
+.sec{display:none}.sec.active{display:block}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0a0a14 0%,#13132b 60%,#0d1030 100%);padding:1.5rem 1rem 1rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;left:-40%;width:180%;height:180%;background:radial-gradient(ellipse at center,rgba(91,141,238,.07) 0%,transparent 60%);pointer-events:none}
+.hero h1{font-size:1.7rem;font-weight:900;background:linear-gradient(135deg,#fff 0%,#5b8dee 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.4rem}
+.hero p{color:var(--muted);font-size:.88rem;margin-bottom:1rem}
+.brand-pills{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:.5rem}
+.bp{padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600;border:1px solid}
+.bp-vw{background:rgba(0,30,80,.4);border-color:#4f8ef7;color:#7ab3ff}
+.bp-audi{background:rgba(187,10,20,.2);border-color:#bb0a14;color:#ff7070}
+.bp-skoda{background:rgba(75,168,46,.2);border-color:#4ba82e;color:#7ed957}
+.bp-seat{background:rgba(208,2,27,.2);border-color:#d0021b;color:#ff7070}
+.bp-cupra{background:rgba(201,149,76,.2);border-color:#c9954c;color:#e8b97a}
+.bp-porsche{background:rgba(213,0,28,.2);border-color:#d5001c;color:#ff7070}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;padding:.8rem 1rem}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.8rem .6rem;text-align:center}
+.stat-n{font-size:1.4rem;font-weight:800;color:var(--accent)}
+.stat-l{font-size:.7rem;color:var(--muted);margin-top:2px}
+
+/* SEARCH */
+.search-wrap{padding:0 1rem .8rem}
+.sbox{display:flex;gap:.5rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.55rem .9rem;align-items:center}
+.sbox input{flex:1;background:none;border:none;color:var(--text);font-size:.9rem;outline:none}
+.sbox input::placeholder{color:var(--muted)}
+
+/* SECTION TITLE */
+.stitle{font-size:.95rem;font-weight:700;padding:.4rem 1rem .6rem}
+
+/* CARDS GRID */
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;padding:0 1rem .8rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .15s,border-color .2s}
+.card:active{transform:scale(.97)}
+.card:hover{border-color:rgba(91,141,238,.3)}
+.cimg{width:100%;height:105px;object-fit:cover;background:var(--bg2)}
+.cimg-ph{width:100%;height:105px;background:linear-gradient(135deg,var(--bg2),var(--bg));display:flex;align-items:center;justify-content:center;font-size:2.2rem}
+.cbody{padding:.65rem}
+.ctitle{font-size:.85rem;font-weight:600;margin-bottom:2px}
+.csub{font-size:.72rem;color:var(--muted)}
+.cbadge{display:inline-block;font-size:.62rem;padding:2px 7px;border-radius:8px;margin-top:3px}
+.b-vw{background:rgba(0,30,80,.5);color:#7ab3ff}
+.b-audi{background:rgba(187,10,20,.3);color:#ff8080}
+.b-skoda{background:rgba(75,168,46,.3);color:#7ed957}
+.b-seat{background:rgba(208,2,27,.3);color:#ff8080}
+.b-cupra{background:rgba(201,149,76,.3);color:#e8b97a}
+.b-porsche{background:rgba(213,0,28,.3);color:#ff8080}
+.b-gold{background:rgba(245,166,35,.15);color:var(--gold)}
+.b-green{background:rgba(34,197,94,.15);color:var(--green)}
+
+/* FILTER TABS */
+.ftabs{display:flex;gap:.4rem;padding:0 1rem .8rem;overflow-x:auto;scrollbar-width:none}
+.ftabs::-webkit-scrollbar{display:none}
+.ft{flex-shrink:0;padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.78rem;cursor:pointer;transition:all .2s;white-space:nowrap}
+.ft.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* GUIDE LIST */
+.glist{padding:0 1rem;display:flex;flex-direction:column;gap:.6rem}
+.gcard{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:.9rem;cursor:pointer;transition:border-color .2s}
+.gcard:hover{border-color:rgba(91,141,238,.3)}
+.gcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.4rem}
+.gcard-title{font-size:.88rem;font-weight:600;flex:1;padding-right:.4rem}
+.gmeta{display:flex;gap:.4rem;flex-wrap:wrap}
+.mtag{font-size:.68rem;padding:2px 7px;border-radius:7px;background:rgba(255,255,255,.05);color:var(--muted)}
+
+/* SKILT */
+.skilt-wrap{padding:1rem}
+.skilt-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.3rem}
+.skilt-card h3{font-size:1rem;margin-bottom:.4rem}
+.skilt-card p{color:var(--muted);font-size:.82rem;margin-bottom:.9rem}
+.sinput-row{display:flex;gap:.6rem;margin-bottom:.8rem}
+.sinput{flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:.7rem .9rem;border-radius:10px;font-size:1rem;text-transform:uppercase;outline:none}
+.sinput:focus{border-color:var(--accent)}
+.sbtn{background:var(--accent);border:none;color:#fff;padding:.7rem 1rem;border-radius:10px;cursor:pointer;font-weight:600;font-size:.88rem;white-space:nowrap}
+.sresult{margin-top:.8rem;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:.9rem;display:none}
+.sresult.show{display:block}
+.srow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:.82rem}
+.srow:last-child{border-bottom:none}
+.slabel{color:var(--muted)}.sval{color:var(--text);font-weight:500}
+
+/* PARTS */
+.plist{padding:0 1rem;display:flex;flex-direction:column;gap:.6rem}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:.9rem;display:flex;align-items:center;gap:.9rem;cursor:pointer;text-decoration:none}
+.plogo{width:44px;height:44px;border-radius:9px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;overflow:hidden}
+.plogo img{width:100%;height:100%;object-fit:contain}
+.pinfo{flex:1}.pname{font-weight:600;font-size:.87rem;margin-bottom:2px}
+.pdesc{font-size:.72rem;color:var(--muted)}
+.parrow{color:var(--muted);font-size:1.1rem}
+
+/* AUTH */
+.auth-wrap{padding:1.5rem 1rem;max-width:400px;margin:0 auto}
+.acard{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.8rem}
+.atitle{font-size:1.2rem;font-weight:700;text-align:center;margin-bottom:.4rem}
+.asub{color:var(--muted);font-size:.83rem;text-align:center;margin-bottom:1.3rem}
+.fg{margin-bottom:.9rem}
+.fg label{display:block;font-size:.77rem;color:var(--muted);margin-bottom:.35rem}
+.fi{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:.7rem .9rem;border-radius:10px;font-size:.92rem;outline:none}
+.fi:focus{border-color:var(--accent)}
+.btn-full{width:100%;border:none;padding:.85rem;border-radius:12px;cursor:pointer;font-weight:600;font-size:.95rem;margin-top:.4rem}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-sec{background:transparent;border:1px solid var(--border);color:var(--text)}
+.errmsg{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#ef4444;padding:.7rem;border-radius:9px;font-size:.82rem;margin-bottom:.8rem;display:none}
+.errmsg.show{display:block}
+.sucmsg{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);padding:.7rem;border-radius:9px;font-size:.82rem;margin-bottom:.8rem;display:none}
+.sucmsg.show{display:block}
+.auth-link{text-align:center;margin-top:.8rem;font-size:.82rem;color:var(--muted)}
+.auth-link span{color:var(--accent);cursor:pointer}
+
+/* PROFILE */
+.prof-page{padding:1rem}
+.prof-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.4rem;margin-bottom:.9rem;text-align:center}
+.pavatar{width:60px;height:60px;background:linear-gradient(135deg,var(--accent),#6366f1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto .8rem}
+.pname{font-size:1.05rem;font-weight:700;margin-bottom:3px}
+.pemail{color:var(--muted);font-size:.82rem}
+.pstatus{margin-top:.6rem;display:inline-flex;align-items:center;gap:.35rem;padding:3px 12px;border-radius:20px;font-size:.77rem}
+.st-free{background:rgba(139,143,168,.1);color:var(--muted)}
+.st-prem{background:rgba(245,166,35,.1);color:var(--gold)}
+.pactions{display:flex;flex-direction:column;gap:.6rem}
+.btn-danger{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#ef4444;padding:.75rem;border-radius:12px;cursor:pointer;font-size:.88rem;width:100%}
+
+/* PREMIUM PAGE */
+.prem-page{padding:1.3rem 1rem}
+.prem-hero{text-align:center;margin-bottom:1.5rem}
+.prem-hero h2{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#f5a623,#d97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.4rem}
+.prem-hero p{color:var(--muted);font-size:.87rem}
+.prem-price{background:linear-gradient(135deg,rgba(245,166,35,.1),rgba(217,119,6,.08));border:1px solid rgba(245,166,35,.3);border-radius:14px;padding:1.3rem;text-align:center;margin-bottom:1.3rem}
+.price-amt{font-size:2.3rem;font-weight:800;color:var(--gold)}
+.price-per{color:var(--muted);font-size:.87rem}
+.prem-feats{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.3rem}
+.pfeat{display:flex;align-items:center;gap:.7rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.85rem}
+.pfeat-icon{font-size:1.2rem}.pfeat-text{flex:1}
+.pfeat-title{font-size:.87rem;font-weight:600}
+.pfeat-desc{font-size:.72rem;color:var(--muted)}
+.btn-subscribe{background:linear-gradient(135deg,#f5a623,#d97706);border:none;color:#000;padding:.95rem;border-radius:13px;cursor:pointer;font-weight:700;font-size:1rem;width:100%}
+
+/* ADMIN */
+.admin-wrap{padding:1rem}
+.admin-tabs{display:flex;gap:.4rem;overflow-x:auto;margin-bottom:.9rem;padding-bottom:.4rem;scrollbar-width:none}
+.admin-tabs::-webkit-scrollbar{display:none}
+.atab{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.78rem;cursor:pointer}
+.atab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.apanel{display:none;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.2rem}
+.apanel.active{display:block}
+.apanel h3{font-size:.95rem;margin-bottom:.9rem}
+.afg{margin-bottom:.8rem}
+.afg label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:.3rem}
+.ai{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:.6rem .8rem;border-radius:9px;font-size:.87rem;outline:none}
+.ai:focus{border-color:var(--accent)}
+.ata{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:.6rem .8rem;border-radius:9px;font-size:.87rem;outline:none;resize:vertical;min-height:75px}
+.asel{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:.6rem .8rem;border-radius:9px;font-size:.87rem;outline:none}
+.btn-asave{background:var(--accent);border:none;color:#fff;padding:.7rem 1.3rem;border-radius:9px;cursor:pointer;font-weight:600;font-size:.87rem;width:100%;margin-top:.4rem}
+
+/* MODAL */
+.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.moverlay.open{display:flex}
+.mbox{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-height:88vh;overflow-y:auto;padding:1.4rem 1rem 2rem;position:relative}
+.mhandle{width:38px;height:4px;background:var(--border);border-radius:2px;margin:0 auto .9rem}
+.mtitle{font-size:1.1rem;font-weight:700;margin-bottom:.4rem}
+.mmeta{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
+.mbody{color:var(--muted);font-size:.87rem;line-height:1.7}
+.mbody h4{color:var(--text);font-size:.9rem;margin:1rem 0 .4rem}
+.mbody ol,.mbody ul{padding-left:1.3rem}
+.mbody li{margin-bottom:.35rem}
+.mclose{position:absolute;top:.9rem;right:.9rem;background:rgba(255,255,255,.08);border:none;color:var(--text);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center}
+.plock{text-align:center;padding:2rem 1rem}
+.plock .licon{font-size:2.8rem;margin-bottom:.8rem}
+.plock h3{margin-bottom:.4rem}
+.plock p{color:var(--muted);font-size:.83rem;margin-bottom:1.3rem}
+.btn-unlock{background:linear-gradient(135deg,#f5a623,#d97706);border:none;color:#000;padding:.85rem 2rem;border-radius:12px;cursor:pointer;font-weight:700;font-size:.95rem;width:100%}
+
+/* CHAT */
+.cfab{position:fixed;bottom:84px;right:1rem;z-index:150;width:50px;height:50px;background:linear-gradient(135deg,var(--accent),#6366f1);border:none;border-radius:50%;cursor:pointer;font-size:1.3rem;box-shadow:0 4px 18px rgba(91,141,238,.4);display:flex;align-items:center;justify-content:center}
+.cwin{position:fixed;bottom:78px;right:.7rem;left:.7rem;max-width:400px;margin:0 auto;height:400px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;z-index:160;display:none;flex-direction:column;overflow:hidden;box-shadow:0 8px 36px rgba(0,0,0,.5)}
+.cwin.open{display:flex}
+.cheader{padding:.8rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--card)}
+.cheader-title{font-weight:600;font-size:.87rem;display:flex;align-items:center;gap:.4rem}
+.cclose{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.1rem}
+.cmsgs{flex:1;overflow-y:auto;padding:.9rem;display:flex;flex-direction:column;gap:.6rem}
+.msg{max-width:85%;padding:.6rem .85rem;border-radius:13px;font-size:.82rem;line-height:1.5}
+.msg.bot{background:var(--card);color:var(--text);align-self:flex-start;border-bottom-left-radius:3px}
+.msg.user{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.cinput-row{padding:.65rem;border-top:1px solid var(--border);display:flex;gap:.4rem}
+.cinput{flex:1;background:var(--card);border:1px solid var(--border);color:var(--text);padding:.55rem .8rem;border-radius:9px;font-size:.82rem;outline:none}
+.csend{background:var(--accent);border:none;color:#fff;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* SPINNER */
+.spin{display:inline-block;width:18px;height:18px;border:2px solid rgba(91,141,238,.3);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lwrap{padding:2.5rem;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo"><div class="logo-icon">🔧</div><span>VAG Hub</span></div>
+  <div class="top-actions" id="top-actions">
+    <button class="btn-sm btn-outline-sm" onclick="showSec('innlogging')">Logg inn</button>
+    <button class="btn-sm btn-gold" onclick="showSec('premium')">⭐ 149kr</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav">
+  <button class="nb active" id="nb-hjem" onclick="showSec('hjem')"><span class="ic">🏠</span>Hjem</button>
+  <button class="nb" id="nb-modeller" onclick="showSec('modeller')"><span class="ic">🚗</span>Modeller</button>
+  <button class="nb" id="nb-guider" onclick="showSec('guider')"><span class="ic">🔧</span>Guider</button>
+  <button class="nb" id="nb-deler" onclick="showSec('deler')"><span class="ic">🛒</span>Deler</button>
+  <button class="nb" id="nb-skilt" onclick="showSec('skilt')"><span class="ic">🔍</span>Skilt</button>
+  <button class="nb" id="nb-profil" onclick="showSec('profil')"><span class="ic">👤</span>Profil</button>
+</div>
+
+<div class="main">
+
+<!-- HJEM -->
+<div class="sec active" id="sec-hjem">
+  <div class="hero">
+    <h1>VAG Owners Hub</h1>
+    <p>Din komplette ressurs for VW, Audi, Skoda, SEAT, CUPRA &amp; Porsche</p>
+    <div class="brand-pills">
+      <span class="bp bp-vw">🔵 Volkswagen</span>
+      <span class="bp bp-audi">🔴 Audi</span>
+      <span class="bp bp-skoda">🟢 Škoda</span>
+      <span class="bp bp-seat">🔴 SEAT</span>
+      <span class="bp bp-cupra">🟠 CUPRA</span>
+      <span class="bp bp-porsche">🔴 Porsche</span>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="sn-m">25</div><div class="stat-l">Modeller</div></div>
+    <div class="stat"><div class="stat-n" id="sn-g">10</div><div class="stat-l">Guider</div></div>
+    <div class="stat"><div class="stat-n" id="sn-p">12</div><div class="stat-l">Butikker</div></div>
+  </div>
+  <div class="search-wrap">
+    <div class="sbox"><span>🔍</span><input id="gsearch" placeholder="Søk modell, guide..." oninput="doSearch(this.value)"></div>
+  </div>
+  <div class="stitle">🔥 Populære modeller</div>
+  <div class="cgrid" id="home-models"><div class="lwrap" style="grid-column:span 2"><div class="spin"></div></div></div>
+  <div class="stitle">🔧 Nyeste guider</div>
+  <div class="glist" id="home-guides"><div class="lwrap"><div class="spin"></div></div></div>
+</div>
+
+<!-- MODELLER -->
+<div class="sec" id="sec-modeller">
+  <div style="padding:1rem 1rem .4rem;font-size:1.1rem;font-weight:800">🚗 Alle VAG-modeller</div>
+  <div class="ftabs" id="brand-ftabs">
+    <button class="ft active" onclick="filterMods('all',this)">Alle</button>
+    <button class="ft" onclick="filterMods('Volkswagen',this)">VW</button>
+    <button class="ft" onclick="filterMods('Audi',this)">Audi</button>
+    <button class="ft" onclick="filterMods('Skoda',this)">Škoda</button>
+    <button class="ft" onclick="filterMods('SEAT',this)">SEAT</button>
+    <button class="ft" onclick="filterMods('CUPRA',this)">CUPRA</button>
+    <button class="ft" onclick="filterMods('Porsche',this)">Porsche</button>
+  </div>
+  <div class="cgrid" id="mods-grid"><div class="lwrap" style="grid-column:span 2"><div class="spin"></div></div></div>
+</div>
+
+<!-- GUIDER -->
+<div class="sec" id="sec-guider">
+  <div style="padding:1rem 1rem .4rem;font-size:1.1rem;font-weight:800">🔧 Reparasjonsguider</div>
+  <div class="ftabs">
+    <button class="ft active" onclick="filterGuides('all',this)">Alle</button>
+    <button class="ft" onclick="filterGuides('Motor',this)">Motor</button>
+    <button class="ft" onclick="filterGuides('Girkasse',this)">Girkasse</button>
+    <button class="ft" onclick="filterGuides('Bremser',this)">Bremser</button>
+    <button class="ft" onclick="filterGuides('Elektronikk',this)">Elektronikk</button>
+    <button class="ft" onclick="filterGuides('Vedlikehold',this)">Vedlikehold</button>
+  </div>
+  <div class="glist" id="guides-list"><div class="lwrap"><div class="spin"></div></div></div>
+</div>
+
+<!-- DELER -->
+<div class="sec" id="sec-deler">
+  <div style="padding:1rem 1rem .4rem;font-size:1.1rem;font-weight:800">🛒 Delebutikker</div>
+  <div class="ftabs">
+    <button class="ft active" onclick="filterParts('all',this)">Alle</button>
+    <button class="ft" onclick="filterParts('Norge',this)">Norge</button>
+    <button class="ft" onclick="filterParts('Internasjonal',this)">Internasjonale</button>
+  </div>
+  <div class="plist" id="parts-list"><div class="lwrap"><div class="spin"></div></div></div>
+</div>
+
+<!-- SKILT -->
+<div class="sec" id="sec-skilt">
+  <div class="skilt-wrap">
+    <div class="skilt-card">
+      <h3>🔍 Skiltnummer-oppslag</h3>
+      <p>Skriv inn registreringsnummeret og hent data fra Statens Vegvesen</p>
+      <div class="sinput-row">
+        <input class="sinput" id="skilt-in" type="text" placeholder="AB12345" maxlength="8" onkeydown="if(event.key==='Enter')lookupPlate()">
+        <button class="sbtn" onclick="lookupPlate()">Søk</button>
+      </div>
+      <div id="skilt-load" style="display:none;text-align:center;padding:.8rem"><div class="spin"></div></div>
+      <div class="sresult" id="skilt-res"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFIL -->
+<div class="sec" id="sec-profil">
+  <div class="prof-page" id="prof-content">
+    <div style="text-align:center;padding:3rem;color:var(--muted)">
+      <div style="font-size:2.5rem;margin-bottom:.8rem">👤</div>
+      <p>Logg inn for å se profilen din</p>
+      <button class="btn-full btn-primary" style="margin-top:1rem;width:auto;padding:.7rem 1.8rem" onclick="showSec('innlogging')">Logg inn</button>
+    </div>
+  </div>
+</div>
+
+<!-- INNLOGGING -->
+<div class="sec" id="sec-innlogging">
+  <div class="auth-wrap">
+    <div class="acard" id="login-card">
+      <div class="atitle">🔐 Logg inn</div>
+      <div class="asub">Velkommen til VAG Owners Hub</div>
+      <div class="errmsg" id="lerr"></div>
+      <div class="fg"><label>E-post</label><input class="fi" id="lemail" type="email" placeholder="din@epost.no"></div>
+      <div class="fg"><label>Passord</label><input class="fi" id="lpass" type="password" placeholder="••••••••"></div>
+      <button class="btn-full btn-primary" onclick="doLogin()">Logg inn</button>
+      <button class="btn-full btn-sec" style="margin-top:.6rem" onclick="toggleAuth()">Ny bruker? Registrer deg</button>
+    </div>
+    <div class="acard" id="reg-card" style="display:none">
+      <div class="atitle">✨ Registrer deg</div>
+      <div class="asub">Opprett gratis konto</div>
+      <div class="errmsg" id="rerr"></div>
+      <div class="sucmsg" id="rsuc"></div>
+      <div class="fg"><label>Fullt navn</label><input class="fi" id="rname" type="text" placeholder="Ola Nordmann"></div>
+      <div class="fg"><label>E-post</label><input class="fi" id="remail" type="email" placeholder="din@epost.no"></div>
+      <div class="fg"><label>Passord</label><input class="fi" id="rpass" type="password" placeholder="Minst 8 tegn"></div>
+      <button class="btn-full btn-primary" onclick="doRegister()">Opprett konto</button>
+      <button class="btn-full btn-sec" style="margin-top:.6rem" onclick="toggleAuth()">Har konto? Logg inn</button>
+    </div>
+  </div>
+</div>
+
+<!-- PREMIUM -->
+<div class="sec" id="sec-premium">
+  <div class="prem-page">
+    <div class="prem-hero">
+      <h2>⭐ VAG Premium</h2>
+      <p>Tilgang til alle avanserte guider og funksjoner</p>
+    </div>
+    <div class="prem-price">
+      <div class="price-amt">149 kr</div>
+      <div class="price-per">per måned · si opp når som helst</div>
+    </div>
+    <div class="prem-feats">
+      <div class="pfeat"><span class="pfeat-icon">🔧</span><div class="pfeat-text"><div class="pfeat-title">Avanserte reparasjonsguider</div><div class="pfeat-desc">DSG-service, timing belt, HPFP, karbonrens og mer</div></div></div>
+      <div class="pfeat"><span class="pfeat-icon">📐</span><div class="pfeat-text"><div class="pfeat-title">Alle deletegninger</div><div class="pfeat-desc">Komplett bibliotek for alle VAG-modeller</div></div></div>
+      <div class="pfeat"><span class="pfeat-icon">🤖</span><div class="pfeat-text"><div class="pfeat-title">Ubegrenset AI-chat</div><div class="pfeat-desc">Teknisk støtte fra vår AI-assistent</div></div></div>
+      <div class="pfeat"><span class="pfeat-icon">🔍</span><div class="pfeat-text"><div class="pfeat-title">Avansert skiltoppslag</div><div class="pfeat-desc">Full kjøretøyhistorikk og tekniske detaljer</div></div></div>
+      <div class="pfeat"><span class="pfeat-icon">⚡</span><div class="pfeat-text"><div class="pfeat-title">Nytt innhold først</div><div class="pfeat-desc">Premium-brukere får nye guider og modeller først</div></div></div>
+    </div>
+    <button class="btn-subscribe" onclick="startCheckout()">🚀 Bli Premium — 149 kr/mnd</button>
+    <p style="text-align:center;color:var(--muted);font-size:.73rem;margin-top:.6rem">Sikker betaling via Stripe. Avslutt når som helst.</p>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="sec" id="sec-admin">
+  <div class="admin-wrap">
+    <div style="font-size:1rem;font-weight:700;margin-bottom:.9rem">⚙️ Admin Panel</div>
+    <div class="admin-tabs">
+      <button class="atab active" onclick="showAPanel('ap-guide',this)">🔧 Guide</button>
+      <button class="atab" onclick="showAPanel('ap-model',this)">🚗 Modell</button>
+      <button class="atab" onclick="showAPanel('ap-parts',this)">🛒 Butikk</button>
+    </div>
+
+    <div class="apanel active" id="ap-guide">
+      <h3>➕ Legg til guide</h3>
+      <div class="afg"><label>Tittel</label><input class="ai" id="ag-title" placeholder="f.eks. DSG-service Golf 7"></div>
+      <div class="afg"><label>Kategori</label><select class="asel" id="ag-cat"><option>Motor</option><option>Girkasse</option><option>Bremser</option><option>Elektronikk</option><option>Vedlikehold</option><option>Drivverk</option></select></div>
+      <div class="afg"><label>Vanskelighet</label><select class="asel" id="ag-diff"><option>Enkel</option><option>Middels</option><option>Vanskelig</option><option>Ekspert</option></select></div>
+      <div class="afg"><label>Modeller</label><input class="ai" id="ag-models" placeholder="VW Golf, Audi A3, Skoda Octavia"></div>
+      <div class="afg"><label>Tid</label><input class="ai" id="ag-time" placeholder="f.eks. 2-3 timer"></div>
+      <div class="afg"><label>Verktøy</label><input class="ai" id="ag-tools" placeholder="Momentnøkkel, DSG kit..."></div>
+      <div class="afg"><label>Steg (ett per linje)</label><textarea class="ata" id="ag-steps" placeholder="Steg 1&#10;Steg 2&#10;..."></textarea></div>
+      <div class="afg"><label>Tips</label><textarea class="ata" id="ag-tips" placeholder="Valgfrie tips..."></textarea></div>
+      <div class="afg"><label>Bilde URL</label><input class="ai" id="ag-img" placeholder="https://..."></div>
+      <div class="afg"><label>Type</label><select class="asel" id="ag-prem"><option value="false">Gratis</option><option value="true">Premium</option></select></div>
+      <button class="btn-asave" onclick="saveGuide()">💾 Lagre guide</button>
+      <div class="sucmsg" id="ag-suc">✅ Guide lagret!</div>
+      <div id="ag-list" style="margin-top:1.2rem"></div>
+    </div>
+
+    <div class="apanel" id="ap-model">
+      <h3>➕ Legg til modell</h3>
+      <div class="afg"><label>Navn</label><input class="ai" id="am-name" placeholder="f.eks. VW Golf 8 GTI"></div>
+      <div class="afg"><label>Merke</label><select class="asel" id="am-brand"><option>Volkswagen</option><option>Audi</option><option>Skoda</option><option>SEAT</option><option>CUPRA</option><option>Porsche</option></select></div>
+      <div class="afg"><label>Serie</label><input class="ai" id="am-series" placeholder="f.eks. Mk8, B9, 8Y"></div>
+      <div class="afg"><label>Årsintervall</label><input class="ai" id="am-year" placeholder="2020-2024"></div>
+      <div class="afg"><label>Motorer</label><input class="ai" id="am-engine" placeholder="1.5 TSI, 2.0 TSI, 2.0 TDI"></div>
+      <div class="afg"><label>Beskrivelse</label><textarea class="ata" id="am-desc" placeholder="Kort beskrivelse..."></textarea></div>
+      <div class="afg"><label>Bilde URL</label><input class="ai" id="am-img" placeholder="https://..."></div>
+      <button class="btn-asave" onclick="saveModel()">💾 Lagre modell</button>
+      <div class="sucmsg" id="am-suc">✅ Modell lagret!</div>
+      <div id="am-list" style="margin-top:1.2rem"></div>
+    </div>
+
+    <div class="apanel" id="ap-parts">
+      <h3>➕ Legg til butikk</h3>
+      <div class="afg"><label>Navn</label><input class="ai" id="ap-name" placeholder="f.eks. VAGparts.no"></div>
+      <div class="afg"><label>URL</label><input class="ai" id="ap-url" placeholder="https://..."></div>
+      <div class="afg"><label>Land</label><input class="ai" id="ap-country" placeholder="Norge"></div>
+      <div class="afg"><label>Beskrivelse</label><textarea class="ata" id="ap-desc" placeholder="Kort beskrivelse..."></textarea></div>
+      <button class="btn-asave" onclick="savePart()">💾 Lagre butikk</button>
+      <div class="sucmsg" id="ap-suc">✅ Butikk lagret!</div>
+      <div id="ap-list" style="margin-top:1.2rem"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<!-- MODAL -->
+<div class="moverlay" id="modal" onclick="closeModal(event)">
+  <div class="mbox">
+    <div class="mhandle"></div>
+    <button class="mclose" onclick="closeModalDirect()">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<button class="cfab" onclick="toggleChat()">🤖</button>
+<div class="cwin" id="cwin">
+  <div class="cheader">
+    <div class="cheader-title">🤖 VAG AI Assistent</div>
+    <button class="cclose" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="cmsgs" id="cmsgs">
+    <div class="msg bot">Hei! Jeg er VAG Hub sin AI-assistent. Spør meg om VW, Audi, Škoda, SEAT, CUPRA eller Porsche! 🔧</div>
+  </div>
+  <div class="cinput-row">
+    <input class="cinput" id="cinput" placeholder="Spør om din VAG-bil..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="csend" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<script>
+const API = 'https://api.base44.com/api/apps/6a1423940cbb3bbcc1939af0/functions';
+const BMAP = {Volkswagen:'b-vw',Audi:'b-audi',Skoda:'b-skoda','Škoda':'b-skoda',SEAT:'b-seat',CUPRA:'b-cupra',Porsche:'b-porsche'};
+const BEMOJI = {Volkswagen:'🔵',Audi:'🔴',Skoda:'🟢',SEAT:'🔴',CUPRA:'🟠',Porsche:'🔴'};
+
+let models=[], guides=[], parts=[], user=null;
+
+/* ---- NAV ---- */
+function showSec(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  const nb=document.getElementById('nb-'+id);
+  if(nb) nb.classList.add('active');
+  if(id==='hjem') renderHome();
+  if(id==='modeller') renderMods();
+  if(id==='guider') renderGuides();
+  if(id==='deler') renderParts();
+  if(id==='admin') loadAdminList('guide');
+}
+
+/* ---- DATA ---- */
+async function loadData(){
+  try{
+    const [mr,gr,pr]=await Promise.all([
+      fetch(API+'/adminList',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entity:'VAGModel'})}),
+      fetch(API+'/adminList',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entity:'VAGGuide'})}),
+      fetch(API+'/adminList',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entity:'VAGPartsLink'})})
+    ]);
+    const md=await mr.json(); const gd=await gr.json(); const pd=await pr.json();
+    models=md.records||[]; guides=gd.records||[]; parts=pd.records||[];
+  }catch(e){ models=[]; guides=[]; parts=[]; }
+  document.getElementById('sn-m').textContent=models.length||25;
+  document.getElementById('sn-g').textContent=guides.length||10;
+  document.getElementById('sn-p').textContent=parts.length||12;
+  renderHome();
+}
+
+/* ---- HOME ---- */
+function renderHome(){
+  const hm=document.getElementById('home-models');
+  const top=models.slice(0,6);
+  hm.innerHTML=top.length?top.map(modelCard).join(''):'<div class="lwrap" style="grid-column:span 2">Ingen modeller</div>';
+  const hg=document.getElementById('home-guides');
+  const tg=guides.slice(0,4);
+  hg.innerHTML=tg.length?tg.map(guideCard).join(''):'<div class="lwrap">Ingen guider</div>';
+}
+
+/* ---- MODELS ---- */
+function modelCard(m){
+  const b=m.brand||''; const bc=BMAP[b]||'b-vw'; const be=BEMOJI[b]||'🚗';
+  const img=m.image_url
+    ?`<img class="cimg" src="${m.image_url}" alt="${m.name}" onerror="this.outerHTML='<div class=\\'cimg-ph\\'>🚗</div>'">`
+    :`<div class="cimg-ph">${be}</div>`;
+  return `<div class="card" onclick="openModel('${m.id}')">${img}<div class="cbody"><div class="ctitle">${m.name}</div><div class="csub">${m.year_range||''}</div><span class="cbadge ${bc}">${b}</span></div></div>`;
+}
+function renderMods(f='all'){
+  const g=document.getElementById('mods-grid');
+  const list=f==='all'?models:models.filter(m=>m.brand===f);
+  g.innerHTML=list.length?list.map(modelCard).join(''):'<div class="lwrap" style="grid-column:span 2">Ingen modeller</div>';
+}
+function filterMods(f,btn){
+  document.querySelectorAll('#brand-ftabs .ft').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active'); renderMods(f);
+}
+function openModel(id){
+  const m=models.find(x=>x.id===id); if(!m)return;
+  document.getElementById('modal-body').innerHTML=`
+    <div class="mtitle">${m.name}</div>
+    <div class="mmeta"><span class="mtag">${m.brand||''}</span><span class="mtag">${m.year_range||''}</span>${m.engine_options?`<span class="mtag">${m.engine_options}</span>`:''}</div>
+    ${m.image_url?`<img src="${m.image_url}" style="width:100%;border-radius:12px;margin-bottom:.9rem;object-fit:cover;max-height:180px" alt="${m.name}">` :''}
+    <div class="mbody">${m.description||'Ingen beskrivelse.'}</div>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+/* ---- GUIDES ---- */
+function guideCard(g){
+  const ip=g.is_premium===true||g.is_premium==='true';
+  return `<div class="gcard" onclick="openGuide('${g.id}')">
+    <div class="gcard-top"><div class="gcard-title">${g.title}</div><span class="cbadge ${ip?'b-gold':'b-green'}">${ip?'⭐ Premium':'✅ Gratis'}</span></div>
+    <div class="gmeta">${g.category?`<span class="mtag">${g.category}</span>`:''} ${g.difficulty?`<span class="mtag">${g.difficulty}</span>`:''} ${g.estimated_time?`<span class="mtag">⏱ ${g.estimated_time}</span>`:''}</div>
+  </div>`;
+}
+function renderGuides(f='all'){
+  const el=document.getElementById('guides-list');
+  const list=f==='all'?guides:guides.filter(g=>g.category===f);
+  el.innerHTML=list.length?list.map(guideCard).join(''):'<div class="lwrap">Ingen guider</div>';
+}
+function filterGuides(f,btn){
+  document.querySelectorAll('#sec-guider .ft').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active'); renderGuides(f);
+}
+function openGuide(id){
+  const g=guides.find(x=>x.id===id); if(!g)return;
+  const ip=g.is_premium===true||g.is_premium==='true';
+  if(ip&&(!user||!user.is_premium)){
+    document.getElementById('modal-body').innerHTML=`<div class="plock"><div class="licon">⭐</div><h3>Premium innhold</h3><p>Denne guiden krever VAG Premium for kun 149 kr/mnd</p><button class="btn-unlock" onclick="closeModalDirect();showSec('premium')">🚀 Bli Premium</button></div>`;
+    document.getElementById('modal').classList.add('open'); return;
+  }
+  const steps=(typeof g.steps==='string'?g.steps.split('\n').filter(Boolean):(g.steps||[]));
+  const tools=(typeof g.tools_needed==='string'?g.tools_needed.split(',').map(t=>t.trim()).filter(Boolean):(g.tools_needed||[]));
+  document.getElementById('modal-body').innerHTML=`
+    <div class="mtitle">${g.title}</div>
+    <div class="mmeta">${g.category?`<span class="mtag">${g.category}</span>`:''} ${g.difficulty?`<span class="mtag">${g.difficulty}</span>`:''} ${g.estimated_time?`<span class="mtag">⏱ ${g.estimated_time}</span>`:''}</div>
+    <div class="mbody">
+      ${tools.length?`<h4>🔧 Verktøy</h4><ul>${tools.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
+      ${steps.length?`<h4>📋 Steg</h4><ol>${steps.map(s=>`<li>${s}</li>`).join('')}</ol>`:''}
+      ${g.tips?`<h4>💡 Tips</h4><p>${g.tips}</p>`:''}
+    </div>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+/* ---- PARTS ---- */
+function renderParts(f='all'){
+  const el=document.getElementById('parts-list');
+  const list=f==='all'?parts:parts.filter(p=>f==='Norge'?(p.country||'').toLowerCase().includes('nor'):!(p.country||'').toLowerCase().includes('nor'));
+  el.innerHTML=list.length?list.map(p=>`<a class="pcard" href="${p.url||'#'}" target="_blank" rel="noopener">
+    <div class="plogo">${p.logo_url?`<img src="${p.logo_url}" alt="${p.name}">`:'🛒'}</div>
+    <div class="pinfo"><div class="pname">${p.name}</div><div class="pdesc">${p.description||p.country||''}</div></div>
+    <span class="parrow">›</span></a>`).join(''):'<div class="lwrap">Ingen butikker</div>';
+}
+function filterParts(f,btn){
+  document.querySelectorAll('#sec-deler .ft').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active'); renderParts(f);
+}
+
+/* ---- SEARCH ---- */
+function doSearch(q){
+  if(!q.trim()){renderHome();return;}
+  q=q.toLowerCase();
+  const fm=models.filter(m=>(m.name||'').toLowerCase().includes(q)||(m.brand||'').toLowerCase().includes(q));
+  const fg=guides.filter(g=>(g.title||'').toLowerCase().includes(q)||(g.category||'').toLowerCase().includes(q));
+  document.getElementById('home-models').innerHTML=fm.length?fm.map(modelCard).join(''):'<div style="grid-column:span 2;color:var(--muted);padding:1rem">Ingen modeller</div>';
+  document.getElementById('home-guides').innerHTML=fg.length?fg.map(guideCard).join(''):'<div style="color:var(--muted);padding:1rem">Ingen guider</div>';
+}
+
+/* ---- SKILT ---- */
+async function lookupPlate(){
+  const plate=document.getElementById('skilt-in').value.trim().replace(/\s/g,'').toUpperCase();
+  if(!plate){alert('Skriv inn registreringsnummer');return;}
+  document.getElementById('skilt-load').style.display='block';
+  document.getElementById('skilt-res').classList.remove('show');
+  try{
+    const res=await fetch(API+'/biloppslag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plate})});
+    const d=await res.json();
+    document.getElementById('skilt-load').style.display='none';
+    if(d.error||!d.merke){
+      document.getElementById('skilt-res').innerHTML=`<div style="color:#ef4444;text-align:center;padding:.8rem">❌ ${d.error||'Kjøretøy ikke funnet'}</div>`;
+      document.getElementById('skilt-res').classList.add('show');return;
+    }
+    const rows=[['Merke',d.merke],['Modell',d.modell],['Årsmodell',d.aar],['Drivstoff',d.drivstoff],['Farge',d.farge],['Karosseri',d.karosseri],d.slagvolum?['Slagvolum',d.slagvolum+' cm³']:null,d.effekt?['Effekt',d.effekt+' kW']:null,['Første reg.',d.forstegang],['Eier',d.eier]].filter(Boolean).filter(r=>r[1]);
+    document.getElementById('skilt-res').innerHTML=rows.map(([l,v])=>`<div class="srow"><span class="slabel">${l}</span><span class="sval">${v}</span></div>`).join('');
+    document.getElementById('skilt-res').classList.add('show');
+  }catch(e){
+    document.getElementById('skilt-load').style.display='none';
+    document.getElementById('skilt-res').innerHTML=`<div style="color:#ef4444;text-align:center;padding:.8rem">❌ Nettverksfeil</div>`;
+    document.getElementById('skilt-res').classList.add('show');
+  }
+}
+
+/* ---- AUTH ---- */
+function toggleAuth(){
+  const lc=document.getElementById('login-card'),rc=document.getElementById('reg-card');
+  lc.style.display=lc.style.display==='none'?'block':'none';
+  rc.style.display=rc.style.display==='none'?'block':'none';
+}
+async function doLogin(){
+  const email=document.getElementById('lemail').value.trim();
+  const pass=document.getElementById('lpass').value;
+  const err=document.getElementById('lerr'); err.classList.remove('show');
+  if(!email||!pass){err.textContent='Fyll inn e-post og passord';err.classList.add('show');return;}
+  try{
+    const res=await fetch(API+'/authLogin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});
+    const d=await res.json();
+    if(d.token){
+      localStorage.setItem('vag_token',d.token);
+      localStorage.setItem('vag_user',JSON.stringify(d.user));
+      user=d.user; updateUserUI(); showSec('hjem');
+    }else{err.textContent=d.error||'Innlogging feilet';err.classList.add('show');}
+  }catch(e){err.textContent='Nettverksfeil';err.classList.add('show');}
+}
+async function doRegister(){
+  const name=document.getElementById('rname').value.trim();
+  const email=document.getElementById('remail').value.trim();
+  const pass=document.getElementById('rpass').value;
+  const err=document.getElementById('rerr'),suc=document.getElementById('rsuc');
+  err.classList.remove('show');suc.classList.remove('show');
+  if(!name||!email||!pass){err.textContent='Fyll inn alle felt';err.classList.add('show');return;}
+  if(pass.length<8){err.textContent='Passordet må være minst 8 tegn';err.classList.add('show');return;}
+  try{
+    const res=await fetch(API+'/authRegister',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass,full_name:name})});
+    const d=await res.json();
+    if(d.token||d.success){
+      suc.textContent='✅ Konto opprettet! Logger inn...'; suc.classList.add('show');
+      if(d.token){localStorage.setItem('vag_token',d.token);localStorage.setItem('vag_user',JSON.stringify(d.user));user=d.user;setTimeout(()=>{updateUserUI();showSec('hjem');},1200);}
+    }else{err.textContent=d.error||'Registrering feilet';err.classList.add('show');}
+  }catch(e){err.textContent='Nettverksfeil';err.classList.add('show');}
+}
+function doLogout(){localStorage.removeItem('vag_token');localStorage.removeItem('vag_user');user=null;updateUserUI();showSec('hjem');}
+
+function updateUserUI(){
+  const ta=document.getElementById('top-actions');
+  const pc=document.getElementById('prof-content');
+  if(user){
+    const ip=user.is_premium===true||user.is_premium==='true';
+    ta.innerHTML=ip
+      ?`<span class="prem-pill">⭐ Premium</span><span class="user-pill" onclick="showSec('profil')">${(user.full_name||user.email||'').split(' ')[0]}</span>`
+      :`<span class="user-pill" onclick="showSec('profil')">${(user.full_name||user.email||'').split(' ')[0]}</span><button class="btn-sm btn-gold" onclick="showSec('premium')">⭐ 149kr</button>`;
+    pc.innerHTML=`<div class="prof-card">
+      <div class="pavatar">👤</div>
+      <div class="pname">${user.full_name||'Bruker'}</div>
+      <div class="pemail">${user.email}</div>
+      <span class="pstatus ${ip?'st-prem':'st-free'}">${ip?'⭐ Premium':'🆓 Gratis'}</span>
+    </div>
+    <div class="pactions">
+      ${!ip?`<button class="btn-full btn-primary" onclick="showSec('premium')">⭐ Oppgrader til Premium</button>`:''}
+      ${ip?`<button class="btn-full btn-sec" onclick="showSec('admin')">⚙️ Admin Panel</button>`:''}
+      <button class="btn-danger" onclick="doLogout()">🚪 Logg ut</button>
+    </div>`;
+    if(ip&&!document.getElementById('nb-admin')){
+      const nav=document.querySelector('.bnav');
+      const btn=document.createElement('button');
+      btn.className='nb';btn.id='nb-admin';
+      btn.innerHTML='<span class="ic">⚙️</span>Admin';
+      btn.onclick=()=>showSec('admin');
+      nav.appendChild(btn);
+    }
+  }else{
+    ta.innerHTML=`<button class="btn-sm btn-outline-sm" onclick="showSec('innlogging')">Logg inn</button><button class="btn-sm btn-gold" onclick="showSec('premium')">⭐ 149kr</button>`;
+    pc.innerHTML=`<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2.5rem;margin-bottom:.8rem">👤</div><p>Logg inn for å se profilen din</p><button class="btn-full btn-primary" style="margin-top:1rem;width:auto;padding:.7rem 1.8rem" onclick="showSec('innlogging')">Logg inn</button></div>`;
+  }
+}
+
+/* ---- STRIPE ---- */
+async function startCheckout(){
+  const token=localStorage.getItem('vag_token');
+  if(!token){showSec('innlogging');return;}
+  try{
+    const res=await fetch(API+'/createCheckoutSession',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token,price_id:'VAG_PREMIUM_149',success_url:window.location.href+'?premium=ok',cancel_url:window.location.href})});
+    const d=await res.json();
+    if(d.url)window.location.href=d.url;
+    else alert('Feil ved oppstart av betaling. Prøv igjen.');
+  }catch(e){alert('Nettverksfeil');}
+}
+
+/* ---- MODAL ---- */
+function closeModal(e){if(e.target===e.currentTarget)closeModalDirect();}
+function closeModalDirect(){document.getElementById('modal').classList.remove('open');}
+
+/* ---- ADMIN ---- */
+function showAPanel(id,btn){
+  document.querySelectorAll('.apanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.atab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active'); btn.classList.add('active');
+  const m={'ap-guide':'guide','ap-model':'model','ap-parts':'parts'};
+  if(m[id]) loadAdminList(m[id]);
+}
+async function adminSave(entity,data){
+  const token=localStorage.getItem('vag_token');
+  return (await fetch(API+'/adminSave',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({entity,data})})).json();
+}
+async function loadAdminList(type){
+  const em={guide:'VAGGuide',model:'VAGModel',parts:'VAGPartsLink'};
+  const el=document.getElementById('a'+type[0]+'-list'); if(!el)return;
+  el.innerHTML='<p style="color:var(--muted);font-size:.82rem">Laster...</p>';
+  try{
+    const res=await fetch(API+'/adminList',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entity:em[type]})});
+    const d=await res.json();
+    if(!d.records||!d.records.length){el.innerHTML='<p style="color:var(--muted);font-size:.82rem">Ingen poster.</p>';return;}
+    el.innerHTML='<div style="font-size:.8rem;font-weight:600;margin-bottom:.5rem;color:var(--muted)">Eksisterende poster:</div>'+
+      d.records.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem .7rem;background:rgba(255,255,255,.04);border-radius:8px;margin-bottom:.3rem">
+        <span style="font-size:.85rem">${r.name||r.title||r.id}</span>
+        <button onclick="delRecord('${em[type]}','${r.id}','${type}')" style="background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.77rem">🗑️</button>
+      </div>`).join('');
+  }catch(e){el.innerHTML='<p style="color:#ef4444;font-size:.82rem">Feil ved lasting.</p>';}
+}
+async function delRecord(entity,id,type){
+  if(!confirm('Slette?'))return;
+  const token=localStorage.getItem('vag_token');
+  const res=await fetch(API+'/adminDelete',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({entity,id})});
+  const d=await res.json();
+  if(d.success)loadAdminList(type);
+}
+async function saveGuide(){
+  const title=document.getElementById('ag-title').value.trim();
+  if(!title){alert('Fyll inn tittel');return;}
+  const data={title,category:document.getElementById('ag-cat').value,difficulty:document.getElementById('ag-diff').value,vag_models:document.getElementById('ag-models').value,estimated_time:document.getElementById('ag-time').value,tools_needed:document.getElementById('ag-tools').value,steps:document.getElementById('ag-steps').value,tips:document.getElementById('ag-tips').value,image_url:document.getElementById('ag-img').value,is_premium:document.getElementById('ag-prem').value==='true'};
+  const r=await adminSave('VAGGuide',data);
+  if(r.id){['ag-title','ag-models','ag-time','ag-tools','ag-steps','ag-tips','ag-img'].forEach(i=>document.getElementById(i).value='');document.getElementById('ag-suc').classList.add('show');setTimeout(()=>document.getElementById('ag-suc').classList.remove('show'),3000);loadAdminList('guide');loadData();}else alert('Feil: '+(r.error||'ukjent'));
+}
+async function saveModel(){
+  const name=document.getElementById('am-name').value.trim();
+  if(!name){alert('Fyll inn navn');return;}
+  const data={name,brand:document.getElementById('am-brand').value,series:document.getElementById('am-series').value,year_range:document.getElementById('am-year').value,engine_options:document.getElementById('am-engine').value,description:document.getElementById('am-desc').value,image_url:document.getElementById('am-img').value};
+  const r=await adminSave('VAGModel',data);
+  if(r.id){['am-name','am-series','am-year','am-engine','am-desc','am-img'].forEach(i=>document.getElementById(i).value='');document.getElementById('am-suc').classList.add('show');setTimeout(()=>document.getElementById('am-suc').classList.remove('show'),3000);loadAdminList('model');loadData();}else alert('Feil: '+(r.error||'ukjent'));
+}
+async function savePart(){
+  const name=document.getElementById('ap-name').value.trim();
+  if(!name){alert('Fyll inn navn');return;}
+  const data={name,url:document.getElementById('ap-url').value,country:document.getElementById('ap-country').value||'Internasjonal',description:document.getElementById('ap-desc').value};
+  const r=await adminSave('VAGPartsLink',data);
+  if(r.id){['ap-name','ap-url','ap-country','ap-desc'].forEach(i=>document.getElementById(i).value='');document.getElementById('ap-suc').classList.add('show');setTimeout(()=>document.getElementById('ap-suc').classList.remove('show'),3000);loadAdminList('parts');loadData();}else alert('Feil: '+(r.error||'ukjent'));
+}
+
+/* ---- CHAT ---- */
+function toggleChat(){document.getElementById('cwin').classList.toggle('open');}
+async function sendChat(){
+  const input=document.getElementById('cinput');
+  const msg=input.value.trim(); if(!msg)return;
+  input.value='';
+  const msgs=document.getElementById('cmsgs');
+  msgs.innerHTML+=`<div class="msg user">${msg}</div><div class="msg bot" id="cthink"><div class="spin"></div></div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+  try{
+    const res=await fetch(API+'/bmwChat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg,brand:'VAG'})});
+    const d=await res.json();
+    document.getElementById('cthink').outerHTML=`<div class="msg bot">${d.reply||'Beklager, prøv igjen.'}</div>`;
+  }catch(e){document.getElementById('cthink').outerHTML=`<div class="msg bot">❌ Nettverksfeil</div>`;}
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+/* ---- INIT ---- */
+window.onload=function(){
+  if(window.location.search.includes('premium=ok')){alert('🎉 Velkommen som VAG Premium-bruker!');history.replaceState({},'',window.location.pathname);}
+  const su=localStorage.getItem('vag_user');
+  const st=localStorage.getItem('vag_token');
+  if(su&&st){user=JSON.parse(su);updateUserUI();}
+  loadData();
+};
+</script>
+</body>
+</html>
