@@ -1199,6 +1199,10 @@ function filterGuides(f,btn){
   document.querySelectorAll('#sec-guider .ft').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active'); renderGuides(f);
 }
+function openYoutube(url){
+  window.open(url, '_blank', 'noopener,noreferrer');
+  return false;
+}
 function openGuide(id){
   const g=guides.find(x=>x.id===id); if(!g)return;
   const ip=g.is_premium===true||g.is_premium==='true';
@@ -1224,7 +1228,7 @@ function openGuide(id){
       ${stepsWithImg.length?`<h4>📋 Steg for steg</h4><ol style="padding-left:1.2rem">${stepsWithImg.map(s=>`<li style="margin-bottom:.8rem">${s.text}${s.imgUrl?`<br><img src="${s.imgUrl}" style="width:100%;border-radius:8px;margin-top:.5rem;max-height:180px;object-fit:cover" onerror="this.style.display='none'">`:''}</li>`).join('')}</ol>`:''}
       ${g.torque?`<h4>⚙️ Momentinnstillinger</h4><div style="background:var(--bg);border-radius:8px;padding:.75rem;font-size:.82rem">${g.torque}</div>`:''}
       ${g.tips?`<h4>💡 Tips og advarsler</h4><p style="background:rgba(234,179,8,.08);border-left:3px solid #eab308;padding:.6rem .8rem;border-radius:0 8px 8px 0">${g.tips}</p>`:''}
-      ${g.youtube?`<h4>🎬 Video</h4><a href="${g.youtube}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" style="display:flex;align-items:center;justify-content:center;gap:.5rem;background:#ff0000;border-radius:8px;padding:.9rem;text-align:center;color:#fff;text-decoration:none;font-weight:600;font-size:.95rem">▶&nbsp;Se reparasjonsvideo på YouTube</a>`:''}
+      ${g.youtube?`<h4>🎬 Video</h4><a href="${g.youtube}" target="_blank" rel="noopener noreferrer" onclick="openYoutube(this.href);return false;" style="display:flex;align-items:center;justify-content:center;gap:.5rem;background:#ff0000;border-radius:8px;padding:.9rem;text-align:center;color:#fff;text-decoration:none;font-weight:600;font-size:.95rem">▶&nbsp;Se reparasjonsvideo på YouTube</a>`:''}
     </div>`;
   const modal = document.getElementById('modal');
   modal.classList.add('open');
